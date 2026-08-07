@@ -37,6 +37,8 @@ VIDEO_EXTENSIONS = {
     ".mp4",
     ".ogv",
     ".webm",
+    ".mkv",
+    ".wmv"
 }
 MEDIA_EXTENSIONS = IMAGE_EXTENSIONS | VIDEO_EXTENSIONS
 
