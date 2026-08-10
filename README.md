@@ -1,4 +1,4 @@
-# Danh Ngu
+# Danh Ngu và những tấm ảnh đẹp
 
 Website lookbook meme chạy local bằng Python, thiết kế như một campaign thời trang cao cấp dành riêng cho Vũ Hoàng Danh, biệt danh Danh Ngu. Toàn bộ giao diện tự đọc ảnh và video từ thư mục `memes/`, rồi tạo một chương truyện do Duy kể cho từng file.
 
