@@ -10,6 +10,8 @@ import { GalleryGrid } from "./gallery/GalleryGrid";
 import { ArtworkLightbox } from "./artwork/ArtworkLightbox";
 import { MuseumFooter } from "./layout/MuseumFooter";
 import { removeVietnameseTones } from "@/lib/utils";
+import { useSettings } from "@/lib/settings/SettingsContext";
+import { UI_DENSITIES } from "@/lib/settings/constants";
 
 interface MuseumExperienceProps {
   initialManifest: MuseumManifest;
@@ -24,6 +26,8 @@ export function MuseumExperience({ initialManifest }: MuseumExperienceProps) {
   const [selectedArtwork, setSelectedArtwork] = useState<ArtworkMedia | null>(null);
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [shuffleSeed, setShuffleSeed] = useState<number>(0);
+
+  const { settings, playSound } = useSettings();
 
   // Load favorites from localStorage
   useEffect(() => {
@@ -185,9 +189,10 @@ export function MuseumExperience({ initialManifest }: MuseumExperienceProps) {
   }, [manifest.artworks, activeType, searchQuery, activeSort, favorites, shuffleSeed]);
 
   const featured = manifest.artworks.find((a) => a.featured) || manifest.artworks[0];
+  const densityPadding = UI_DENSITIES[settings.uiDensity]?.paddingClass || "py-12";
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between bg-museum-bg">
+    <div className="relative min-h-screen flex flex-col justify-between bg-museum-bg transition-colors duration-200">
       {/* Header */}
       <MuseumHeader
         totalArtworks={manifest.totalCount}
@@ -208,10 +213,13 @@ export function MuseumExperience({ initialManifest }: MuseumExperienceProps) {
       <CuratorialStatement />
 
       {/* Main Gallery Section */}
-      <main id="gallery-section" className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 scroll-mt-16">
+      <main
+        id="gallery-section"
+        className={`flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 ${densityPadding} scroll-mt-16`}
+      >
         <div className="space-y-2 mb-6">
-          <div className="flex items-center space-x-2 text-xs font-semibold text-cobalt uppercase tracking-wider">
-            <span className="w-1.5 h-1.5 rounded-full bg-cobalt" />
+          <div className="flex items-center space-x-2 text-xs font-semibold text-accent uppercase tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
             <span>Danh mục tác phẩm chính</span>
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-museum-text">

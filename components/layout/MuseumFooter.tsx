@@ -2,21 +2,30 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowUp, Heart } from "lucide-react";
+import { ArrowUp, Heart, Sliders } from "lucide-react";
+import { useSettings } from "@/lib/settings/SettingsContext";
 
 export function MuseumFooter() {
+  const { setIsSettingsOpen, playSound } = useSettings();
+
   const scrollToTop = () => {
+    playSound("click");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleOpenSettings = () => {
+    playSound("whoosh");
+    setIsSettingsOpen(true);
+  };
+
   return (
-    <footer className="w-full bg-museum-surface border-t border-museum-border pt-14 pb-12 mt-20">
+    <footer className="w-full bg-museum-surface border-t border-museum-border pt-14 pb-12 mt-20 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-museum-border">
           {/* Main Colophon */}
-          <div className="md:col-span-6 space-y-3">
+          <div className="md:col-span-6 space-y-3 text-left">
             <div className="flex items-center space-x-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-cobalt" />
+              <span className="w-2.5 h-2.5 rounded-full bg-accent" />
               <h3 className="font-serif text-xl font-bold tracking-tight text-museum-text">
                 MEMEOF DANH
               </h3>
@@ -30,7 +39,7 @@ export function MuseumFooter() {
           </div>
 
           {/* Quick Specifications */}
-          <div className="md:col-span-3 space-y-2 text-xs text-museum-secondary">
+          <div className="md:col-span-3 space-y-2 text-xs text-museum-secondary text-left">
             <h4 className="font-semibold text-museum-text uppercase tracking-wider text-[11px] pb-1 border-b border-museum-border">
               Thông số ghi nhận
             </h4>
@@ -53,36 +62,45 @@ export function MuseumFooter() {
               </li>
               <li className="flex justify-between">
                 <span>Biên tập & Chụp ảnh:</span>
-                <span className="font-semibold text-cobalt">Duy</span>
+                <span className="font-semibold text-accent">Duy</span>
               </li>
             </ul>
           </div>
 
           {/* Navigation & Controls */}
-          <div className="md:col-span-3 space-y-2 text-xs text-museum-secondary">
+          <div className="md:col-span-3 space-y-2 text-xs text-museum-secondary text-left">
             <h4 className="font-semibold text-museum-text uppercase tracking-wider text-[11px] pb-1 border-b border-museum-border">
-              Điều hướng
+              Điều hướng & Cài đặt
             </h4>
             <ul className="space-y-2 pt-1">
               <li>
-                <a href="#gallery-section" className="hover:text-cobalt transition-colors">
+                <a href="#gallery-section" className="hover:text-accent transition-colors">
                   Bộ sưu tập tác phẩm
                 </a>
               </li>
               <li>
-                <a href="#curatorial-statement" className="hover:text-cobalt transition-colors">
+                <a href="#curatorial-statement" className="hover:text-accent transition-colors">
                   Tuyên ngôn giám tuyển
                 </a>
               </li>
               <li>
-                <Link href="/typography-test" className="hover:text-cobalt transition-colors">
+                <button
+                  onClick={handleOpenSettings}
+                  className="hover:text-accent transition-colors flex items-center space-x-1.5"
+                >
+                  <Sliders className="w-3.5 h-3.5" />
+                  <span>Tùy chỉnh giao diện (Settings Studio)</span>
+                </button>
+              </li>
+              <li>
+                <Link href="/typography-test" className="hover:text-accent transition-colors">
                   Trang kiểm tra font tiếng Việt
                 </Link>
               </li>
               <li className="pt-2">
                 <button
                   onClick={scrollToTop}
-                  className="inline-flex items-center space-x-1.5 text-xs font-semibold text-cobalt hover:underline"
+                  className="inline-flex items-center space-x-1.5 text-xs font-semibold text-accent hover:underline"
                 >
                   <span>Lên đầu trang</span>
                   <ArrowUp className="w-3.5 h-3.5" />
@@ -98,7 +116,7 @@ export function MuseumFooter() {
             © {new Date().getFullYear()} MemeOfDanh — The Museum of Questionable Masterpieces.
           </div>
           <div className="flex items-center space-x-1 text-museum-secondary">
-            <span>Thiết kế biên tập dành cho bạn bè với</span>
+            <span>Thiết kế biên tập với hệ thống motion tương tác và</span>
             <Heart className="w-3 h-3 text-coral fill-current inline" />
           </div>
         </div>

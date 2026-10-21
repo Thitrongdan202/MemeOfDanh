@@ -4,6 +4,7 @@ import React from "react";
 import { ArtworkMedia } from "@/lib/memes/types";
 import { ArtworkCard } from "../artwork/ArtworkCard";
 import { ImageOff } from "lucide-react";
+import { useSettings } from "@/lib/settings/SettingsContext";
 
 interface GalleryGridProps {
   artworks: ArtworkMedia[];
@@ -20,6 +21,8 @@ export function GalleryGrid({
   onSelectArtwork,
   onResetFilters,
 }: GalleryGridProps) {
+  const { settings, playSound } = useSettings();
+
   if (artworks.length === 0) {
     return (
       <div className="w-full py-20 px-6 text-center space-y-4 rounded-xl border border-museum-border bg-museum-surface my-6 shadow-sm">
@@ -34,8 +37,11 @@ export function GalleryGrid({
         </p>
         <div className="pt-2">
           <button
-            onClick={onResetFilters}
-            className="px-4 py-2 rounded-lg bg-cobalt text-white text-xs font-semibold hover:bg-cobalt-hover transition-colors shadow-sm"
+            onClick={() => {
+              playSound("pop");
+              onResetFilters();
+            }}
+            className="px-4 py-2 rounded-lg bg-accent text-white text-xs font-semibold hover:bg-accent-hover transition-colors shadow-sm active:scale-95"
           >
             Đặt lại tất cả bộ lọc
           </button>
@@ -44,22 +50,41 @@ export function GalleryGrid({
     );
   }
 
+  const isMasonry = settings.galleryLayout === "masonry";
+
   return (
-    <div className="w-full">
-      {/* Editorial Masonry Grid */}
-      <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
-        {artworks.map((artwork, idx) => (
-          <div key={artwork.id} className="break-inside-avoid">
-            <ArtworkCard
-              artwork={artwork}
-              isFavorite={favorites.has(artwork.id)}
-              onToggleFavorite={onToggleFavorite}
-              onSelect={onSelectArtwork}
-              index={idx}
-            />
-          </div>
-        ))}
-      </div>
+    <div className="w-full transition-all duration-300">
+      {isMasonry ? (
+        /* Masonry Multi-column Layout */
+        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
+          {artworks.map((artwork, idx) => (
+            <div key={artwork.id} className="break-inside-avoid">
+              <ArtworkCard
+                artwork={artwork}
+                isFavorite={favorites.has(artwork.id)}
+                onToggleFavorite={onToggleFavorite}
+                onSelect={onSelectArtwork}
+                index={idx}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        /* Uniform Grid Layout */
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          {artworks.map((artwork, idx) => (
+            <div key={artwork.id}>
+              <ArtworkCard
+                artwork={artwork}
+                isFavorite={favorites.has(artwork.id)}
+                onToggleFavorite={onToggleFavorite}
+                onSelect={onSelectArtwork}
+                index={idx}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

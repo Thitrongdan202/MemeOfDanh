@@ -6,23 +6,21 @@
 
 ---
 
-## 1. TỔNG QUAN & ART DIRECTION MỚI (LIGHT EDITORIAL MUSEUM)
+## 1. TỔNG QUAN & ART DIRECTION (LIGHT & DARK EDITORIAL MUSEUM)
 
-Dự án đã được thiết kế lại hoàn toàn theo định hướng **Light Editorial Museum** (tạp chí nghệ thuật độc lập đương đại):
-- **Bảng màu chủ đạo:**
-  - Nền chính: `#F5F2EA` (giấy ngà ấm áp, có vi chất liệu editorial)
-  - Bề mặt card / modal: `#FFFEFA` (trắng sứ bảo tàng tinh tế)
-  - Vùng phụ trợ: `#ECE8DE` (đá mài sáng, nhã nhặn)
-  - Viền: `#DDD9CE` (viền mảnh, tương phản thấp)
-  - Chữ chính: `#202127` (đen than graphite, độ tương phản tiêu chuẩn)
-  - Chữ phụ: `#686A73` (xám phiến đá, dễ đọc)
-  - Điểm nhấn chính: `#4056E8` (electric cobalt cho các nút hành động, trạng thái active)
-  - Điểm nhấn phụ: `#EE684A` (warm coral cho mục yêu thích và các badge đặc biệt)
+Dự án là một **Interactive Digital Art Museum & Personalization Studio** cao cấp:
+- **Hệ thống Dual-Theme hoàn chỉnh (Light & Dark Mode):**
+  - **Light Mode (Editorial Paper):** Nền `#F5F2EA` (giấy ngà ấm áp), Bề mặt `#FFFEFA` (trắng sứ bảo tàng), Viền `#DDD9CE`, Chữ `#202127`.
+  - **Dark Mode (Deep Slate Gallery):** Nền `#0C0E14` (đen than phiến đá trầm sâu), Bề mặt `#141720` (slate mờ đương đại), Viền `#222736`, Chữ `#F0F2F8`.
+  - Chống nhấp nháy giao diện (Zero-Flash Hydration) bằng inline script đọc `localStorage` (`memeofdanh_settings_v2`) trước first paint.
+- **Personalization Studio (Cài đặt bảo tàng):**
+  - **Giao diện (Appearance):** Chuyển Theme (Sáng / Tối / Tự động), 6 bảng màu Accent (Electric Cobalt, Deep Violet, Mint Emerald, Warm Coral, Golden Amber, Noir Monochrome), Mật độ giao diện (Thoáng đãng, Chuẩn, Gọn gàng), Tỉ lệ chữ (Nhỏ, Chuẩn, Lớn).
+  - **Chuyển động (Motion & Effects):** Cường độ chuyển động (Tinh tế, Biểu cảm, Điện ảnh), Con trỏ chuột tương tác (Custom Cursor + Spotlight), Hiệu ứng nghiêng 3D (Card Perspective Tilt), Nút hút nam châm (Magnetic Buttons), Hỗ trợ chuẩn Accessible `prefers-reduced-motion`.
+  - **Tùy chọn (Preferences):** Âm thanh giao diện tổng hợp (Web Audio API Synthesizer không phụ thuộc file ngoài), Hiển thị thông tin nhanh trên card, Bố cục gallery mặc định (Masonry / Lưới đều), Khôi phục thiết lập gốc 1-click.
 - **Hệ thống Typography Tiếng Việt hoàn chỉnh:**
-  - **Font Giao diện chính:** `Be Vietnam Pro` (Sans-serif) — Tích hợp nội bộ qua `@fontsource/be-vietnam-pro`, tối ưu hóa 100% cho dấu tiếng Việt (ă, â, ê, ô, ơ, ư, đ, các dấu thanh và chữ hoa có dấu).
-  - **Font Display / Tiêu đề:** `Noto Serif` (Serif) — Tích hợp nội bộ qua `@fontsource/noto-serif` cho tiêu đề và các câu trích dẫn nghệ thuật.
-  - Tự lưu trữ (Self-hosted) hoàn toàn trong dependencies, không phụ thuộc vào kết nối CDN bên ngoài, không lỗi hiển thị ký tự.
-  - Chiều cao dòng (line-height) được nới rộng tự nhiên, loại bỏ hoàn toàn hiện tượng cắt dấu hoặc dính chữ.
+  - **Font Giao diện chính:** `Be Vietnam Pro` (Sans-serif) qua `@fontsource/be-vietnam-pro`, tối ưu hóa 100% cho dấu tiếng Việt.
+  - **Font Display / Tiêu đề:** `Noto Serif` (Serif) qua `@fontsource/noto-serif` cho tiêu đề và các câu trích dẫn nghệ thuật.
+  - Tự lưu trữ hoàn toàn nội bộ, không lỗi hiển thị, không giật font (FOUT).
 
 ---
 

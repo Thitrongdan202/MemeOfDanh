@@ -2,7 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { RefreshCw, Sparkles, ArrowRight } from "lucide-react";
+import { RefreshCw, Sliders, ArrowRight, Check } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
+import { useSettings } from "@/lib/settings/SettingsContext";
+import { useMagnetic } from "@/lib/motion/useMagnetic";
 
 interface MuseumHeaderProps {
   totalArtworks?: number;
@@ -16,6 +19,9 @@ export function MuseumHeader({
   isSyncing = false,
 }: MuseumHeaderProps) {
   const [timeStr, setTimeStr] = useState<string>("");
+  const [justSynced, setJustSynced] = useState(false);
+  const { setIsSettingsOpen, playSound, settings } = useSettings();
+  const ctaRef = useMagnetic<HTMLAnchorElement>(settings.magneticButtons ? 0.25 : 0);
 
   useEffect(() => {
     const updateTime = () => {
@@ -34,16 +40,30 @@ export function MuseumHeader({
     return () => clearInterval(interval);
   }, []);
 
+  const handleScan = async () => {
+    if (!onRescanRequested || isSyncing) return;
+    playSound("click");
+    await onRescanRequested();
+    setJustSynced(true);
+    playSound("pop");
+    setTimeout(() => setJustSynced(false), 3000);
+  };
+
+  const handleOpenSettings = () => {
+    playSound("whoosh");
+    setIsSettingsOpen(true);
+  };
+
   return (
-    <header className="sticky top-0 z-40 w-full bg-museum-surface/90 backdrop-blur-md border-b border-museum-border transition-colors">
+    <header className="sticky top-0 z-40 w-full bg-museum-surface/85 backdrop-blur-md border-b border-museum-border transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Wordmark */}
         <div className="flex items-center space-x-3">
           <Link
             href="/"
-            className="flex items-center space-x-2.5 text-museum-text hover:text-cobalt transition-colors group"
+            className="flex items-center space-x-2.5 text-museum-text hover:text-accent transition-colors group"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-cobalt transition-transform group-hover:scale-125" />
+            <span className="w-2.5 h-2.5 rounded-full bg-accent transition-transform duration-300 group-hover:scale-125 shadow-sm" />
             <span className="font-serif text-xl font-bold tracking-tight">
               MEMEOF DANH
             </span>
@@ -72,29 +92,52 @@ export function MuseumHeader({
         </div>
 
         {/* Action Controls */}
-        <div className="flex items-center space-x-2 sm:space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-2.5">
+          {/* Quick Rescan Button */}
           {onRescanRequested && (
             <button
-              onClick={onRescanRequested}
+              onClick={handleScan}
               disabled={isSyncing}
+              data-cursor="SYNC"
               title="Quét lại thư mục memes và cập nhật danh mục"
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-museum-muted hover:bg-museum-border text-museum-text border border-museum-border transition-all disabled:opacity-50"
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-museum-muted hover:bg-museum-border text-museum-text border border-museum-border transition-all active:scale-95 disabled:opacity-50"
             >
-              <RefreshCw
-                className={`w-3.5 h-3.5 text-cobalt ${isSyncing ? "animate-spin" : ""}`}
-              />
+              {justSynced ? (
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+              ) : (
+                <RefreshCw
+                  className={`w-3.5 h-3.5 text-accent ${isSyncing ? "animate-spin" : ""}`}
+                />
+              )}
               <span className="hidden sm:inline">
-                {isSyncing ? "Đang quét..." : "Quét thư viện"}
+                {isSyncing ? "Đang quét..." : justSynced ? "Đã cập nhật!" : "Quét thư viện"}
               </span>
             </button>
           )}
 
+          {/* Theme Switcher */}
+          <ThemeToggle />
+
+          {/* Settings Studio Button */}
+          <button
+            onClick={handleOpenSettings}
+            data-cursor="CÀI ĐẶT"
+            title="Tùy chỉnh giao diện & chuyển động (Settings Studio)"
+            className="p-2 rounded-lg text-museum-secondary hover:text-museum-text hover:bg-museum-muted border border-museum-border transition-all group active:scale-95"
+            aria-label="Cài đặt giao diện"
+          >
+            <Sliders className="w-4 h-4 transition-transform duration-300 group-hover:rotate-45 text-accent" />
+          </button>
+
+          {/* Primary CTA */}
           <a
+            ref={ctaRef}
             href="#gallery-section"
-            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-cobalt hover:bg-cobalt-hover text-white transition-all shadow-sm"
+            data-cursor="KHÁM PHÁ"
+            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-accent hover:bg-accent-hover text-white transition-all shadow-sm active:scale-95 group"
           >
             <span>Khám phá</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
           </a>
         </div>
       </div>

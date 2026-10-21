@@ -55,7 +55,7 @@ export default function ArtworkDetailPage({ params }: PageProps) {
   const mediaSrc = `/api/media/${artwork.safeUrl}`;
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-museum-bg">
+    <div className="min-h-screen flex flex-col justify-between bg-museum-bg transition-colors duration-200">
       <MuseumHeader totalArtworks={manifest.totalCount} />
 
       <main className="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 flex-1">
@@ -63,7 +63,7 @@ export default function ArtworkDetailPage({ params }: PageProps) {
         <div className="mb-6">
           <Link
             href="/"
-            className="inline-flex items-center space-x-2 text-xs font-semibold text-cobalt hover:underline"
+            className="inline-flex items-center space-x-2 text-xs font-semibold text-accent hover:underline"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Trở về phòng trưng bày chính</span>
@@ -96,7 +96,7 @@ export default function ArtworkDetailPage({ params }: PageProps) {
           <div className="lg:w-2/5 p-6 sm:p-8 space-y-6 flex flex-col justify-between bg-museum-surface">
             <div className="space-y-4 text-left">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-mono font-semibold text-cobalt">
+                <span className="font-mono font-semibold text-accent">
                   {artwork.id}
                 </span>
                 <span className="text-museum-subtle text-[11px]">
@@ -109,7 +109,7 @@ export default function ArtworkDetailPage({ params }: PageProps) {
               </h1>
 
               <div className="p-4 rounded-xl bg-museum-muted/70 border border-museum-border space-y-2">
-                <div className="flex items-center space-x-1.5 text-[11px] font-semibold text-cobalt">
+                <div className="flex items-center space-x-1.5 text-[11px] font-semibold text-accent">
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Bình luận của giám tuyển</span>
                 </div>
@@ -160,7 +160,7 @@ export default function ArtworkDetailPage({ params }: PageProps) {
               <a
                 href={mediaSrc}
                 download={artwork.filename}
-                className="w-full py-2.5 px-4 rounded-lg bg-cobalt text-white text-xs font-semibold flex items-center justify-center space-x-2 hover:bg-cobalt-hover transition-colors shadow-sm"
+                className="w-full py-2.5 px-4 rounded-lg bg-accent text-white text-xs font-semibold flex items-center justify-center space-x-2 hover:bg-accent-hover transition-colors shadow-sm"
               >
                 <Download className="w-4 h-4" />
                 <span>Tải ảnh gốc về máy</span>

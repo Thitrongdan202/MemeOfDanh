@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ArtworkMedia } from "@/lib/memes/types";
 import {
   X,
@@ -12,10 +12,9 @@ import {
   Sparkles,
   RefreshCw,
   Check,
-  Calendar,
-  FileText,
 } from "lucide-react";
 import { formatBytes, formatDate } from "@/lib/utils";
+import { useSettings } from "@/lib/settings/SettingsContext";
 
 interface ArtworkLightboxProps {
   artwork: ArtworkMedia | null;
@@ -38,6 +37,8 @@ export function ArtworkLightbox({
 }: ArtworkLightboxProps) {
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const { playSound, settings } = useSettings();
 
   const currentIndex = artwork
     ? allArtworks.findIndex((a) => a.id === artwork.id)
@@ -48,13 +49,23 @@ export function ArtworkLightbox({
 
   const handlePrev = () => {
     if (hasPrev) {
-      onSelectArtwork(allArtworks[currentIndex - 1]);
+      playSound("whoosh");
+      setIsTransitioning(true);
+      setTimeout(() => {
+        onSelectArtwork(allArtworks[currentIndex - 1]);
+        setIsTransitioning(false);
+      }, 120);
     }
   };
 
   const handleNext = () => {
     if (hasNext) {
-      onSelectArtwork(allArtworks[currentIndex + 1]);
+      playSound("whoosh");
+      setIsTransitioning(true);
+      setTimeout(() => {
+        onSelectArtwork(allArtworks[currentIndex + 1]);
+        setIsTransitioning(false);
+      }, 120);
     }
   };
 
@@ -63,6 +74,7 @@ export function ArtworkLightbox({
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        playSound("click");
         onClose();
       } else if (e.key === "ArrowLeft") {
         handlePrev();
@@ -92,6 +104,7 @@ export function ArtworkLightbox({
   const mediaSrc = `/api/media/${artwork.safeUrl}`;
 
   const handleCopyLink = () => {
+    playSound("pop");
     const url = new URL(window.location.href);
     url.searchParams.set("artwork", artwork.id);
     navigator.clipboard.writeText(url.toString());
@@ -101,6 +114,7 @@ export function ArtworkLightbox({
 
   const handleRegenerateRoast = async () => {
     if (isRegenerating) return;
+    playSound("click");
     setIsRegenerating(true);
     try {
       const res = await fetch("/api/ai/roast", {
@@ -110,6 +124,7 @@ export function ArtworkLightbox({
       });
       const data = await res.json();
       if (data.success && data.artwork && onArtworkUpdated) {
+        playSound("pop");
         onArtworkUpdated(data.artwork);
       }
     } catch (e) {
@@ -119,12 +134,21 @@ export function ArtworkLightbox({
     }
   };
 
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    playSound("heart");
+    onToggleFavorite(artwork.id, e);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-museum-text/60 backdrop-blur-sm p-2 sm:p-4 md:p-6 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-museum-text/60 backdrop-blur-sm p-2 sm:p-4 md:p-6 overflow-y-auto animate-in fade-in duration-200">
       {/* Close button */}
       <button
-        onClick={onClose}
-        className="fixed top-4 right-4 z-50 p-2.5 rounded-full bg-museum-surface/90 border border-museum-border text-museum-secondary hover:text-museum-text hover:bg-museum-surface transition-all shadow-md"
+        onClick={() => {
+          playSound("click");
+          onClose();
+        }}
+        data-cursor="ĐÓNG"
+        className="fixed top-4 right-4 z-50 p-2.5 rounded-full bg-museum-surface/90 border border-museum-border text-museum-secondary hover:text-museum-text hover:bg-museum-surface transition-all shadow-md active:scale-95"
         title="Đóng (Esc)"
       >
         <X className="w-5 h-5" />
@@ -134,28 +158,35 @@ export function ArtworkLightbox({
       <div className="relative w-full max-w-5xl my-auto rounded-xl bg-museum-surface border border-museum-border shadow-modal overflow-hidden flex flex-col lg:flex-row max-h-[90vh]">
         {/* Left: Media Viewport */}
         <div className="relative lg:w-3/5 bg-museum-muted/50 p-4 sm:p-6 flex items-center justify-center border-b lg:border-b-0 lg:border-r border-museum-border overflow-hidden">
-          {isVideo ? (
-            <video
-              src={mediaSrc}
-              controls
-              autoPlay
-              loop
-              playsInline
-              className="max-h-[70vh] w-auto max-w-full rounded-lg shadow-sm object-contain"
-            />
-          ) : (
-            <img
-              src={mediaSrc}
-              alt={artwork.title}
-              className="max-h-[70vh] w-auto max-w-full rounded-lg shadow-sm object-contain select-none"
-            />
-          )}
+          <div
+            className={`w-full h-full flex items-center justify-center transition-opacity duration-150 ${
+              isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
+            }`}
+          >
+            {isVideo ? (
+              <video
+                src={mediaSrc}
+                controls
+                autoPlay
+                loop
+                playsInline
+                className="max-h-[70vh] w-auto max-w-full rounded-lg shadow-sm object-contain"
+              />
+            ) : (
+              <img
+                src={mediaSrc}
+                alt={artwork.title}
+                className="max-h-[70vh] w-auto max-w-full rounded-lg shadow-sm object-contain select-none"
+              />
+            )}
+          </div>
 
           {/* Navigation Arrows */}
           {hasPrev && (
             <button
               onClick={handlePrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-museum-surface/90 hover:bg-museum-surface border border-museum-border text-museum-text hover:text-cobalt transition-all shadow-md"
+              data-cursor="TRƯỚC"
+              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-museum-surface/90 hover:bg-museum-surface border border-museum-border text-museum-text hover:text-accent transition-all shadow-md active:scale-90"
               title="Tác phẩm trước (←)"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -165,14 +196,15 @@ export function ArtworkLightbox({
           {hasNext && (
             <button
               onClick={handleNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-museum-surface/90 hover:bg-museum-surface border border-museum-border text-museum-text hover:text-cobalt transition-all shadow-md"
+              data-cursor="SAU"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-museum-surface/90 hover:bg-museum-surface border border-museum-border text-museum-text hover:text-accent transition-all shadow-md active:scale-90"
               title="Tác phẩm tiếp theo (→)"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
           )}
 
-          <div className="absolute bottom-3 left-3 px-2 py-0.5 rounded bg-museum-surface/90 border border-museum-border text-[10px] font-mono text-museum-secondary">
+          <div className="absolute bottom-3 left-3 px-2 py-0.5 rounded bg-museum-surface/90 border border-museum-border text-[10px] font-mono text-museum-secondary shadow-sm">
             {artwork.format.toUpperCase()} • {formatBytes(artwork.sizeBytes)}
           </div>
         </div>
@@ -182,7 +214,7 @@ export function ArtworkLightbox({
           <div className="space-y-4 text-left">
             {/* Header info */}
             <div className="flex items-center justify-between text-xs">
-              <span className="font-mono font-semibold text-cobalt">
+              <span className="font-mono font-semibold text-accent">
                 {artwork.id}
               </span>
               <span className="text-museum-subtle text-[11px]">
@@ -198,7 +230,7 @@ export function ArtworkLightbox({
             {/* AI Curator Review Box */}
             <div className="p-4 rounded-xl bg-museum-muted/70 border border-museum-border space-y-2">
               <div className="flex items-center justify-between text-[11px]">
-                <span className="font-semibold text-cobalt flex items-center gap-1.5">
+                <span className="font-semibold text-accent flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5" />
                   Bình luận của giám tuyển
                 </span>
@@ -267,7 +299,8 @@ export function ArtworkLightbox({
               <button
                 onClick={handleRegenerateRoast}
                 disabled={isRegenerating}
-                className="flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg bg-museum-muted hover:bg-museum-border text-xs font-semibold text-cobalt border border-museum-border transition-colors disabled:opacity-50"
+                data-cursor="ROAST"
+                className="flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg bg-museum-muted hover:bg-museum-border text-xs font-semibold text-accent border border-museum-border transition-all active:scale-95 disabled:opacity-50"
               >
                 <RefreshCw
                   className={`w-3.5 h-3.5 ${isRegenerating ? "animate-spin" : ""}`}
@@ -276,8 +309,9 @@ export function ArtworkLightbox({
               </button>
 
               <button
-                onClick={(e) => onToggleFavorite(artwork.id, e)}
-                className={`flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg text-xs font-semibold border transition-colors ${
+                onClick={handleFavoriteClick}
+                data-cursor="THÍCH"
+                className={`flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg text-xs font-semibold border transition-all active:scale-95 ${
                   isFavorite
                     ? "bg-coral-light border-coral text-coral"
                     : "bg-museum-surface hover:bg-museum-muted text-museum-secondary border-museum-border"
@@ -291,7 +325,8 @@ export function ArtworkLightbox({
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={handleCopyLink}
-                className="flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg bg-museum-surface hover:bg-museum-muted text-xs font-medium text-museum-secondary border border-museum-border transition-colors"
+                data-cursor="CHÉP LINK"
+                className="flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg bg-museum-surface hover:bg-museum-muted text-xs font-medium text-museum-secondary border border-museum-border transition-all active:scale-95"
               >
                 {copiedLink ? (
                   <>
@@ -309,15 +344,16 @@ export function ArtworkLightbox({
               <a
                 href={mediaSrc}
                 download={artwork.filename}
-                className="flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg bg-museum-surface hover:bg-museum-muted text-xs font-medium text-museum-secondary border border-museum-border transition-colors"
+                data-cursor="TẢI VỀ"
+                className="flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg bg-museum-surface hover:bg-museum-muted text-xs font-medium text-museum-secondary border border-museum-border transition-all active:scale-95"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Tải file gốc</span>
               </a>
             </div>
 
-            <div className="text-center pt-1 text-[11px] text-museum-subtle">
-              Phím tắt: <kbd className="px-1 py-0.5 rounded bg-museum-muted text-museum-text font-mono">←</kbd> Trước • <kbd className="px-1 py-0.5 rounded bg-museum-muted text-museum-text font-mono">→</kbd> Sau • <kbd className="px-1 py-0.5 rounded bg-museum-muted text-museum-text font-mono">Esc</kbd> Đóng
+            <div className="text-center pt-1 text-[11px] text-museum-subtle font-mono">
+              Phím tắt: <kbd className="px-1 py-0.5 rounded bg-museum-muted text-museum-text">←</kbd> Trước • <kbd className="px-1 py-0.5 rounded bg-museum-muted text-museum-text">→</kbd> Sau • <kbd className="px-1 py-0.5 rounded bg-museum-muted text-museum-text">Esc</kbd> Đóng
             </div>
           </div>
         </div>

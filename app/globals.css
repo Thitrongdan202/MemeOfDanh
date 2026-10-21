@@ -12,8 +12,43 @@
 @tailwind utilities;
 
 @layer base {
+  :root,
+  .light {
+    --bg: #F5F2EA;
+    --surface: #FFFEFA;
+    --surface-muted: #ECE8DE;
+    --border: #DDD9CE;
+    --border-dark: #C7C2B4;
+    --text: #202127;
+    --text-secondary: #686A73;
+    --text-subtle: #83848A;
+    --dark-accent: #1A1B20;
+    --accent-primary: #4056E8;
+    --accent-hover: #3144C7;
+    --accent-light: #EEF1FD;
+    --accent-border: #BAC4F8;
+    color-scheme: light;
+  }
+
+  .dark {
+    --bg: #0C0E14;
+    --surface: #141720;
+    --surface-muted: #1E2230;
+    --border: #282D3E;
+    --border-dark: #3E455E;
+    --text: #F2F4F8;
+    --text-secondary: #A0A8BA;
+    --text-subtle: #687084;
+    --dark-accent: #07080B;
+    --accent-primary: #4056E8;
+    --accent-hover: #5A6EF5;
+    --accent-light: #18224C;
+    --accent-border: #2E3B7D;
+    color-scheme: dark;
+  }
+
   * {
-    border-color: #DDD9CE;
+    border-color: var(--border);
   }
 
   html {
@@ -21,22 +56,23 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   body {
-    background-color: #F5F2EA;
-    color: #202127;
+    background-color: var(--bg);
+    color: var(--text);
     font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   ::selection {
-    background-color: #4056E8;
+    background-color: var(--accent-primary);
     color: #FFFFFF;
   }
 
-  /* Headings typography defaults */
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.25;
     letter-spacing: -0.01em;
@@ -50,22 +86,22 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #ECE8DE;
+  background: var(--surface-muted);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C7C2B4;
+  background: var(--border-dark);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4056E8;
+  background: var(--accent-primary);
 }
 
 /* Subtle editorial paper grain */
 .bg-editorial-grain {
-  background-color: #F5F2EA;
-  background-image: radial-gradient(rgba(32, 33, 39, 0.03) 1px, transparent 0);
+  background-color: var(--bg);
+  background-image: radial-gradient(rgba(128, 128, 128, 0.06) 1px, transparent 0);
   background-size: 24px 24px;
 }
 

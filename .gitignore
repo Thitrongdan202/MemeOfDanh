@@ -10,6 +10,7 @@ build/
 dist/
 *.tsbuildinfo
 screenshot-*.png
+test-*.png
 
 # Generated Thumbnails cache
 public/thumbnails/*
