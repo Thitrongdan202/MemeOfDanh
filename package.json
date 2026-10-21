@@ -1,0 +1,42 @@
+{
+  "name": "meme-of-danh",
+  "version": "2.0.0",
+  "private": true,
+  "description": "MEMEOF DANH — The Digital Museum of Questionable Masterpieces",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "sync:memes": "tsx scripts/sync.ts",
+    "sync:memes:dry": "tsx scripts/sync.ts --dry-run",
+    "sync:memes:ai": "tsx scripts/sync.ts --ai",
+    "watch:memes": "tsx scripts/watch.ts"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@gsap/react": "^2.1.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.9",
+    "gsap": "^3.12.5",
+    "lucide-react": "^0.453.0",
+    "next": "14.2.24",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.5",
+    "tailwind-merge": "^2.5.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "chokidar": "^4.0.1",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "tsx": "^4.19.1",
+    "typescript": "^5.5.0"
+  }
+}
