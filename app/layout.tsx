@@ -1,35 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { CustomCursor } from "@/components/layout/CustomCursor";
-
-const sansFont = Plus_Jakarta_Sans({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const serifFont = Playfair_Display({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-editorial",
-  display: "swap",
-});
-
-const monoFont = JetBrains_Mono({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-mono",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
-  title: "MEMEOF DANH — The Museum of Questionable Masterpieces",
+  title: "MEMEOF DANH — Bảo tàng Meme & Những Kiệt Tác Đầy Nghi Vấn",
   description:
-    "Bảo tàng kỹ thuật số lưu trữ các kiệt tác meme và khoảnh khắc lịch sử của Danh. Giám tuyển và bảo tồn bởi Duy.",
-  keywords: ["MemeOfDanh", "Bảo tàng meme", "Danh", "Digital Museum", "Curated Memes"],
+    "Kho lưu trữ hình ảnh, video và những khoảnh khắc đời thường của Danh. Sưu tầm và số hóa bởi Duy cùng bình phẩm dí dỏm từ giám tuyển AI.",
+  keywords: ["MemeOfDanh", "Bảo tàng meme", "Danh", "Digital Meme Museum", "Meme Việt Nam"],
   authors: [{ name: "Duy" }],
   openGraph: {
     title: "MEMEOF DANH — The Museum of Questionable Masterpieces",
-    description: "Every image has a story. Most of them should not have happened.",
+    description: "Mỗi bức ảnh đều có một câu chuyện. Phần lớn trong số đó lẽ ra không nên xảy ra.",
     type: "website",
     locale: "vi_VN",
   },
@@ -39,8 +19,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07080a",
-  colorScheme: "dark",
+  themeColor: "#F5F2EA",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -51,12 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="vi"
-      className={`dark ${sansFont.variable} ${serifFont.variable} ${monoFont.variable}`}
-    >
-      <body className="bg-museum-950 text-ivory antialiased selection:bg-lime-accent selection:text-museum-950 min-h-screen">
-        <CustomCursor />
+    <html lang="vi" className="light">
+      <head>
+        <meta charSet="utf-8" />
+      </head>
+      <body className="bg-museum-bg text-museum-text antialiased min-h-screen">
         {children}
       </body>
     </html>

@@ -3,7 +3,7 @@
 import React from "react";
 import { ArtworkMedia } from "@/lib/memes/types";
 import { ArtworkCard } from "../artwork/ArtworkCard";
-import { ImageOff, Sparkles } from "lucide-react";
+import { ImageOff } from "lucide-react";
 
 interface GalleryGridProps {
   artworks: ArtworkMedia[];
@@ -22,22 +22,22 @@ export function GalleryGrid({
 }: GalleryGridProps) {
   if (artworks.length === 0) {
     return (
-      <div className="w-full py-24 px-4 text-center space-y-4 rounded-2xl border border-museum-800 bg-museum-900/40 my-8">
-        <div className="inline-flex p-4 rounded-full bg-museum-850 text-museum-500 mb-2">
-          <ImageOff className="w-8 h-8" />
+      <div className="w-full py-20 px-6 text-center space-y-4 rounded-xl border border-museum-border bg-museum-surface my-6 shadow-sm">
+        <div className="inline-flex p-3 rounded-full bg-museum-muted text-museum-subtle">
+          <ImageOff className="w-6 h-6" />
         </div>
-        <h3 className="font-serif text-2xl font-bold text-ivory">
-          Không tìm thấy kiệt tác nào
+        <h3 className="font-serif text-xl font-bold text-museum-text">
+          Chưa tìm thấy tác phẩm phù hợp
         </h3>
-        <p className="text-sm font-serif italic text-museum-400 max-w-md mx-auto">
-          "Không có tác phẩm nào phù hợp với tiêu chí tìm kiếm. Hãy kiểm tra lại từ khóa hoặc danh mục yêu thích."
+        <p className="text-sm text-museum-secondary max-w-md mx-auto leading-relaxed">
+          Không có kết quả nào trùng với từ khóa tìm kiếm hoặc bộ lọc hiện tại. Bạn có thể thử tìm bằng từ khóa khác hoặc đặt lại bộ lọc.
         </p>
         <div className="pt-2">
           <button
             onClick={onResetFilters}
-            className="px-4 py-2 rounded-md bg-lime-accent text-museum-950 font-mono text-xs font-semibold hover:bg-lime-dim transition-colors"
+            className="px-4 py-2 rounded-lg bg-cobalt text-white text-xs font-semibold hover:bg-cobalt-hover transition-colors shadow-sm"
           >
-            Đặt lại bộ lọc
+            Đặt lại tất cả bộ lọc
           </button>
         </div>
       </div>
@@ -46,7 +46,7 @@ export function GalleryGrid({
 
   return (
     <div className="w-full">
-      {/* Editorial Masonry Columns Grid */}
+      {/* Editorial Masonry Grid */}
       <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
         {artworks.map((artwork, idx) => (
           <div key={artwork.id} className="break-inside-avoid">

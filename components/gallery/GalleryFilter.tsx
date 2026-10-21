@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Search, X, SlidersHorizontal, Image as ImageIcon, Film, Heart, Grid, Shuffle } from "lucide-react";
+import { Search, X, SlidersHorizontal, Image as ImageIcon, Film, Heart, Shuffle } from "lucide-react";
 
 export type FilterMediaType = "all" | "image" | "video" | "favorites";
 export type SortOption = "catalog-asc" | "catalog-desc" | "newest" | "oldest" | "name" | "shuffle";
@@ -18,6 +18,7 @@ interface GalleryFilterProps {
   videoCount: number;
   favoriteCount: number;
   onShuffle: () => void;
+  resultCount: number;
 }
 
 export function GalleryFilter({
@@ -32,111 +33,129 @@ export function GalleryFilter({
   videoCount,
   favoriteCount,
   onShuffle,
+  resultCount,
 }: GalleryFilterProps) {
   return (
     <div className="w-full space-y-4 pb-6">
       <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
-        {/* Search Bar */}
-        <div className="relative flex-1 max-w-lg">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-museum-400" />
+        {/* Search Input */}
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-museum-subtle" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Tìm theo tên tác phẩm, tệp, lời bình hoặc #tag..."
-            className="w-full pl-10 pr-9 py-2.5 rounded-lg bg-museum-900 border border-museum-800 focus:border-lime-accent text-ivory text-xs font-mono placeholder:text-museum-500 focus:outline-none transition-colors"
+            placeholder="Tìm theo tên, nội dung, tệp hoặc #tag (không dấu hoặc có dấu)..."
+            className="w-full pl-10 pr-9 py-2 rounded-lg bg-museum-surface border border-museum-border focus:border-cobalt text-museum-text text-xs placeholder:text-museum-subtle focus:outline-none transition-colors shadow-sm"
           />
           {searchQuery && (
             <button
               onClick={() => onSearchChange("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-museum-400 hover:text-ivory"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-museum-subtle hover:text-museum-text"
+              title="Xóa tìm kiếm"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
 
-        {/* Media Type Tabs */}
-        <div className="flex items-center overflow-x-auto pb-1 lg:pb-0 space-x-1.5 p-1 rounded-lg bg-museum-900 border border-museum-800 text-xs font-mono">
+        {/* Media Segmented Tabs */}
+        <div className="flex items-center overflow-x-auto p-1 rounded-lg bg-museum-muted border border-museum-border text-xs font-medium">
           <button
             onClick={() => onTypeChange("all")}
             className={`px-3 py-1.5 rounded-md flex items-center space-x-1.5 transition-all whitespace-nowrap ${
               activeType === "all"
-                ? "bg-museum-800 text-lime-accent font-semibold shadow-sm"
-                : "text-museum-400 hover:text-ivory"
+                ? "bg-museum-surface text-cobalt font-semibold shadow-sm"
+                : "text-museum-secondary hover:text-museum-text"
             }`}
           >
-            <span>TẤT CẢ</span>
-            <span className="text-[10px] opacity-70">({totalCount})</span>
+            <span>Tất cả</span>
+            <span className="text-[11px] opacity-75">({totalCount})</span>
           </button>
 
           <button
             onClick={() => onTypeChange("image")}
             className={`px-3 py-1.5 rounded-md flex items-center space-x-1.5 transition-all whitespace-nowrap ${
               activeType === "image"
-                ? "bg-museum-800 text-lime-accent font-semibold shadow-sm"
-                : "text-museum-400 hover:text-ivory"
+                ? "bg-museum-surface text-cobalt font-semibold shadow-sm"
+                : "text-museum-secondary hover:text-museum-text"
             }`}
           >
-            <ImageIcon className="w-3 h-3" />
-            <span>ẢNH</span>
-            <span className="text-[10px] opacity-70">({imageCount})</span>
+            <ImageIcon className="w-3.5 h-3.5" />
+            <span>Ảnh chụp</span>
+            <span className="text-[11px] opacity-75">({imageCount})</span>
           </button>
 
           <button
             onClick={() => onTypeChange("video")}
             className={`px-3 py-1.5 rounded-md flex items-center space-x-1.5 transition-all whitespace-nowrap ${
               activeType === "video"
-                ? "bg-museum-800 text-lime-accent font-semibold shadow-sm"
-                : "text-museum-400 hover:text-ivory"
+                ? "bg-museum-surface text-cobalt font-semibold shadow-sm"
+                : "text-museum-secondary hover:text-museum-text"
             }`}
           >
-            <Film className="w-3 h-3" />
-            <span>CLIPS</span>
-            <span className="text-[10px] opacity-70">({videoCount})</span>
+            <Film className="w-3.5 h-3.5" />
+            <span>Video clip</span>
+            <span className="text-[11px] opacity-75">({videoCount})</span>
           </button>
 
           <button
             onClick={() => onTypeChange("favorites")}
             className={`px-3 py-1.5 rounded-md flex items-center space-x-1.5 transition-all whitespace-nowrap ${
               activeType === "favorites"
-                ? "bg-museum-800 text-vermilion font-semibold shadow-sm"
-                : "text-museum-400 hover:text-ivory"
+                ? "bg-museum-surface text-coral font-semibold shadow-sm"
+                : "text-museum-secondary hover:text-museum-text"
             }`}
           >
-            <Heart className="w-3 h-3 fill-current" />
-            <span>YÊU THÍCH</span>
-            <span className="text-[10px] opacity-70">({favoriteCount})</span>
+            <Heart className="w-3.5 h-3.5 fill-current" />
+            <span>Đã lưu</span>
+            <span className="text-[11px] opacity-75">({favoriteCount})</span>
           </button>
         </div>
 
         {/* Sort & Shuffle */}
         <div className="flex items-center space-x-2">
           <div className="relative flex items-center">
-            <SlidersHorizontal className="absolute left-3 w-3.5 h-3.5 text-museum-400 pointer-events-none" />
+            <SlidersHorizontal className="absolute left-3 w-3.5 h-3.5 text-museum-subtle pointer-events-none" />
             <select
               value={activeSort}
               onChange={(e) => onSortChange(e.target.value as SortOption)}
-              className="pl-8 pr-7 py-2 rounded-lg bg-museum-900 border border-museum-800 text-xs font-mono text-ivory focus:border-lime-accent focus:outline-none appearance-none cursor-pointer"
+              className="pl-8 pr-7 py-2 rounded-lg bg-museum-surface border border-museum-border text-xs text-museum-text font-medium focus:border-cobalt focus:outline-none appearance-none cursor-pointer shadow-sm"
             >
-              <option value="catalog-asc">Catalog # tăng dần</option>
-              <option value="catalog-desc">Catalog # giảm dần</option>
-              <option value="newest">Ngày sửa: Mới nhất</option>
-              <option value="oldest">Ngày sửa: Cũ nhất</option>
+              <option value="catalog-asc">Số thứ tự: 1 → Cuối</option>
+              <option value="catalog-desc">Số thứ tự: Cuối → 1</option>
+              <option value="newest">Ngày thêm: Mới nhất</option>
+              <option value="oldest">Ngày thêm: Cũ nhất</option>
               <option value="name">Tên tệp: A → Z</option>
             </select>
           </div>
 
           <button
             onClick={onShuffle}
-            data-cursor="SHUFFLE"
             title="Đổi thứ tự ngẫu nhiên"
-            className="p-2 rounded-lg bg-museum-900 border border-museum-800 hover:border-lime-accent text-museum-300 hover:text-lime-accent transition-colors"
+            className="p-2 rounded-lg bg-museum-surface border border-museum-border hover:border-cobalt text-museum-secondary hover:text-cobalt transition-colors shadow-sm"
           >
             <Shuffle className="w-4 h-4" />
           </button>
         </div>
       </div>
+
+      {/* Result Indicator if filtering */}
+      {(searchQuery || activeType !== "all" || activeSort === "shuffle") && (
+        <div className="flex items-center justify-between text-xs text-museum-secondary pt-1">
+          <div>
+            Hiển thị <span className="font-semibold text-museum-text">{resultCount}</span> tác phẩm phù hợp
+          </div>
+          {searchQuery && (
+            <button
+              onClick={() => onSearchChange("")}
+              className="text-cobalt hover:underline text-xs"
+            >
+              Xóa điều kiện lọc
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

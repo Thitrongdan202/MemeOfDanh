@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { RefreshCw, Sparkles, Volume2, VolumeX, Eye } from "lucide-react";
+import { RefreshCw, Sparkles, ArrowRight } from "lucide-react";
 
 interface MuseumHeaderProps {
   totalArtworks?: number;
@@ -16,7 +16,6 @@ export function MuseumHeader({
   isSyncing = false,
 }: MuseumHeaderProps) {
   const [timeStr, setTimeStr] = useState<string>("");
-  const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -36,39 +35,39 @@ export function MuseumHeader({
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-museum-950/80 border-b border-museum-800 transition-colors">
+    <header className="sticky top-0 z-40 w-full bg-museum-surface/90 backdrop-blur-md border-b border-museum-border transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Brand / Logo */}
-        <div className="flex items-center space-x-4">
+        {/* Brand Wordmark */}
+        <div className="flex items-center space-x-3">
           <Link
             href="/"
-            className="group flex items-center space-x-2.5 text-ivory hover:text-lime-accent transition-colors"
+            className="flex items-center space-x-2.5 text-museum-text hover:text-cobalt transition-colors group"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-lime-accent animate-pulse" />
-            <span className="font-serif text-lg tracking-tight font-bold">
+            <span className="w-2.5 h-2.5 rounded-full bg-cobalt transition-transform group-hover:scale-125" />
+            <span className="font-serif text-xl font-bold tracking-tight">
               MEMEOF DANH
             </span>
-            <span className="hidden sm:inline-block text-xs font-mono px-2 py-0.5 rounded bg-museum-800 text-museum-300 border border-museum-700">
-              COLLECTION '26
-            </span>
           </Link>
+          <span className="hidden sm:inline-block text-[11px] font-medium px-2 py-0.5 rounded-full bg-museum-muted text-museum-secondary border border-museum-border">
+            Bảo tàng meme cá nhân
+          </span>
         </div>
 
-        {/* Center Live Clock & Status */}
-        <div className="hidden md:flex items-center space-x-6 text-xs font-mono text-museum-400">
-          <div className="flex items-center space-x-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-lime-accent" />
-            <span className="text-ivory uppercase tracking-widest text-[11px]">
-              TRIỂN LÃM MỞ CỬA
+        {/* Center Live Museum Metrics */}
+        <div className="hidden md:flex items-center space-x-5 text-xs text-museum-secondary font-medium">
+          <div className="flex items-center space-x-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-museum-text font-medium text-[11px] uppercase tracking-wider">
+              Đang mở cửa
             </span>
           </div>
-          <span>•</span>
-          <div className="text-museum-300">
-            HANOI <span className="text-ivory font-semibold">{timeStr || "07:45:00"}</span>
-          </div>
-          <span>•</span>
+          <span className="text-museum-borderDark">•</span>
           <div>
-            <span className="text-ivory font-bold">{totalArtworks}</span> TÁC PHẨM
+            Hà Nội <span className="font-mono text-museum-text font-semibold">{timeStr || "09:00:00"}</span>
+          </div>
+          <span className="text-museum-borderDark">•</span>
+          <div>
+            Bộ sưu tập: <span className="font-semibold text-museum-text">{totalArtworks}</span> tác phẩm
           </div>
         </div>
 
@@ -78,24 +77,24 @@ export function MuseumHeader({
             <button
               onClick={onRescanRequested}
               disabled={isSyncing}
-              data-cursor="SYNC"
-              title="Quét lại thư mục memes và cập nhật catalog"
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-md text-xs font-mono bg-museum-850 hover:bg-museum-800 border border-museum-700 hover:border-lime-accent/50 text-museum-200 transition-all disabled:opacity-50"
+              title="Quét lại thư mục memes và cập nhật danh mục"
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-museum-muted hover:bg-museum-border text-museum-text border border-museum-border transition-all disabled:opacity-50"
             >
               <RefreshCw
-                className={`w-3.5 h-3.5 text-lime-accent ${isSyncing ? "animate-spin" : ""}`}
+                className={`w-3.5 h-3.5 text-cobalt ${isSyncing ? "animate-spin" : ""}`}
               />
               <span className="hidden sm:inline">
-                {isSyncing ? "Đang đồng bộ..." : "Quét thư viện"}
+                {isSyncing ? "Đang quét..." : "Quét thư viện"}
               </span>
             </button>
           )}
 
           <a
             href="#gallery-section"
-            className="px-3.5 py-1.5 rounded-md text-xs font-mono font-medium bg-lime-accent hover:bg-lime-dim text-museum-950 transition-colors shadow-[0_0_15px_rgba(212,255,50,0.2)]"
+            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-cobalt hover:bg-cobalt-hover text-white transition-all shadow-sm"
           >
-            VÀO XEM
+            <span>Khám phá</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
       </div>

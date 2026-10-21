@@ -1,89 +1,79 @@
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/500.css";
+@import "@fontsource/be-vietnam-pro/600.css";
+@import "@fontsource/be-vietnam-pro/700.css";
+@import "@fontsource/noto-serif/400.css";
+@import "@fontsource/noto-serif/600.css";
+@import "@fontsource/noto-serif/700.css";
+@import "@fontsource/noto-serif/400-italic.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-editorial: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-
 @layer base {
   * {
-    border-color: #242a35;
+    border-color: #DDD9CE;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    background-color: #07080a;
-    color: #f5f4ed;
-    font-family: var(--font-sans);
+    background-color: #F5F2EA;
+    color: #202127;
+    font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    line-height: 1.6;
     overflow-x: hidden;
-    selection-background-color: #d4ff32;
-    selection-color: #07080a;
   }
 
   ::selection {
-    background-color: #d4ff32;
-    color: #07080a;
+    background-color: #4056E8;
+    color: #FFFFFF;
+  }
+
+  /* Headings typography defaults */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.25;
+    letter-spacing: -0.01em;
   }
 }
 
-/* Custom Minimal Museum Scrollbar */
+/* Minimal Editorial Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0c0e12;
+  background: #ECE8DE;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #242a35;
-  border-radius: 3px;
+  background: #C7C2B4;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4ff32;
+  background: #4056E8;
 }
 
-/* Museum Grain Subtle Texture */
-.bg-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+/* Subtle editorial paper grain */
+.bg-editorial-grain {
+  background-color: #F5F2EA;
+  background-image: radial-gradient(rgba(32, 33, 39, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
 }
 
-/* Luxury Editorial Typography Mask */
-.editorial-title {
-  font-family: var(--font-editorial);
-  letter-spacing: -0.02em;
-}
-
-.mono-tag {
-  font-family: var(--font-mono);
-  letter-spacing: 0.08em;
+/* Editorial badge tag */
+.editorial-badge {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-}
-
-/* Glass Surface with Low Contrast Border */
-.museum-card {
-  background: #0f1217;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.museum-card:hover {
-  border-color: rgba(212, 255, 50, 0.4);
-  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.8), 0 0 20px -5px rgba(212, 255, 50, 0.15);
-}
-
-/* Hide default cursor on desktop when custom cursor is active */
-@media (pointer: fine) {
-  .custom-cursor-active {
-    cursor: none;
-  }
-  .custom-cursor-active a,
-  .custom-cursor-active button,
-  .custom-cursor-active [role="button"] {
-    cursor: none;
-  }
+  font-size: 0.6875rem;
+  font-weight: 600;
 }

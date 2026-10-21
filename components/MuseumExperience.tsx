@@ -9,6 +9,7 @@ import { GalleryFilter, FilterMediaType, SortOption } from "./gallery/GalleryFil
 import { GalleryGrid } from "./gallery/GalleryGrid";
 import { ArtworkLightbox } from "./artwork/ArtworkLightbox";
 import { MuseumFooter } from "./layout/MuseumFooter";
+import { removeVietnameseTones } from "@/lib/utils";
 
 interface MuseumExperienceProps {
   initialManifest: MuseumManifest;
@@ -126,7 +127,7 @@ export function MuseumExperience({ initialManifest }: MuseumExperienceProps) {
     setShuffleSeed(Date.now());
   };
 
-  // Filter & Sort Logic
+  // Filter & Sort Logic with smart Vietnamese Accent Normalization
   const filteredArtworks = useMemo(() => {
     let list = [...manifest.artworks];
 
@@ -139,17 +140,26 @@ export function MuseumExperience({ initialManifest }: MuseumExperienceProps) {
       list = list.filter((a) => favorites.has(a.id));
     }
 
-    // 2. Filter by search query
+    // 2. Filter by search query (Accent-insensitive AND exact matching)
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
-      list = list.filter(
-        (a) =>
-          a.title.toLowerCase().includes(q) ||
-          a.curatorReview.toLowerCase().includes(q) ||
-          a.filename.toLowerCase().includes(q) ||
-          a.id.toLowerCase().includes(q) ||
-          a.tags.some((t) => t.toLowerCase().includes(q))
-      );
+      const qNormalized = removeVietnameseTones(q);
+
+      list = list.filter((a) => {
+        const titleNorm = removeVietnameseTones(a.title);
+        const reviewNorm = removeVietnameseTones(a.curatorReview);
+        const fileNorm = removeVietnameseTones(a.filename);
+        const idNorm = a.id.toLowerCase();
+        const tagsNorm = a.tags.map((t) => removeVietnameseTones(t)).join(" ");
+
+        return (
+          titleNorm.includes(qNormalized) ||
+          reviewNorm.includes(qNormalized) ||
+          fileNorm.includes(qNormalized) ||
+          idNorm.includes(q) ||
+          tagsNorm.includes(qNormalized)
+        );
+      });
     }
 
     // 3. Sort
@@ -164,7 +174,6 @@ export function MuseumExperience({ initialManifest }: MuseumExperienceProps) {
     } else if (activeSort === "name") {
       list.sort((a, b) => a.filename.localeCompare(b.filename));
     } else if (activeSort === "shuffle") {
-      // Deterministic pseudorandom based on shuffleSeed
       list.sort((a, b) => {
         const hashA = (a.catalogNumber * 997 + shuffleSeed) % 1000;
         const hashB = (b.catalogNumber * 997 + shuffleSeed) % 1000;
@@ -175,11 +184,10 @@ export function MuseumExperience({ initialManifest }: MuseumExperienceProps) {
     return list;
   }, [manifest.artworks, activeType, searchQuery, activeSort, favorites, shuffleSeed]);
 
-  // Featured artwork: first one or DANH-001
   const featured = manifest.artworks.find((a) => a.featured) || manifest.artworks[0];
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between">
+    <div className="relative min-h-screen flex flex-col justify-between bg-museum-bg">
       {/* Header */}
       <MuseumHeader
         totalArtworks={manifest.totalCount}
@@ -200,14 +208,14 @@ export function MuseumExperience({ initialManifest }: MuseumExperienceProps) {
       <CuratorialStatement />
 
       {/* Main Gallery Section */}
-      <main id="gallery-section" className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16 scroll-mt-20">
-        <div className="space-y-4 mb-8">
-          <div className="flex items-center space-x-2 text-xs font-mono text-lime-accent uppercase tracking-widest">
-            <span className="w-1.5 h-1.5 rounded-full bg-lime-accent" />
-            <span>PHÒNG TRIỂN LÃM CHÍNH • CATALOG TOÀN DIỆN</span>
+      <main id="gallery-section" className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 scroll-mt-16">
+        <div className="space-y-2 mb-6">
+          <div className="flex items-center space-x-2 text-xs font-semibold text-cobalt uppercase tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-cobalt" />
+            <span>Danh mục tác phẩm chính</span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-ivory">
-            Tuyển Tập Các Kiệt Tác Đầy Nghi Vấn
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-museum-text">
+            Bộ sưu tập kiệt tác đầy nghi vấn
           </h2>
         </div>
 
@@ -224,6 +232,7 @@ export function MuseumExperience({ initialManifest }: MuseumExperienceProps) {
           videoCount={manifest.videoCount}
           favoriteCount={favorites.size}
           onShuffle={handleShuffle}
+          resultCount={filteredArtworks.length}
         />
 
         {/* Gallery Grid */}

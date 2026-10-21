@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,47 +10,41 @@ const config: Config = {
     extend: {
       colors: {
         museum: {
-          950: "#07080a",
-          900: "#0c0e12",
-          850: "#12151b",
-          800: "#181d24",
-          700: "#242a35",
-          600: "#363e4e",
-          500: "#525c70",
-          400: "#838d9e",
-          300: "#b5bdca",
-          200: "#e0e4eb",
-          100: "#f3f5f8",
+          bg: "#F5F2EA",        // Main background: warm paper ivory
+          surface: "#FFFEFA",   // Primary surface: clean gallery white
+          muted: "#ECE8DE",     // Secondary surface / neutral warm
+          border: "#DDD9CE",    // Border: crisp warm outline
+          borderDark: "#C7C2B4",// Darker border for hover / focus
+          text: "#202127",      // Primary text: graphite charcoal
+          secondary: "#686A73", // Secondary text: slate gray
+          subtle: "#83848A",    // Muted text: cool gray
+          dark: "#1A1B20",      // Dark accent container
         },
-        ivory: {
-          DEFAULT: "#f5f4ed",
-          muted: "#d8d6cb",
-          dark: "#a3a193",
+        cobalt: {
+          DEFAULT: "#4056E8",   // Primary accent: electric cobalt
+          hover: "#3144C7",
+          light: "#EEF1FD",
+          border: "#BAC4F8",
         },
-        lime: {
-          accent: "#d4ff32",
-          dim: "#a3cc18",
-          glow: "rgba(212, 255, 50, 0.25)",
-        },
-        vermilion: {
-          DEFAULT: "#ff4d36",
-          subtle: "rgba(255, 77, 54, 0.15)",
+        coral: {
+          DEFAULT: "#EE684A",   // Secondary accent: warm coral / vermilion
+          hover: "#D85335",
+          light: "#FDF1EE",
+          border: "#F7BEB1",
         },
       },
       fontFamily: {
-        serif: ["var(--font-editorial)", "Georgia", "Cambria", "serif"],
-        sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+        sans: ["'Be Vietnam Pro'", "-apple-system", "BlinkMacSystemFont", "Arial", "sans-serif"],
+        serif: ["'Noto Serif'", "Georgia", "Cambria", "serif"],
+        mono: ["'JetBrains Mono'", "monospace"],
       },
-      animation: {
-        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        ticker: "ticker 35s linear infinite",
+      boxShadow: {
+        card: "0 2px 8px -2px rgba(32, 33, 39, 0.05), 0 1px 3px rgba(32, 33, 39, 0.04)",
+        cardHover: "0 12px 28px -6px rgba(32, 33, 39, 0.1), 0 4px 10px -2px rgba(32, 33, 39, 0.04)",
+        modal: "0 24px 48px -12px rgba(32, 33, 39, 0.2), 0 8px 16px -4px rgba(32, 33, 39, 0.1)",
       },
-      keyframes: {
-        ticker: {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-50%)" },
-        },
+      borderRadius: {
+        editorial: "10px",
       },
     },
   },

@@ -28,22 +28,34 @@ export function formatDate(isoString: string): string {
 }
 
 /**
- * Returns a deterministic stylish accent color derived from a string (hash or id).
+ * Remove Vietnamese accents for smart, accent-insensitive search.
+ * e.g., "Phòng tập" -> "phong tap", "Đang tập" -> "dang tap"
  */
-export function getAmbientGlow(seed: string): { glow: string; border: string; text: string } {
+export function removeVietnameseTones(str: string): string {
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D")
+    .toLowerCase()
+    .trim();
+}
+
+/**
+ * Returns a delicate editorial accent tag style based on hash/seed.
+ */
+export function getEditorialAccent(seed: string): { bg: string; text: string; border: string } {
   let hash = 0;
   for (let i = 0; i < seed.length; i++) {
     hash = (hash << 5) - hash + seed.charCodeAt(i);
     hash |= 0;
   }
   const accents = [
-    { glow: "rgba(212, 255, 50, 0.12)", border: "rgba(212, 255, 50, 0.35)", text: "#d4ff32" }, // acid lime
-    { glow: "rgba(255, 77, 54, 0.12)", border: "rgba(255, 77, 54, 0.35)", text: "#ff4d36" },   // vermilion
-    { glow: "rgba(59, 130, 246, 0.12)", border: "rgba(59, 130, 246, 0.35)", text: "#60a5fa" }, // cobalt
-    { glow: "rgba(234, 179, 8, 0.12)", border: "rgba(234, 179, 8, 0.35)", text: "#facc15" },   // amber
-    { glow: "rgba(168, 85, 247, 0.12)", border: "rgba(168, 85, 247, 0.35)", text: "#c084fc" }, // amethyst
-    { glow: "rgba(20, 184, 166, 0.12)", border: "rgba(20, 184, 166, 0.35)", text: "#2dd4bf" }, // emerald teal
+    { bg: "#EEF1FD", text: "#4056E8", border: "#BAC4F8" }, // Cobalt
+    { bg: "#FDF1EE", text: "#D85335", border: "#F7BEB1" }, // Coral
+    { bg: "#F2F4F7", text: "#344054", border: "#D0D5DD" }, // Slate
+    { bg: "#FEF6EE", text: "#B54708", border: "#F9DBAF" }, // Warm Amber
+    { bg: "#ECFDF3", text: "#027A48", border: "#A6F4C5" }, // Forest Green
   ];
-  const index = Math.abs(hash) % accents.length;
-  return accents[index];
+  return accents[Math.abs(hash) % accents.length];
 }

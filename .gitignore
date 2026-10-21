@@ -8,6 +8,8 @@ node_modules/
 out/
 build/
 dist/
+*.tsbuildinfo
+screenshot-*.png
 
 # Generated Thumbnails cache
 public/thumbnails/*
@@ -39,4 +41,3 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-*.tsbuildinfo
