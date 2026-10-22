@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { RefreshCw, Sliders, ArrowRight, Check } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
@@ -18,27 +18,9 @@ export function MuseumHeader({
   onRescanRequested,
   isSyncing = false,
 }: MuseumHeaderProps) {
-  const [timeStr, setTimeStr] = useState<string>("");
   const [justSynced, setJustSynced] = useState(false);
   const { setIsSettingsOpen, playSound, settings } = useSettings();
   const ctaRef = useMagnetic<HTMLAnchorElement>(settings.magneticButtons ? 0.25 : 0);
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setTimeStr(
-        now.toLocaleTimeString("vi-VN", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-        })
-      );
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleScan = async () => {
     if (!onRescanRequested || isSyncing) return;
@@ -73,22 +55,22 @@ export function MuseumHeader({
           </span>
         </div>
 
-        {/* Center Live Museum Metrics */}
-        <div className="hidden md:flex items-center space-x-5 text-xs text-museum-secondary font-medium">
+        {/* Center Live Museum Metrics (Useful status & collection info, no decorative clock) */}
+        <div className="hidden md:flex items-center space-x-4 text-xs text-museum-secondary font-medium">
           <div className="flex items-center space-x-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-museum-text font-medium text-[11px] uppercase tracking-wider">
-              Đang mở cửa
+              Kho lưu trữ mở
             </span>
-          </div>
-          <span className="text-museum-borderDark">•</span>
-          <div>
-            Hà Nội <span className="font-mono text-museum-text font-semibold">{timeStr || "09:00:00"}</span>
           </div>
           <span className="text-museum-borderDark">•</span>
           <div>
             Bộ sưu tập: <span className="font-semibold text-museum-text">{totalArtworks}</span> tác phẩm
           </div>
+          <span className="text-museum-borderDark">•</span>
+          <span className="text-[11px] px-2 py-0.5 rounded bg-museum-muted border border-museum-border text-museum-text font-medium">
+            Giám tuyển độc bản
+          </span>
         </div>
 
         {/* Action Controls */}

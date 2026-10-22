@@ -1,4 +1,4 @@
-import { AICurationResponse } from "../schemas";
+import { AICurationResponse, NamingCandidate } from "../schemas";
 
 interface OfflineContext {
   filename: string;
@@ -7,105 +7,229 @@ interface OfflineContext {
   hash: string;
 }
 
-const ARTWORK_TITLES = [
-  "Nghi thức trước giờ G",
-  "Sự im lặng của khối cơ 2 năm",
-  "Thần thái vượt ngoài ngân sách",
-  "Bản giao hưởng của sự vô tri",
-  "Chiến lược phòng gym không lối thoát",
-  "Khoảnh khắc lịch sử bị chụp lén",
-  "Vũ trụ song song nơi Danh làm stylist",
-  "Tác phẩm số 42: Đỉnh cao bất động",
-  "Thử thách trọng lực và sự điềm tĩnh",
-  "Tuyên ngôn nghệ thuật lúc nửa đêm",
-  "Ánh mắt của người nắm giữ bí mật",
-  "Sự bất lực mang tính học thuật",
-  "Hậu trường không có kịch bản",
-  "Cuộc viễn chinh không có bản đồ",
-  "Độ phân giải thấp, sự tự tin 4K",
-  "Bằng chứng ngoại phạm của sự nghiêm túc",
-  "Chân dung người gánh team trong vô vọng",
-  "Bi kịch của sự tập trung cao độ",
-  "Nghệ thuật sinh tồn giữa các ống kính",
-  "Tiếng thở dài của máy ảnh Leica",
-];
-
-const CURATOR_CAPTIONS = [
-  "Ban giám khảo xác nhận: tác phẩm này không cần giải thích, chỉ cần người chịu trách nhiệm.",
-  "Một khoảnh khắc bình thường được xử lý bằng mức độ tự tin vượt xa ngân sách dự án.",
-  "Theo hồ sơ bảo tàng, đây là bằng chứng cho thấy sự nghiêm túc và sự vô tri có thể tồn tại trong cùng một khung hình.",
-  "Sự căng thẳng của khối cơ sau 2 năm rèn luyện không cứu vãn nổi ánh mắt đang lạc trôi về một chiều không gian khác.",
-  "Nhiếp ảnh gia đã bắt trọn giây phút chủ thể tin rằng mình là trung tâm vũ trụ, dù vũ trụ chưa đồng thuận.",
-  "Một bố cục đầy tính chiêm nghiệm: ánh sáng hoàn hảo, góc nghiêng chuẩn mực, chỉ có mục đích là hoàn toàn bí ẩn.",
-  "Được các chuyên gia đánh giá là bước ngoặt trong phong trào biểu cảm tự phát của thế kỷ 21.",
-  "Độ căng của khung hình tỷ lệ thuận với mức độ khó hiểu của người xem.",
-  "Khung hình ghi lại sự giao thoa hiếm hoi giữa kỷ luật thép phòng tập và sự thả lỏng tuyệt đối của nhận thức.",
-  "Tác phẩm chứng minh rằng không cần kỹ xảo điện ảnh, chỉ cần một góc máy chân thực là đủ tạo ra tấn bi kịch hài hước.",
-  "Hội đồng nghệ thuật quyết định miễn giải trình cho tác phẩm vì không ai đủ can đảm đối thoại trực tiếp.",
-  "Sự đĩnh đạc lạ lùng của một cá nhân đang cố gắng kiểm soát tình thế đã vượt khỏi tầm tay từ 5 phút trước.",
-  "Khoảnh khắc hiếm hoi khi thời trang, hình thể và sự lúng túng hòa quyện thành một thể thống nhất.",
-  "Một nghiên cứu sâu sắc về tác động của trọng lực lên biểu cảm con người sau hai hiệp tập nặng.",
-  "Tác phẩm không tìm kiếm sự thấu hiểu từ đám đông; nó chỉ đứng đó như một tượng đài bất khuất.",
-];
-
-const DESCRIPTIONS = [
-  "Góc máy tĩnh ghi lại biểu cảm có chiều sâu nội tâm nhưng thiếu định hướng hành động. Ánh sáng tự nhiên phản chiếu tinh thần bất khuất.",
-  "Tác phẩm được bảo tồn nguyên trạng nhằm nhắc nhở hậu thế về giá trị của những quyết định bộc phát trong cuộc sống đời thường.",
-  "Kỹ thuật lấy nét chọn lọc làm nổi bật chủ thể giữa một bối cảnh hỗn loạn, tượng trưng cho sự cô đơn của kẻ đi trước thời đại.",
-  "Một hiện vật quý hiếm từ bộ sưu tập tư nhân của Duy, được số hóa để phục vụ nghiên cứu nhân chủng học kỹ thuật số.",
-  "Sự tương phản gay gắt giữa ánh sáng và bóng tối gợi mở những suy tư triết học về bản chất của các buổi đi chơi không báo trước.",
-];
-
-const TAG_POOLS = [
-  ["Bảo tàng", "Biểu cảm", "Kỷ luật thép", "Hệ tư tưởng"],
-  ["Gym", "Thần thái", "Vô tri", "Nghệ thuật đương đại"],
-  ["Hậu trường", "Khoảnh khắc vàng", "Tự tin", "Chứng cứ pháp y"],
-  ["Chân dung", "Không gian sâu", "Bất khả giải thích", "Danh học"],
-  ["Tuyệt phẩm", "Duy ghi hình", "Ánh mắt", "Sự cố kỹ thuật"],
-];
-
-const HUMOR_STYLES = [
-  "Giám tuyển bác học",
-  "Châm biếm hóm hỉnh",
-  "Tán dương bất lực",
-  "Triết học đường phố",
-  "Phân tích pháp y nghệ thuật",
+// Curated pool of witty, natural Vietnamese meme candidate concepts
+const CANDIDATE_PAIRS: Array<{
+  a: { title: string; reason: string };
+  b: { title: string; reason: string };
+  c: { title: string; reason: string };
+  best: "A" | "B" | "C";
+  selectionReason: string;
+  caption: string;
+  description: string;
+  tags: string[];
+  humorStyle: string;
+}> = [
+  {
+    a: {
+      title: "Deadline chưa tới, thần thái tới trước",
+      reason: "Punchline trực diện, châm biếm sự tự tin vượt quá hoàn cảnh",
+    },
+    b: {
+      title: "Tự tin như thể đã pass test",
+      reason: "Gọn gàng, bắt trúng tâm lý dân công nghệ",
+    },
+    c: {
+      title: "Giao diện bình thản, hệ điều hành hoảng loạn",
+      reason: "Ví von sự tương phản giữa biểu cảm bề ngoài và nội tâm",
+    },
+    best: "A",
+    selectionReason: "Tự nhiên, nhịp điệu ngắn gọn 8 từ, phản ánh trực tiếp biểu cảm",
+    caption: "Tự tin đến mức deadline nhìn thấy cũng chủ động xin gia hạn thêm 2 ngày.",
+    description: "Chủ thể nhìn thẳng vào ống kính với tư thế kiên định, bất chấp khung cảnh xung quanh có vẻ hơi hỗn loạn.",
+    tags: ["Thần thái", "Deadline", "Tự tin", "Giao diện"],
+    humorStyle: "Châm biếm nhẹ nhàng",
+  },
+  {
+    a: {
+      title: "Cơ bắp đang cập nhật phiên bản",
+      reason: "Gắn liền thực tế 2 năm tập gym với ngôn ngữ hiện đại",
+    },
+    b: {
+      title: "Tập xong vẫn còn nguyên câu hỏi",
+      reason: "Ngắn, deadpan, phản ánh biểu cảm hoang mang",
+    },
+    c: {
+      title: "Tạ nặng không bằng lòng nặng trĩu",
+      reason: "So sánh hài hước giữa thể lực và tâm lý",
+    },
+    best: "B",
+    selectionReason: "Sắc bén, bắt trọn khoảnh khắc đứng hình ngơ ngác sau set tập",
+    caption: "Cơ thể đã vào phòng gym được 2 năm nhưng tâm trí vẫn đang đợi xe bus ở ngã tư.",
+    description: "Khoảnh khắc chụp lại một tư thế thể thao hoặc gồng cơ, kèm biểu cảm hơi trầm tư suy nghĩ.",
+    tags: ["Gym", "Biểu cảm", "Tập luyện", "Hoang mang"],
+    humorStyle: "Deadpan",
+  },
+  {
+    a: {
+      title: "Não vừa thoát ứng dụng bất ngờ",
+      reason: "Châm biếm trực tiếp ánh mắt nhìn vô định",
+    },
+    b: {
+      title: "Đang xử lý, vui lòng đừng hỏi",
+      reason: "Phong cách câu lệnh hệ thống ngắn gọn, dễ nhớ",
+    },
+    c: {
+      title: "Tâm hồn đã rời khỏi phòng họp",
+      reason: "Liên tưởng đời thường sâu sắc",
+    },
+    best: "B",
+    selectionReason: "Nghe như câu nói cửa miệng đời thường của giới trẻ Việt Nam",
+    caption: "Ánh mắt cho thấy bộ vi xử lý trung tâm đang bận khởi động lại ở chế độ an toàn.",
+    description: "Chân dung cận cảnh với ánh nhìn không có tiêu cự rõ ràng, biểu cảm ngưng trệ tự nhiên.",
+    tags: ["Vô tri", "Biểu cảm", "Đứng hình", "Chân dung"],
+    humorStyle: "Hài hước vô tri",
+  },
+  {
+    a: {
+      title: "Mọi chuyện vẫn ổn cho đến giây cuối",
+      reason: "Tạo cảm giác hồi hộp của một pha quay xe bất ngờ",
+    },
+    b: {
+      title: "Pha xử lý đi vào lòng đất",
+      reason: "Slang mạng cực kỳ quen thuộc và bắt tai",
+    },
+    c: {
+      title: "Sự cố kỹ thuật ngoài ý muốn",
+      reason: "Giọng điệu nghiêm túc giả định",
+    },
+    best: "A",
+    selectionReason: "Phản ánh đúng tiết tấu chuyển biến tình huống từ yên ả sang bất ngờ",
+    caption: "Kịch bản diễn ra hoàn hảo từ đầu đến 99%, cho đến khi biến số định mệnh xuất hiện.",
+    description: "Khung hình ghi lại một hành động đang dở dang kèm một yếu tố bất ngờ ở góc nhìn.",
+    tags: ["Bất ngờ", "Pha quay xe", "Hành động", "Khoảnh khắc"],
+    humorStyle: "Cà khịa thân thiện",
+  },
+  {
+    a: {
+      title: "Đứng đúng vị trí, sai vũ trụ",
+      reason: "So sánh không gian viễn tưởng với tình huống thực",
+    },
+    b: {
+      title: "Góc nghiêng 0 độ tự giác",
+      reason: "Ngắn, châm biếm tư thế tạo dáng",
+    },
+    c: {
+      title: "Khách mời bất đắc dĩ của bức ảnh",
+      reason: "Bắt trúng cảm giác người bị chụp lén",
+    },
+    best: "C",
+    selectionReason: "Tính cụ thể cao, đúng bối cảnh ảnh chụp lén không báo trước",
+    caption: "Không hề biết mình đã trở thành nhân vật chính cho đến khi bức ảnh lên nhóm chat.",
+    description: "Nhân vật xuất hiện trong tư thế tự nhiên, không chuẩn bị trước cho ống kính.",
+    tags: ["Chụp lén", "Hậu trường", "Bất ngờ", "Đời thường"],
+    humorStyle: "Quan sát chân thực",
+  },
+  {
+    a: {
+      title: "Ánh mắt của người vừa nhận tin sốc",
+      reason: "Tả thực biểu cảm căng thẳng tột độ",
+    },
+    b: {
+      title: "Nhìn vậy chứ không ổn đâu",
+      reason: "Understatement kinh điển của người Việt",
+    },
+    c: {
+      title: "Nụ cười gượng gạo nhất năm",
+      reason: "Nhận diện trực tiếp sự đối lập trong cơ mặt",
+    },
+    best: "B",
+    selectionReason: "Ngắn, tự nhiên, tạo punchline mạnh mẽ mà không cần giải thích",
+    caption: "Miệng vẫn nở nụ cười xã giao nhưng trong lòng đã muốn tắt nguồn điện thoại.",
+    description: "Biểu cảm cười gượng hoặc nhếch mép nhẹ trong một tình thế khó xử.",
+    tags: ["Biểu cảm", "Xã giao", "Khó xử", "Nụ cười"],
+    humorStyle: "Understatement",
+  },
+  {
+    a: {
+      title: "Tư thế như chuẩn bị combat",
+      reason: "Hình ảnh năng động, đầy tính thách thức",
+    },
+    b: {
+      title: "Gồng hết cỡ nhưng quên thở",
+      reason: "Chi tiết gym chân thực, cà khịa thân thiện",
+    },
+    c: {
+      title: "Tọa độ nguy hiểm cấp phòng tập",
+      reason: "Phóng đại sự việc theo hướng giải trí",
+    },
+    best: "B",
+    selectionReason: "Vừa đúng bối cảnh tập gym vừa tạo tiếng cười lập tức",
+    caption: "Hai năm tập luyện rèn giũa để có được giây phút nín thở chụp một tấm ảnh ưng ý.",
+    description: "Tư thế gồng tay hoặc đứng thẳng người khoe form dáng trước ống kính.",
+    tags: ["Gym", "Gồng cơ", "Tạo dáng", "Thể hình"],
+    humorStyle: "Cà khịa thân thiện",
+  },
+  {
+    a: {
+      title: "Nhân chứng duy nhất không muốn làm chứng",
+      reason: "Hài hước deadpan với phong cách hình sự",
+    },
+    b: {
+      title: "Biết quá nhiều nhưng chọn im lặng",
+      reason: "Ngắn, kích thích trí tò mò của người xem",
+    },
+    c: {
+      title: "Cặp mắt phán xét mọi quyết định",
+      reason: "Tập trung vào đôi mắt",
+    },
+    best: "B",
+    selectionReason: "Súc tích 7 từ, gợi hình ảnh cực kỳ rõ nét",
+    caption: "Đôi mắt nói lên tất cả những điều mà biên bản cuộc họp đã khéo léo bỏ qua.",
+    description: "Góc chụp bắt trọn ánh nhìn liếc ngang đầy hoài nghi của chủ thể.",
+    tags: ["Phán xét", "Ánh mắt", "Im lặng", "Bí ẩn"],
+    humorStyle: "Deadpan",
+  },
 ];
 
 export function getOfflineCuration(ctx: OfflineContext): AICurationResponse {
-  // Deterministic positive selection based on file hash and catalog number
+  // Deterministic selection based on file hash and catalog number
   let seed = Math.abs(ctx.catalogNumber);
   for (let i = 0; i < ctx.hash.length; i++) {
     seed = (Math.imul(seed, 31) + ctx.hash.charCodeAt(i)) >>> 0;
   }
 
-  const titleIdx = Math.abs(seed % ARTWORK_TITLES.length);
-  const titleBase = ARTWORK_TITLES[titleIdx];
-  const title = `${titleBase} (Hồ sơ #${ctx.catalogNumber.toString().padStart(3, "0")})`;
+  const index = Math.abs(seed % CANDIDATE_PAIRS.length);
+  const item = CANDIDATE_PAIRS[index];
 
-  const captionIdx = Math.abs((seed >>> 2) % CURATOR_CAPTIONS.length);
-  const caption = CURATOR_CAPTIONS[captionIdx];
+  const candidateA: NamingCandidate = {
+    approach: "A_direct_punchline",
+    title: item.a.title,
+    reason: item.a.reason,
+  };
 
-  const descIdx = Math.abs((seed >>> 4) % DESCRIPTIONS.length);
-  const description = DESCRIPTIONS[descIdx];
+  const candidateB: NamingCandidate = {
+    approach: "B_short_meme",
+    title: item.b.title,
+    reason: item.b.reason,
+  };
 
-  const tagIdx = Math.abs((seed >>> 6) % TAG_POOLS.length);
-  const tags = [...TAG_POOLS[tagIdx]];
+  const candidateC: NamingCandidate = {
+    approach: "C_creative_unexpected",
+    title: item.c.title,
+    reason: item.c.reason,
+  };
 
-  if (ctx.mediaType === "video") {
-    tags.push("Chuyển động", "Tư liệu sống");
-  } else {
-    tags.push("Nhiếp ảnh");
+  const selectedTitle =
+    item.best === "A"
+      ? candidateA.title
+      : item.best === "B"
+      ? candidateB.title
+      : candidateC.title;
+
+  const tags = [...item.tags];
+  if (ctx.mediaType === "video" && !tags.includes("Video")) {
+    tags.push("Video");
   }
 
-  const humorIdx = Math.abs((seed >>> 8) % HUMOR_STYLES.length);
-  const humor_style = HUMOR_STYLES[humorIdx];
-
   return {
-    title,
-    caption,
-    description,
+    candidates: [candidateA, candidateB, candidateC],
+    selected_candidate: item.best,
+    selection_reason: item.selectionReason,
+    title: selectedTitle,
+    caption: item.caption,
+    description: item.description,
     tags,
-    humor_style,
+    humor_style: item.humorStyle,
+    needs_review: false,
   };
 }

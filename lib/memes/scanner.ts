@@ -56,7 +56,10 @@ export async function getImageDimensions(filePath: string): Promise<{ width?: nu
 export interface ScanOptions {
   dryRun?: boolean;
   forceAi?: boolean;
+  previewOnly?: number;
+  retryFailedOnly?: boolean;
   onProgress?: (current: number, total: number, filename: string) => void;
+  onPreviewItem?: (item: ArtworkMedia) => void;
 }
 
 export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
@@ -98,6 +101,7 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
   }
 
   walkDir(memesDir);
+
   // Sort files for deterministic order (by name)
   mediaFiles.sort((a, b) => a.localeCompare(b));
 
@@ -112,6 +116,7 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
   const scannedFilenames = new Set<string>();
 
   let catalogCounter = 1;
+  let previewCountAchieved = 0;
 
   for (let i = 0; i < mediaFiles.length; i++) {
     const filePath = mediaFiles[i];
@@ -134,26 +139,39 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
       const catalogNumber = catalogCounter++;
       const id = `DANH-${catalogNumber.toString().padStart(3, "0")}`;
 
-      // Check if file is unchanged (same filename AND same hash)
       const existing = existingByFilename.get(relPath);
 
-      if (existing && existing.hash === hash && !options.forceAi) {
-        // Keep existing metadata, just update catalog id & modifiedAt if needed
+      // Determine if AI needs to be called
+      let needsAi = false;
+      if (options.forceAi) {
+        needsAi = true;
+      } else if (!existing) {
+        needsAi = true;
+      } else if (existing.hash !== hash) {
+        needsAi = true;
+      } else if (options.retryFailedOnly && (existing.aiStatus === "error" || existing.needsReview)) {
+        needsAi = true;
+      }
+
+      // 1. Unchanged file (Same filename & same hash & valid metadata) -> Keep without AI
+      if (!needsAi && existing && existing.hash === hash) {
         stats.unchanged++;
         newArtworks.push({
           ...existing,
           id,
           catalogNumber,
           safeUrl,
+          contentHash: hash,
+          mediaType,
           sizeBytes: stat.size,
           modifiedAt: stat.mtime.toISOString(),
         });
         continue;
       }
 
-      // Check if file was renamed/moved (same hash)
+      // 2. Renamed/moved file (Different filename, but same hash)
       const existingSameHash = existingByHash.get(hash);
-      if (existingSameHash && !options.forceAi) {
+      if (!needsAi && existingSameHash) {
         stats.updated++;
         newArtworks.push({
           ...existingSameHash,
@@ -161,20 +179,32 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
           catalogNumber,
           filename: relPath,
           safeUrl,
+          contentHash: hash,
+          mediaType,
           sizeBytes: stat.size,
           modifiedAt: stat.mtime.toISOString(),
         });
         continue;
       }
 
-      // New file or modified file
+      // Check preview limit if preview mode active
+      if (options.previewOnly && previewCountAchieved >= options.previewOnly) {
+        // If preview limit reached, retain existing if available
+        if (existing) {
+          stats.unchanged++;
+          newArtworks.push({ ...existing, id, catalogNumber });
+        }
+        continue;
+      }
+
+      // New or Modified file requiring AI
       if (existing) {
         stats.updated++;
       } else {
         stats.added++;
       }
 
-      // Dimensions
+      // Dimensions & Thumbnail
       let width: number | undefined;
       let height: number | undefined;
       let aspectRatio: number | undefined;
@@ -186,7 +216,6 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
         if (width && height) {
           aspectRatio = parseFloat((width / height).toFixed(3));
         }
-        // Generate thumbnail
         if (!options.dryRun) {
           await generateThumbnail(filePath, hash);
         }
@@ -194,30 +223,81 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
         aspectRatio = 1.778; // 16:9 standard video aspect
       }
 
-      // Run curation
+      // Run AI Curation with retry/backoff for rate limits
       let curationResult;
       if (!options.dryRun) {
-        curationResult = await curateArtwork({
-          filePath,
-          filename: relPath,
-          mediaType,
-          catalogNumber,
-          hash,
-          forceAi: options.forceAi,
-        });
+        let retryCount = 0;
+        let success = false;
+        while (!success && retryCount <= 2) {
+          try {
+            curationResult = await curateArtwork({
+              filePath,
+              filename: relPath,
+              mediaType,
+              catalogNumber,
+              hash,
+              forceAi: options.forceAi,
+            });
+            success = true;
+          } catch (err: any) {
+            const errStr = String(err?.message || err);
+            if (errStr.includes("429") || errStr.includes("quota") || errStr.includes("RESOURCE_EXHAUSTED")) {
+              retryCount++;
+              const backoffMs = retryCount * 5000;
+              console.warn(`[Scanner] Gặp giới hạn rate limit. Tạm dừng ${backoffMs / 1000}s trước khi thử lại...`);
+              await new Promise((r) => setTimeout(r, backoffMs));
+            } else {
+              break;
+            }
+          }
+        }
+
+        if (!curationResult) {
+          curationResult = await curateArtwork({
+            filePath,
+            filename: relPath,
+            mediaType,
+            catalogNumber,
+            hash,
+            forceAi: options.forceAi,
+          });
+        }
+
         stats.aiProcessed++;
+        previewCountAchieved++;
       } else {
         curationResult = {
           success: true,
           data: {
-            title: `Tác phẩm số #${catalogNumber}`,
+            candidates: [
+              {
+                approach: "A_direct_punchline" as const,
+                title: `Ứng viên A #${catalogNumber}`,
+                reason: "Punchline trực tiếp",
+              },
+              {
+                approach: "B_short_meme" as const,
+                title: `Ứng viên B #${catalogNumber}`,
+                reason: "Ngắn gọn meme",
+              },
+              {
+                approach: "C_creative_unexpected" as const,
+                title: `Ứng viên C #${catalogNumber}`,
+                reason: "Liên tưởng bất ngờ",
+              },
+            ],
+            selected_candidate: "A" as const,
+            selection_reason: "Phù hợp nhất trong chế độ chạy thử nghiệm",
+            title: `Tác phẩm thử nghiệm #${catalogNumber}`,
             caption: "Đang xem trước chế độ chạy thử nghiệm (dry-run).",
             description: "Bản ghi tóm tắt trong chế độ kiểm thử.",
             tags: ["DryRun", mediaType],
             humor_style: "Kiểm thử",
+            needs_review: false,
           },
           model: "dry-run",
           isAiGenerated: false,
+          promptVersion: "dry-run",
         };
       }
 
@@ -227,7 +307,9 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
         filename: relPath,
         safeUrl,
         hash,
+        contentHash: hash,
         type: mediaType,
+        mediaType,
         format,
         sizeBytes: stat.size,
         modifiedAt: stat.mtime.toISOString(),
@@ -236,18 +318,46 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
         aspectRatio,
         title: curationResult.data.title,
         curatorReview: curationResult.data.caption,
+        caption: curationResult.data.caption,
         description: curationResult.data.description,
         tags: curationResult.data.tags,
         humorStyle: curationResult.data.humor_style,
+        candidates: curationResult.data.candidates,
+        selectedCandidate: curationResult.data.selected_candidate,
+        selectionReason: curationResult.data.selection_reason,
+        needsReview: curationResult.data.needs_review,
+        promptVersion: curationResult.promptVersion,
         aiGenerated: curationResult.isAiGenerated,
         aiModel: curationResult.model,
-        aiStatus: curationResult.success ? "success" : "error",
+        aiStatus: curationResult.success
+          ? curationResult.data.needs_review
+            ? "needs_review"
+            : "success"
+          : "error",
         aiError: curationResult.error,
         aiGeneratedAt: new Date().toISOString(),
         featured: catalogNumber === 1 || catalogNumber === 15 || catalogNumber === 42,
       };
 
+      if (options.onPreviewItem) {
+        options.onPreviewItem(artwork);
+      }
+
       newArtworks.push(artwork);
+
+      // Incremental checkpoint: Save manifest periodically if processing multiple AI items
+      if (!options.dryRun && (stats.aiProcessed % 5 === 0)) {
+        const intermediateManifest: MuseumManifest = {
+          version: "2.0",
+          lastSyncedAt: new Date().toISOString(),
+          totalCount: newArtworks.length,
+          imageCount: newArtworks.filter((a) => a.type === "image").length,
+          videoCount: newArtworks.filter((a) => a.type === "video").length,
+          aiCuratedCount: newArtworks.filter((a) => a.aiGenerated).length,
+          artworks: newArtworks,
+        };
+        saveManifest(intermediateManifest, false);
+      }
     } catch (err) {
       console.error(`[Scanner] Error processing ${relPath}:`, err);
       stats.errors++;

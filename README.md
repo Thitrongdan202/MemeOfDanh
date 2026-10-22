@@ -102,9 +102,16 @@ Copy-Item .env.example .env.local
 ```
 *Ghi chú: Nếu chưa có `AI_API_KEY`, ứng dụng sẽ tự động chạy ở chế độ **Offline Smart Curator** với các bài bình luận tiếng Việt đặc sắc mà không gây bất kỳ lỗi nào!*
 
-### Bước 3: Đồng bộ thư viện
+### Bước 3: Đồng bộ thư viện & Giám tuyển AI V3.0
 ```powershell
+# Quét và đồng bộ thông thường (tự động bỏ qua file đã có cache để tiết kiệm chi phí/quota)
 npm.cmd run sync:memes
+
+# Xem trước phong cách đặt tên trên 3 file mẫu trước khi chạy toàn bộ
+npm.cmd run sync:memes -- --preview 3
+
+# Buộc tạo lại metadata bằng AI cho tất cả hiện vật
+npm.cmd run sync:memes -- --ai
 ```
 
 ### Bước 4: Chạy Development Server
@@ -125,9 +132,14 @@ npm.cmd start
 ## 4. TÌNH TRẠNG NGHIỆM THU & BẢO TỒN DỮ LIỆU
 
 - **Dữ liệu ảnh gốc:** 193 files ảnh và video trong `memes/` được bảo tồn tuyệt đối 100%.
-- **Font tiếng Việt:** Đã khắc phục triệt để lỗi ký tự, dấu thanh và khoảng cách chữ bằng bộ đôi `Be Vietnam Pro` và `Noto Serif`.
-- **Tìm kiếm thông minh:** Tìm `danh`, `gym`, `ao xanh` tìm thấy ngay cả khi dữ liệu có dấu `Danh`, `Áo xanh`, `Phòng gym`.
-- **Hiệu năng:** Điểm số build đạt 100% không cảnh báo, video phát trực tiếp với HTTP 206 Partial Content.
+- **Giao diện sạch:** Đã xóa bỏ 100% đồng hồ số, tên thành phố (Hanoi) và múi giờ; thay bằng thông số thực: trạng thái kho lưu trữ mở và quy mô bộ sưu tập.
+- **Hệ thống AI Meme Curator V3.0:**
+  - **Provider chính:** Google Gemini Developer API với model mặc định `gemini-3.8-flash`.
+  - **Video Understanding:** Tích hợp trực tiếp Google AI File API phân tích toàn bộ diễn biến, cao trào và nhịp điệu của video MP4.
+  - **Cơ chế 3 Ứng viên (Candidates A, B, C):** Sinh 3 hướng tiếp cận (Punchline trực tiếp, Ngắn gọn meme, Liên tưởng sáng tạo), tự chọn tiêu đề tối ưu nhất theo ngữ cảnh thực tế.
+  - **Phân định rõ ràng:** `title` (ngắn 3-8 từ), `caption` (lời bình châm biếm riêng biệt), `description` (quan sát khách quan).
+  - **Provider thứ hai:** Hỗ trợ local AI qua Ollama + `qwen3-vl` với cơ chế kiểm tra kết nối an toàn (không tự động tải model nhiều GB).
+  - **Tiết kiệm chi phí & Quota:** Dùng SHA-256 Content Hash chống gọi lại AI khi khởi động lại, đổi theme hoặc chỉnh sửa cài đặt; có hàng đợi retry/backoff khi chạm rate limit.
 
 ---
 

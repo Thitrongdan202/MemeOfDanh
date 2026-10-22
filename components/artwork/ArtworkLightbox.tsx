@@ -214,9 +214,16 @@ export function ArtworkLightbox({
           <div className="space-y-4 text-left">
             {/* Header info */}
             <div className="flex items-center justify-between text-xs">
-              <span className="font-mono font-semibold text-accent">
-                {artwork.id}
-              </span>
+              <div className="flex items-center space-x-2">
+                <span className="font-mono font-semibold text-accent">
+                  {artwork.id}
+                </span>
+                {artwork.needsReview && (
+                  <span className="px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-400 text-[10px] font-medium">
+                    Cần duyệt
+                  </span>
+                )}
+              </div>
               <span className="text-museum-subtle text-[11px]">
                 {artwork.humorStyle}
               </span>
@@ -239,14 +246,48 @@ export function ArtworkLightbox({
                 </span>
               </div>
               <blockquote className="font-serif italic text-sm text-museum-text leading-relaxed">
-                "{artwork.curatorReview}"
+                "{artwork.caption || artwork.curatorReview}"
               </blockquote>
             </div>
+
+            {/* Candidates Preview (If available from Task 4) */}
+            {artwork.candidates && artwork.candidates.length > 0 && (
+              <div className="p-3 rounded-lg bg-museum-surface border border-museum-border/80 text-xs space-y-2">
+                <div className="flex items-center justify-between text-[11px] font-semibold text-museum-secondary">
+                  <span>3 HƯỚNG ĐẶT TÊN ỨNG VIÊN</span>
+                  <span className="text-accent text-[10px]">
+                    Đã chọn: Ứng viên {artwork.selectedCandidate || "A"}
+                  </span>
+                </div>
+                <div className="space-y-1.5 text-[11px]">
+                  {artwork.candidates.map((c, i) => (
+                    <div
+                      key={i}
+                      className={`p-1.5 rounded flex items-start space-x-2 ${
+                        (c.approach.startsWith("A") && artwork.selectedCandidate === "A") ||
+                        (c.approach.startsWith("B") && artwork.selectedCandidate === "B") ||
+                        (c.approach.startsWith("C") && artwork.selectedCandidate === "C")
+                          ? "bg-accent/10 border border-accent/20 text-museum-text font-medium"
+                          : "text-museum-muted opacity-80"
+                      }`}
+                    >
+                      <span className="font-mono text-[10px] font-bold text-accent shrink-0">
+                        {c.approach.startsWith("A") ? "[A]" : c.approach.startsWith("B") ? "[B]" : "[C]"}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <span className="block truncate">{c.title}</span>
+                        <span className="block text-[10px] text-museum-subtle italic">{c.reason}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Description / Visual Analysis */}
             <div className="space-y-1">
               <span className="text-[11px] font-semibold text-museum-secondary uppercase tracking-wider block">
-                Bối cảnh & quan sát
+                Bối cảnh & quan sát thực tế
               </span>
               <p className="text-xs text-museum-secondary leading-relaxed">
                 {artwork.description}
