@@ -192,20 +192,23 @@ export function getOfflineCuration(ctx: OfflineContext): AICurationResponse {
   const item = CANDIDATE_PAIRS[index];
 
   const candidateA: NamingCandidate = {
-    approach: "direct_punchline",
+    approach: "observational",
     title: item.a.title,
+    grounding: "Chi tiết quan sát khách quan từ hiện vật",
     rationale: item.a.reason,
   };
 
   const candidateB: NamingCandidate = {
-    approach: "short_meme",
+    approach: "situational",
     title: item.b.title,
+    grounding: "Tình huống đời thường gắn với hình ảnh",
     rationale: item.b.reason,
   };
 
   const candidateC: NamingCandidate = {
-    approach: "unexpected_grounded",
+    approach: "unexpected",
     title: item.c.title,
+    grounding: "Liên tưởng hài hước dựa trên hiện vật",
     rationale: item.c.reason,
   };
 

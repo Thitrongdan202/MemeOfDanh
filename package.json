@@ -12,6 +12,8 @@
     "sync:memes": "tsx scripts/sync.ts",
     "sync:memes:dry": "tsx scripts/sync.ts --dry-run",
     "sync:memes:ai": "tsx scripts/sync.ts --ai",
+    "compare": "tsx scripts/preview-comparison.ts",
+    "test:pipeline": "tsx scripts/test-grounding-pipeline.ts",
     "watch:memes": "tsx scripts/watch.ts"
   },
   "dependencies": {

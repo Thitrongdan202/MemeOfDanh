@@ -13,6 +13,8 @@ export interface GroundingValidationInput {
   promptVersion: string;
   pass1: Pass1FactualAnalysis;
   pass2: Pass2NamingResponse;
+  /** Existing titles in the library for anti-template deduplication check */
+  existingTitles?: string[];
 }
 
 export interface GroundingValidationResult {
@@ -25,15 +27,48 @@ const VIETNAMESE_STOP_WORDS = new Set([
   "của", "và", "như", "là", "trong", "đang", "đã", "vừa", "thì", "ở", "với",
   "cho", "được", "bị", "một", "những", "các", "có", "không", "này", "đó",
   "ra", "vào", "lại", "qua", "vẫn", "còn", "rồi", "khi", "để", "làm", "thế",
-  "ai", "sao", "gì", "nào", "hết", "chưa", "tới", "lên", "xuống"
+  "ai", "sao", "gì", "nào", "hết", "chưa", "tới", "lên", "xuống",
 ]);
+
+/**
+ * Detects if a new title reuses the same opening phrase as many existing titles.
+ * Returns the detected pattern prefix if above threshold, otherwise null.
+ */
+export function detectTemplateDuplication(
+  newTitle: string,
+  existingTitles: string[],
+  thresholdCount = 4
+): string | null {
+  if (!newTitle || existingTitles.length === 0) return null;
+
+  const normalizedNew = newTitle.trim().toLowerCase();
+  const words = normalizedNew.split(/\s+/);
+  if (words.length < 2) return null;
+
+  // Check 1-word, 2-word, and 3-word prefixes
+  for (let prefixLen = 3; prefixLen >= 1; prefixLen--) {
+    if (words.length <= prefixLen) continue;
+    const prefix = words.slice(0, prefixLen).join(" ");
+    if (prefix.length < 3) continue; // skip trivially short prefixes
+
+    const count = existingTitles.filter((t) =>
+      t.trim().toLowerCase().startsWith(prefix)
+    ).length;
+
+    if (count >= thresholdCount) {
+      return prefix;
+    }
+  }
+
+  return null;
+}
 
 /**
  * Validates that the creative naming output is properly grounded in the factual visual analysis.
  * Flags discrepancies or generic clichés for human review rather than fabricating certainty.
  */
 export function validateGrounding(input: GroundingValidationInput): GroundingValidationResult {
-  const { pass1, pass2, assetId, contentHash, mediaType, model, promptVersion } = input;
+  const { pass1, pass2, assetId, contentHash, mediaType, model, promptVersion, existingTitles = [] } = input;
   const warnings: string[] = [];
   let reviewStatus: "approved" | "needs_review" | "flagged" = "approved";
 
@@ -55,23 +90,31 @@ export function validateGrounding(input: GroundingValidationInput): GroundingVal
     reviewStatus = "needs_review";
   }
 
-  // 3. Validate visual grounding: Check key concepts in title against visual summary
+  // 3. Anti-template deduplication: check if this title's opening matches many existing titles
+  const duplicatedPrefix = detectTemplateDuplication(title, existingTitles);
+  if (duplicatedPrefix) {
+    warnings.push(`Tiêu đề bắt đầu bằng cụm từ lặp lại trong thư viện ("${duplicatedPrefix}...")`);
+    reviewStatus = "needs_review";
+  }
+
+  // 4. Validate visual grounding: Check for hallucinated entities
   const visualTextLower = (
     `${pass1.visual_summary} ${pass1.observed_subjects.join(" ")} ${pass1.observed_actions.join(" ")} ${pass1.setting}`
   ).toLowerCase();
 
-  const titleWordsLower = words
-    .map((w) => w.toLowerCase().replace(/[.,!?:;'"“”]/g, ""))
-    .filter((w) => w.length > 1 && !VIETNAMESE_STOP_WORDS.has(w));
-
-  // If title has substantive words, check if at least some thematic or conceptual relevance exists
-  // (Note: punchlines or humor can use metaphor, but wild hallucinations like mentioning animals when none exist get flagged)
-  const suspiciousEntities = ["mèo", "chó", "ô tô", "xe máy", "máy bay", "em bé", "bãi biển"];
+  const suspiciousEntities = ["mèo", "chó", "ô tô", "xe máy", "máy bay", "em bé", "bãi biển", "thú cưng", "cá", "chim"];
   for (const entity of suspiciousEntities) {
     if (title.toLowerCase().includes(entity) && !visualTextLower.includes(entity)) {
       warnings.push(`Tiêu đề đề cập thực thể "${entity}" không có trong phân tích thị giác`);
       reviewStatus = "needs_review";
     }
+  }
+
+  // 5. Confidence check: low confidence warrants review
+  const confidence = (pass2 as any).confidence as number | undefined;
+  if (typeof confidence === "number" && confidence < 0.4) {
+    warnings.push(`Độ tự tin thấp (${confidence.toFixed(2)}) — có thể tiêu đề chưa bám sát hình ảnh`);
+    if (reviewStatus === "approved") reviewStatus = "needs_review";
   }
 
   const selectedCandidateObj =
@@ -83,6 +126,7 @@ export function validateGrounding(input: GroundingValidationInput): GroundingVal
     asset_id: assetId,
     content_hash: contentHash,
     visual_summary: pass1.visual_summary,
+    funny_observation: pass1.funny_observation || "",
     title: title || `Tác phẩm ${assetId}`,
     caption: pass2.caption,
     tags: pass2.tags,
@@ -94,7 +138,8 @@ export function validateGrounding(input: GroundingValidationInput): GroundingVal
     generated_at: new Date().toISOString(),
     candidates: pass2.candidates,
     selectedCandidate: String(pass2.selected_candidate_index + 1),
-    selectionReason: selectedCandidateObj?.rationale || "Được lựa chọn qua 6 tiêu chí",
+    selectionReason: selectedCandidateObj?.rationale || "Được lựa chọn qua 5 tiêu chí",
+    confidence: typeof confidence === "number" ? confidence : undefined,
     groundingWarning,
   };
 
@@ -136,6 +181,7 @@ export function createNeutralFallback(params: {
     asset_id: params.assetId,
     content_hash: params.contentHash,
     visual_summary: factualSummary,
+    funny_observation: "",
     title: neutralTitle,
     caption: "Hiện vật đang lưu giữ trong bộ sưu tập, chờ phân tích thị giác xác thực.",
     tags: [formatUpper, params.mediaType === "video" ? "Video" : "Ảnh"],

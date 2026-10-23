@@ -160,8 +160,14 @@ export async function curateWithOllama(
   const pass2Data = JSON.parse(pass2Json.message?.content || "{}");
 
   const candidates: NamingCandidate[] = (pass2Data.candidates || []).map((c: any) => ({
-    approach: c.approach === "short_meme" ? "short_meme" : c.approach === "unexpected_grounded" ? "unexpected_grounded" : "direct_punchline",
+    approach:
+      c.approach === "situational"
+        ? "situational"
+        : c.approach === "unexpected"
+        ? "unexpected"
+        : "observational",
     title: c.title || "Tác phẩm",
+    grounding: c.grounding || "",
     rationale: c.rationale || c.reason || "",
   }));
 

@@ -19,6 +19,11 @@ export const Pass1FactualAnalysisSchema = z.object({
     .string()
     .default("Không xác định rõ")
     .describe("Bối cảnh không gian thực tế nhìn thấy (trong nhà, ngoài trời, phòng tập, văn phòng...)."),
+  funny_observation: z
+    .string()
+    .optional()
+    .default("")
+    .describe("Góc hài hước tiềm năng được quan sát từ hình ảnh — nếu có. Phải bám sát chi tiết thị giác thực tế. Để trống nếu không có góc hài hước rõ ràng."),
   uncertainties: z
     .string()
     .optional()
@@ -31,19 +36,23 @@ export type Pass1FactualAnalysis = z.infer<typeof Pass1FactualAnalysisSchema>;
 // --- PASS 2: CREATIVE VIETNAMESE NAMING ---
 export const NamingCandidateSchema = z.object({
   approach: z.enum([
-    "direct_punchline",
-    "short_meme",
-    "unexpected_grounded",
+    "observational",   // Quan sát chi tiết hình ảnh, đặt tên theo điều mắt thấy
+    "situational",     // Gắn kết với tình huống/bối cảnh hài
+    "unexpected",      // Liên tưởng bất ngờ nhưng vẫn bám hình ảnh
   ]),
   title: z
     .string()
     .min(2)
     .max(80)
     .describe("Tiêu đề ngắn 3-8 từ bằng tiếng Việt tự nhiên, bám sát chi tiết thị giác."),
+  grounding: z
+    .string()
+    .max(300)
+    .describe("Trích dẫn chi tiết thị giác cụ thể từ Pass 1 làm căn cứ cho tiêu đề này."),
   rationale: z
     .string()
     .max(250)
-    .describe("Căn cứ thị giác cụ thể giải thích cho tiêu đề này."),
+    .describe("Giải thích tại sao tiêu đề này hiệu quả (logic hài, độ phù hợp, tính tự nhiên)."),
 });
 
 export type NamingCandidate = z.infer<typeof NamingCandidateSchema>;
@@ -52,7 +61,7 @@ export const Pass2NamingResponseSchema = z.object({
   candidates: z
     .array(NamingCandidateSchema)
     .length(3)
-    .describe("3 tiêu đề ứng viên (punchline, meme ngắn, liên tưởng bất ngờ bám sát ảnh)."),
+    .describe("3 tiêu đề ứng viên (quan sát, tình huống, liên tưởng bất ngờ bám sát ảnh)."),
   selected_candidate_index: z
     .number()
     .int()
@@ -79,6 +88,12 @@ export const Pass2NamingResponseSchema = z.object({
     .max(60)
     .default("Quan sát hài hước")
     .describe("Thể loại hài hước thể hiện."),
+  confidence: z
+    .number()
+    .min(0)
+    .max(1)
+    .default(0.5)
+    .describe("Độ tự tin của AI rằng tiêu đề thực sự bám sát và đúng với hình ảnh (0.0-1.0)."),
 });
 
 export type Pass2NamingResponse = z.infer<typeof Pass2NamingResponseSchema>;
@@ -88,6 +103,7 @@ export const GroundedArtworkMetadataSchema = z.object({
   asset_id: z.string(),
   content_hash: z.string(),
   visual_summary: z.string(),
+  funny_observation: z.string().optional().default(""),
   title: z.string(),
   caption: z.string(),
   tags: z.array(z.string()),
@@ -101,6 +117,7 @@ export const GroundedArtworkMetadataSchema = z.object({
   selectedCandidate: z.string().optional(),
   selectionReason: z.string().optional(),
   groundingWarning: z.string().optional(),
+  confidence: z.number().min(0).max(1).optional(),
   error: z.string().optional(),
 });
 

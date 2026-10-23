@@ -113,6 +113,9 @@ export async function processAssetJobQueue(
 
       let result: GroundedArtworkMetadata;
       try {
+        const currentManifest = loadManifest();
+        const existingTitles = currentManifest.artworks.map((a) => a.title).filter(Boolean);
+
         result = await executeTwoPassPipeline({
           assetId: job.assetId,
           filename: job.filename,
@@ -122,6 +125,7 @@ export async function processAssetJobQueue(
           format: job.format,
           width: job.width,
           height: job.height,
+          existingTitles,
         });
       } catch (err: any) {
         summary.failed++;
@@ -171,6 +175,7 @@ export async function processAssetJobQueue(
         caption: result.caption,
         description: result.visual_summary,
         visual_summary: result.visual_summary,
+        funny_observation: result.funny_observation,
         tags: result.tags,
         humorStyle: (result as any).humor_style || "Quan sát hài hước",
         candidates: result.candidates,
@@ -181,6 +186,7 @@ export async function processAssetJobQueue(
         analysis_status: result.analysis_status,
         review_status: result.review_status,
         groundingWarning: result.groundingWarning,
+        confidence: result.confidence,
         aiGenerated: result.analysis_status === "success",
         aiModel: result.model,
         aiStatus: result.analysis_status,

@@ -259,6 +259,8 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
   // Preview Mode: Process preview items only
   if (options.previewOnly && options.previewOnly > 0) {
     const previewJobs = jobsToProcess.slice(0, options.previewOnly);
+    const existingTitles = existingManifest.artworks.map((a) => a.title).filter(Boolean);
+
     for (const job of previewJobs) {
       const result = await executeTwoPassPipeline({
         assetId: job.assetId,
@@ -269,6 +271,7 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
         format: job.format,
         width: job.width,
         height: job.height,
+        existingTitles,
       });
 
       const artwork: ArtworkMedia = {
@@ -292,6 +295,7 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
         caption: result.caption,
         description: result.visual_summary,
         visual_summary: result.visual_summary,
+        funny_observation: result.funny_observation,
         tags: result.tags,
         humorStyle: (result as any).humor_style || "Quan sát hài hước",
         candidates: result.candidates,
@@ -302,6 +306,7 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
         analysis_status: result.analysis_status,
         review_status: result.review_status,
         groundingWarning: result.groundingWarning,
+        confidence: result.confidence,
         aiGenerated: result.analysis_status === "success",
         aiModel: result.model,
         aiStatus: result.analysis_status,

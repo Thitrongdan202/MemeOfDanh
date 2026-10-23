@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { RefreshCw, Sliders, ArrowRight, Check } from "lucide-react";
+import { RefreshCw, Sliders, ArrowRight, Check, Bot } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useSettings } from "@/lib/settings/SettingsContext";
 import { useMagnetic } from "@/lib/motion/useMagnetic";
@@ -99,6 +99,17 @@ export function MuseumHeader({
 
           {/* Theme Switcher */}
           <ThemeToggle />
+
+          {/* AI Review Studio Link */}
+          <Link
+            href="/ai-review"
+            data-cursor="AI REVIEW"
+            title="AI Review Studio: Đối soát thị giác & 3 ứng viên tiêu đề"
+            className="p-2 rounded-lg text-museum-secondary hover:text-museum-text hover:bg-museum-muted border border-museum-border transition-all group active:scale-95 flex items-center justify-center"
+            aria-label="AI Review Studio"
+          >
+            <Bot className="w-4 h-4 text-accent transition-transform duration-300 group-hover:scale-110" />
+          </Link>
 
           {/* Settings Studio Button */}
           <button

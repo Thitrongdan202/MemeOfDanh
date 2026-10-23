@@ -219,29 +219,28 @@ async function runGroundingTestSuite() {
     // TEST 7: Two concurrent jobs completing out of order
     // -------------------------------------------------------------------------
     console.log("\n👉 [TEST 7] Kiểm tra 2 Job bất đồng bộ kết thúc lệch thứ tự (Out-of-order concurrency)...");
-    const test7FileA = images[0];
-    const test7FileB = images[1] || images[0];
+    const manifestBackupBefore7 = loadManifest();
 
     const jobs: AssetJob[] = [
       {
         assetId: "DANH-CONC-01",
         catalogNumber: 991,
-        filename: test7FileA,
-        filePath: path.join(memesDir, test7FileA),
+        filename: "test_conc_fixture_a.jpg",
+        filePath: path.join(memesDir, test1File),
         mediaType: "image",
         format: "jpg",
-        contentHash: await computeFileHash(path.join(memesDir, test7FileA)),
+        contentHash: "dummy_hash_conc_01",
         sizeBytes: 12345,
         modifiedAt: new Date().toISOString(),
       },
       {
         assetId: "DANH-CONC-02",
         catalogNumber: 992,
-        filename: test7FileB,
-        filePath: path.join(memesDir, test7FileB),
+        filename: "test_conc_fixture_b.jpg",
+        filePath: path.join(memesDir, test1File),
         mediaType: "image",
         format: "jpg",
-        contentHash: await computeFileHash(path.join(memesDir, test7FileB)),
+        contentHash: "dummy_hash_conc_02",
         sizeBytes: 23456,
         modifiedAt: new Date().toISOString(),
       },
@@ -270,13 +269,9 @@ async function runGroundingTestSuite() {
     });
     console.log(`   ✓ Cả 2 job đã ghi nhận nguyên vẹn theo đúng Asset ID trong manifest`);
 
-    // Clean up test records
-    manifestAfterConc.artworks = manifestAfterConc.artworks.filter(
-      (a) => a.id !== "DANH-CONC-01" && a.id !== "DANH-CONC-02"
-    );
-    // saveManifest without test records
+    // Clean up test records and restore exact manifest count
     const { saveManifest } = require("../lib/memes/manifest");
-    saveManifest(manifestAfterConc, false);
+    saveManifest(manifestBackupBefore7, false);
 
     // -------------------------------------------------------------------------
     // TEST 8: Asset whose filename remains unchanged while contents change

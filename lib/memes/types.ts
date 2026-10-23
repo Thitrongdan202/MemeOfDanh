@@ -27,6 +27,7 @@ export interface ArtworkMedia {
   caption: string; // Witty punchline / roast
   description: string; // Neutral description (or visual summary)
   visual_summary?: string; // Explicit Pass 1 factual visual analysis
+  funny_observation?: string; // Pass 1 identified funny angle
   tags: string[];
   humorStyle?: string;
   candidates?: NamingCandidate[];
@@ -37,6 +38,7 @@ export interface ArtworkMedia {
   analysis_status?: AnalysisStatus;
   review_status?: ReviewStatus;
   groundingWarning?: string;
+  confidence?: number; // AI confidence that title is grounded (0-1)
   aiGenerated: boolean;
   aiModel?: string;
   aiStatus: AIStatus;

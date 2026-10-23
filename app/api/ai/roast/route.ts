@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
       artwork.curatorReview = result.metadata.caption;
       artwork.description = result.metadata.visual_summary;
       artwork.visual_summary = result.metadata.visual_summary;
+      artwork.funny_observation = result.metadata.funny_observation;
       artwork.tags = result.metadata.tags;
       artwork.humorStyle = (result.metadata as any).humor_style || "Quan sát hài hước";
       artwork.candidates = result.metadata.candidates;
@@ -53,6 +54,7 @@ export async function POST(req: NextRequest) {
       artwork.analysis_status = result.metadata.analysis_status;
       artwork.review_status = result.metadata.review_status;
       artwork.groundingWarning = result.metadata.groundingWarning;
+      artwork.confidence = result.metadata.confidence;
       artwork.promptVersion = result.metadata.prompt_version;
       artwork.aiGenerated = result.metadata.analysis_status === "success";
       artwork.aiModel = result.metadata.model;

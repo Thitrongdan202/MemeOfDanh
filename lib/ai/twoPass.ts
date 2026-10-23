@@ -31,6 +31,8 @@ export interface TwoPassExecutionParams {
   apiKey?: string;
   modelName?: string;
   provider?: "gemini" | "ollama" | "offline";
+  /** Optional: existing titles from manifest for anti-template deduplication */
+  existingTitles?: string[];
 }
 
 /**
@@ -173,6 +175,7 @@ async function runPass2Gemini(params: {
     observedSubjects: params.pass1.observed_subjects,
     observedActions: params.pass1.observed_actions,
     setting: params.pass1.setting,
+    funnyObservation: params.pass1.funny_observation,
     uncertainties: params.pass1.uncertainties,
     mediaType: params.mediaType,
   });
@@ -380,6 +383,7 @@ export async function executeTwoPassPipeline(
       promptVersion: PROMPT_VERSION,
       pass1,
       pass2,
+      existingTitles: params.existingTitles,
     });
 
     logAIPipeline({

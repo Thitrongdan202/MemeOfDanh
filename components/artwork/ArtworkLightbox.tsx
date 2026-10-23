@@ -293,7 +293,12 @@ export function ArtworkLightbox({
                         </span>
                         <div className="flex-1 min-w-0">
                           <span className="block truncate text-xs font-semibold">{c.title}</span>
-                          <span className="block text-[10px] text-museum-subtle italic pt-0.5">
+                          {c.grounding && (
+                            <span className="block text-[10px] text-accent/80 italic pt-0.5">
+                              Trích: "{c.grounding}"
+                            </span>
+                          )}
+                          <span className="block text-[10px] text-museum-secondary italic pt-0.5">
                             Căn cứ: {c.rationale || (c as any).reason}
                           </span>
                         </div>
@@ -312,6 +317,12 @@ export function ArtworkLightbox({
               <p className="text-xs text-museum-secondary leading-relaxed bg-museum-muted/40 p-2.5 rounded-lg border border-museum-border/60">
                 {artwork.visual_summary || artwork.description}
               </p>
+              {artwork.funny_observation && (
+                <div className="text-[11px] bg-accent/5 p-2 rounded border border-accent/20 text-museum-text">
+                  <span className="font-semibold text-accent">Góc hài hước: </span>
+                  <span>{artwork.funny_observation}</span>
+                </div>
+              )}
             </div>
 
             {/* Tags */}
