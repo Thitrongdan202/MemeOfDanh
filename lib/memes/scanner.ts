@@ -5,7 +5,9 @@ import sharp from "sharp";
 import { ArtworkMedia, MediaType, MuseumManifest, SyncStats } from "./types";
 import { loadManifest, saveManifest } from "./manifest";
 import { generateThumbnail } from "./thumbnails";
-import { curateArtwork } from "../ai";
+import { processAssetJobQueue, AssetJob } from "../ai/jobQueue";
+import { executeTwoPassPipeline } from "../ai/twoPass";
+import { PROMPT_VERSION } from "../ai/prompts";
 
 const IMAGE_EXTENSIONS = new Set([
   ".jpg",
@@ -56,7 +58,9 @@ export async function getImageDimensions(filePath: string): Promise<{ width?: nu
 export interface ScanOptions {
   dryRun?: boolean;
   forceAi?: boolean;
-  previewOnly?: number;
+  reprocessLegacy?: boolean; // Reprocess items with old/offline metadata
+  previewOnly?: number; // Preview mode for N items (e.g. 10 assets)
+  concurrency?: number; // Default 1 for diagnosis
   retryFailedOnly?: boolean;
   onProgress?: (current: number, total: number, filename: string) => void;
   onPreviewItem?: (item: ArtworkMedia) => void;
@@ -69,6 +73,11 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
   const memesDir = getMemesDir();
   const existingManifest = loadManifest();
 
+  // Save safety backup before bulk modifications (Section G requirement)
+  if (!options.dryRun && existingManifest.artworks.length > 0) {
+    saveManifest(existingManifest, true);
+  }
+
   const stats: SyncStats = {
     added: 0,
     updated: 0,
@@ -76,6 +85,8 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
     removed: 0,
     errors: 0,
     aiProcessed: 0,
+    legacyReprocessed: 0,
+    flaggedForReview: 0,
   };
 
   if (!fs.existsSync(memesDir)) {
@@ -101,8 +112,6 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
   }
 
   walkDir(memesDir);
-
-  // Sort files for deterministic order (by name)
   mediaFiles.sort((a, b) => a.localeCompare(b));
 
   const existingByFilename = new Map<string, ArtworkMedia>();
@@ -112,20 +121,16 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
     existingByHash.set(item.hash, item);
   }
 
-  const newArtworks: ArtworkMedia[] = [];
   const scannedFilenames = new Set<string>();
+  const preservedArtworks: ArtworkMedia[] = [];
+  const jobsToProcess: AssetJob[] = [];
 
   let catalogCounter = 1;
-  let previewCountAchieved = 0;
 
   for (let i = 0; i < mediaFiles.length; i++) {
     const filePath = mediaFiles[i];
     const relPath = path.relative(memesDir, filePath).replace(/\\/g, "/");
     scannedFilenames.add(relPath);
-
-    if (options.onProgress) {
-      options.onProgress(i + 1, mediaFiles.length, relPath);
-    }
 
     try {
       const stat = fs.statSync(filePath);
@@ -137,14 +142,23 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
       const hash = await computeFileHash(filePath);
       const safeUrl = encodeURIComponent(relPath).replace(/%2F/g, "/");
       const catalogNumber = catalogCounter++;
-      const id = `DANH-${catalogNumber.toString().padStart(3, "0")}`;
+      const assetId = `DANH-${catalogNumber.toString().padStart(3, "0")}`;
 
       const existing = existingByFilename.get(relPath);
 
-      // Determine if AI needs to be called
+      // Determine if item has legacy / ungrounded metadata
+      const isLegacyMetadata =
+        existing &&
+        (existing.aiModel?.includes("Offline") ||
+          existing.title.includes("Hồ sơ #") ||
+          existing.promptVersion !== PROMPT_VERSION);
+
       let needsAi = false;
       if (options.forceAi) {
         needsAi = true;
+      } else if (options.reprocessLegacy && isLegacyMetadata) {
+        needsAi = true;
+        stats.legacyReprocessed = (stats.legacyReprocessed || 0) + 1;
       } else if (!existing) {
         needsAi = true;
       } else if (existing.hash !== hash) {
@@ -153,12 +167,13 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
         needsAi = true;
       }
 
-      // 1. Unchanged file (Same filename & same hash & valid metadata) -> Keep without AI
+      // Check unchanged & verified
       if (!needsAi && existing && existing.hash === hash) {
         stats.unchanged++;
-        newArtworks.push({
+        preservedArtworks.push({
           ...existing,
-          id,
+          id: assetId,
+          asset_id: assetId,
           catalogNumber,
           safeUrl,
           contentHash: hash,
@@ -169,13 +184,14 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
         continue;
       }
 
-      // 2. Renamed/moved file (Different filename, but same hash)
+      // Renamed file with identical hash
       const existingSameHash = existingByHash.get(hash);
       if (!needsAi && existingSameHash) {
         stats.updated++;
-        newArtworks.push({
+        preservedArtworks.push({
           ...existingSameHash,
-          id,
+          id: assetId,
+          asset_id: assetId,
           catalogNumber,
           filename: relPath,
           safeUrl,
@@ -185,23 +201,6 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
           modifiedAt: stat.mtime.toISOString(),
         });
         continue;
-      }
-
-      // Check preview limit if preview mode active
-      if (options.previewOnly && previewCountAchieved >= options.previewOnly) {
-        // If preview limit reached, retain existing if available
-        if (existing) {
-          stats.unchanged++;
-          newArtworks.push({ ...existing, id, catalogNumber });
-        }
-        continue;
-      }
-
-      // New or Modified file requiring AI
-      if (existing) {
-        stats.updated++;
-      } else {
-        stats.added++;
       }
 
       // Dimensions & Thumbnail
@@ -220,146 +219,32 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
           await generateThumbnail(filePath, hash);
         }
       } else {
-        aspectRatio = 1.778; // 16:9 standard video aspect
+        aspectRatio = 1.778;
       }
 
-      // Run AI Curation with retry/backoff for rate limits
-      let curationResult;
-      if (!options.dryRun) {
-        let retryCount = 0;
-        let success = false;
-        while (!success && retryCount <= 2) {
-          try {
-            curationResult = await curateArtwork({
-              filePath,
-              filename: relPath,
-              mediaType,
-              catalogNumber,
-              hash,
-              forceAi: options.forceAi,
-            });
-            success = true;
-          } catch (err: any) {
-            const errStr = String(err?.message || err);
-            if (errStr.includes("429") || errStr.includes("quota") || errStr.includes("RESOURCE_EXHAUSTED")) {
-              retryCount++;
-              const backoffMs = retryCount * 5000;
-              console.warn(`[Scanner] Gặp giới hạn rate limit. Tạm dừng ${backoffMs / 1000}s trước khi thử lại...`);
-              await new Promise((r) => setTimeout(r, backoffMs));
-            } else {
-              break;
-            }
-          }
-        }
-
-        if (!curationResult) {
-          curationResult = await curateArtwork({
-            filePath,
-            filename: relPath,
-            mediaType,
-            catalogNumber,
-            hash,
-            forceAi: options.forceAi,
-          });
-        }
-
-        stats.aiProcessed++;
-        previewCountAchieved++;
+      if (existing) {
+        stats.updated++;
       } else {
-        curationResult = {
-          success: true,
-          data: {
-            candidates: [
-              {
-                approach: "A_direct_punchline" as const,
-                title: `Ứng viên A #${catalogNumber}`,
-                reason: "Punchline trực tiếp",
-              },
-              {
-                approach: "B_short_meme" as const,
-                title: `Ứng viên B #${catalogNumber}`,
-                reason: "Ngắn gọn meme",
-              },
-              {
-                approach: "C_creative_unexpected" as const,
-                title: `Ứng viên C #${catalogNumber}`,
-                reason: "Liên tưởng bất ngờ",
-              },
-            ],
-            selected_candidate: "A" as const,
-            selection_reason: "Phù hợp nhất trong chế độ chạy thử nghiệm",
-            title: `Tác phẩm thử nghiệm #${catalogNumber}`,
-            caption: "Đang xem trước chế độ chạy thử nghiệm (dry-run).",
-            description: "Bản ghi tóm tắt trong chế độ kiểm thử.",
-            tags: ["DryRun", mediaType],
-            humor_style: "Kiểm thử",
-            needs_review: false,
-          },
-          model: "dry-run",
-          isAiGenerated: false,
-          promptVersion: "dry-run",
-        };
+        stats.added++;
       }
 
-      const artwork: ArtworkMedia = {
-        id,
+      jobsToProcess.push({
+        assetId,
         catalogNumber,
         filename: relPath,
-        safeUrl,
-        hash,
-        contentHash: hash,
-        type: mediaType,
+        filePath,
         mediaType,
         format,
+        contentHash: hash,
         sizeBytes: stat.size,
-        modifiedAt: stat.mtime.toISOString(),
         width,
         height,
         aspectRatio,
-        title: curationResult.data.title,
-        curatorReview: curationResult.data.caption,
-        caption: curationResult.data.caption,
-        description: curationResult.data.description,
-        tags: curationResult.data.tags,
-        humorStyle: curationResult.data.humor_style,
-        candidates: curationResult.data.candidates,
-        selectedCandidate: curationResult.data.selected_candidate,
-        selectionReason: curationResult.data.selection_reason,
-        needsReview: curationResult.data.needs_review,
-        promptVersion: curationResult.promptVersion,
-        aiGenerated: curationResult.isAiGenerated,
-        aiModel: curationResult.model,
-        aiStatus: curationResult.success
-          ? curationResult.data.needs_review
-            ? "needs_review"
-            : "success"
-          : "error",
-        aiError: curationResult.error,
-        aiGeneratedAt: new Date().toISOString(),
-        featured: catalogNumber === 1 || catalogNumber === 15 || catalogNumber === 42,
-      };
-
-      if (options.onPreviewItem) {
-        options.onPreviewItem(artwork);
-      }
-
-      newArtworks.push(artwork);
-
-      // Incremental checkpoint: Save manifest periodically if processing multiple AI items
-      if (!options.dryRun && (stats.aiProcessed % 5 === 0)) {
-        const intermediateManifest: MuseumManifest = {
-          version: "2.0",
-          lastSyncedAt: new Date().toISOString(),
-          totalCount: newArtworks.length,
-          imageCount: newArtworks.filter((a) => a.type === "image").length,
-          videoCount: newArtworks.filter((a) => a.type === "video").length,
-          aiCuratedCount: newArtworks.filter((a) => a.aiGenerated).length,
-          artworks: newArtworks,
-        };
-        saveManifest(intermediateManifest, false);
-      }
+        modifiedAt: stat.mtime.toISOString(),
+        existingArtwork: existing,
+      });
     } catch (err) {
-      console.error(`[Scanner] Error processing ${relPath}:`, err);
+      console.error(`[Scanner] Lỗi quét tệp ${relPath}:`, err);
       stats.errors++;
     }
   }
@@ -371,19 +256,92 @@ export async function scanAndSyncMemes(options: ScanOptions = {}): Promise<{
     }
   }
 
-  const updatedManifest: MuseumManifest = {
-    version: "2.0",
-    lastSyncedAt: new Date().toISOString(),
-    totalCount: newArtworks.length,
-    imageCount: newArtworks.filter((a) => a.type === "image").length,
-    videoCount: newArtworks.filter((a) => a.type === "video").length,
-    aiCuratedCount: newArtworks.filter((a) => a.aiGenerated).length,
-    artworks: newArtworks,
-  };
+  // Preview Mode: Process preview items only
+  if (options.previewOnly && options.previewOnly > 0) {
+    const previewJobs = jobsToProcess.slice(0, options.previewOnly);
+    for (const job of previewJobs) {
+      const result = await executeTwoPassPipeline({
+        assetId: job.assetId,
+        filename: job.filename,
+        filePath: job.filePath,
+        mediaType: job.mediaType,
+        contentHash: job.contentHash,
+        format: job.format,
+        width: job.width,
+        height: job.height,
+      });
 
-  if (!options.dryRun) {
-    saveManifest(updatedManifest, true);
+      const artwork: ArtworkMedia = {
+        id: job.assetId,
+        asset_id: job.assetId,
+        catalogNumber: job.catalogNumber,
+        filename: job.filename,
+        safeUrl: encodeURIComponent(job.filename).replace(/%2F/g, "/"),
+        hash: job.contentHash,
+        contentHash: job.contentHash,
+        type: job.mediaType,
+        mediaType: job.mediaType,
+        format: job.format,
+        sizeBytes: job.sizeBytes,
+        modifiedAt: job.modifiedAt,
+        width: job.width,
+        height: job.height,
+        aspectRatio: job.aspectRatio,
+        title: result.title,
+        curatorReview: result.caption,
+        caption: result.caption,
+        description: result.visual_summary,
+        visual_summary: result.visual_summary,
+        tags: result.tags,
+        humorStyle: (result as any).humor_style || "Quan sát hài hước",
+        candidates: result.candidates,
+        selectedCandidate: result.selectedCandidate,
+        selectionReason: result.selectionReason,
+        promptVersion: result.prompt_version,
+        needsReview: result.review_status === "needs_review",
+        analysis_status: result.analysis_status,
+        review_status: result.review_status,
+        groundingWarning: result.groundingWarning,
+        aiGenerated: result.analysis_status === "success",
+        aiModel: result.model,
+        aiStatus: result.analysis_status,
+        aiError: result.error,
+        aiGeneratedAt: result.generated_at,
+        featured: job.catalogNumber === 1 || job.catalogNumber === 15 || job.catalogNumber === 42,
+      };
+
+      if (options.onPreviewItem) {
+        options.onPreviewItem(artwork);
+      }
+      stats.aiProcessed++;
+    }
+
+    return { manifest: existingManifest, stats };
   }
 
-  return { manifest: updatedManifest, stats };
+  // Batch Job Queue Processing with Bounded Concurrency
+  if (!options.dryRun && jobsToProcess.length > 0) {
+    // Seed initial preserved records into manifest to keep all items alive
+    const initialManifest: MuseumManifest = {
+      version: "2.0",
+      lastSyncedAt: new Date().toISOString(),
+      totalCount: preservedArtworks.length,
+      imageCount: preservedArtworks.filter((a) => a.type === "image").length,
+      videoCount: preservedArtworks.filter((a) => a.type === "video").length,
+      aiCuratedCount: preservedArtworks.filter((a) => a.aiGenerated).length,
+      artworks: preservedArtworks,
+    };
+    saveManifest(initialManifest, false);
+
+    const queueSummary = await processAssetJobQueue(jobsToProcess, {
+      concurrency: options.concurrency || 1, // Default 1 for diagnosis
+      onProgress: options.onProgress,
+    });
+
+    stats.aiProcessed = queueSummary.processed;
+    stats.flaggedForReview = queueSummary.flaggedForReview;
+  }
+
+  const finalManifest = loadManifest();
+  return { manifest: finalManifest, stats };
 }

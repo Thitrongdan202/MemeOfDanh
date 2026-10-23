@@ -30,34 +30,42 @@ export async function POST(req: NextRequest) {
       mediaType: artwork.type,
       catalogNumber: artwork.catalogNumber,
       hash: artwork.hash,
+      assetId: artwork.id,
       forceAi: true,
+      format: artwork.format,
+      width: artwork.width,
+      height: artwork.height,
     });
 
     if (result.success) {
-      // Update with new witty metadata
-      artwork.title = result.data.title;
-      artwork.caption = result.data.caption;
-      artwork.curatorReview = result.data.caption;
-      artwork.description = result.data.description;
-      artwork.tags = result.data.tags;
-      artwork.humorStyle = result.data.humor_style;
-      artwork.candidates = result.data.candidates;
-      artwork.selectedCandidate = result.data.selected_candidate;
-      artwork.selectionReason = result.data.selection_reason;
-      artwork.needsReview = result.data.needs_review;
-      artwork.promptVersion = result.promptVersion;
-      artwork.aiGenerated = result.isAiGenerated;
-      artwork.aiModel = result.model;
-      artwork.aiStatus = result.data.needs_review ? "needs_review" : "success";
+      // Update with new two-pass grounded metadata
+      artwork.title = result.metadata.title;
+      artwork.caption = result.metadata.caption;
+      artwork.curatorReview = result.metadata.caption;
+      artwork.description = result.metadata.visual_summary;
+      artwork.visual_summary = result.metadata.visual_summary;
+      artwork.tags = result.metadata.tags;
+      artwork.humorStyle = (result.metadata as any).humor_style || "Quan sát hài hước";
+      artwork.candidates = result.metadata.candidates;
+      artwork.selectedCandidate = result.metadata.selectedCandidate;
+      artwork.selectionReason = result.metadata.selectionReason;
+      artwork.needsReview = result.metadata.review_status === "needs_review";
+      artwork.analysis_status = result.metadata.analysis_status;
+      artwork.review_status = result.metadata.review_status;
+      artwork.groundingWarning = result.metadata.groundingWarning;
+      artwork.promptVersion = result.metadata.prompt_version;
+      artwork.aiGenerated = result.metadata.analysis_status === "success";
+      artwork.aiModel = result.metadata.model;
+      artwork.aiStatus = result.metadata.analysis_status;
       artwork.aiError = undefined;
-      artwork.aiGeneratedAt = new Date().toISOString();
+      artwork.aiGeneratedAt = result.metadata.generated_at;
 
       manifest.artworks[artworkIndex] = artwork;
       manifest.aiCuratedCount = manifest.artworks.filter((a) => a.aiGenerated).length;
 
       saveManifest(manifest, false);
     } else {
-      // Preserve old metadata if AI failed! (Task 7 requirement)
+      // Preserve old metadata if AI failed
       console.warn(`[RoastAPI] AI Call failed for ${artwork.filename}: ${result.error}`);
       return NextResponse.json(
         {

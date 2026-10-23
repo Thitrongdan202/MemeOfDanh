@@ -1,8 +1,10 @@
-import { AICurationResponse, AICurationResponseSchema } from "../schemas";
+import { AICurationResponse, NamingCandidate } from "../schemas";
 import {
-  WITTY_MEME_CURATOR_SYSTEM_PROMPT,
-  buildCurationUserPrompt,
-  isGenericOrBannedTitle,
+  PASS1_FACTUAL_SYSTEM_PROMPT,
+  PASS2_CREATIVE_SYSTEM_PROMPT,
+  buildPass1UserPrompt,
+  buildPass2UserPrompt,
+  isBannedTitlePattern,
 } from "../prompts";
 import * as fs from "fs";
 import sharp from "sharp";
@@ -52,7 +54,7 @@ export async function checkOllamaAvailability(
         available: false,
         error: `Model local "${modelName}" chưa được cài đặt trong Ollama (hiện có: ${
           installedModels.length ? installedModels.join(", ") : "chưa có model nào"
-        }).\nVui lòng mở terminal và chạy lệnh sau để tải model:\n  ollama run ${modelName}\n(Hệ thống tuân thủ nguyên tắc không tự động tải model nhiều GB khi chưa có chỉ định của bạn).`,
+        }).\nVui lòng mở terminal và chạy lệnh: ollama run ${modelName}`,
       };
     }
 
@@ -66,7 +68,7 @@ export async function checkOllamaAvailability(
     }
     return {
       available: false,
-      error: `Không thể kết nối tới dịch vụ Ollama tại ${host}. Vui lòng khởi động Ollama trên máy của bạn trước khi chọn provider local. Chi tiết lỗi: ${err?.message || err}`,
+      error: `Không thể kết nối tới dịch vụ Ollama tại ${host}: ${err?.message || err}`,
     };
   }
 }
@@ -93,50 +95,87 @@ export async function curateWithOllama(
     base64Image = resizedBuffer.toString("base64");
   }
 
-  const promptText = buildCurationUserPrompt({ mediaType: params.mediaType });
-  const fullPrompt = `${WITTY_MEME_CURATOR_SYSTEM_PROMPT}\n\n${promptText}\n\nTRẢ VỀ DUY NHẤT ĐỊNH DẠNG JSON HỢP LỆ VỚI CÁC TRƯỜNG: candidates (mảng 3 phần tử), selected_candidate, selection_reason, title, caption, description, tags, humor_style.`;
-
-  const requestBody: any = {
-    model: modelName,
-    messages: [
-      {
-        role: "user",
-        content: fullPrompt,
-        ...(base64Image ? { images: [base64Image] } : {}),
-      },
-    ],
-    format: "json",
-    stream: false,
-    options: {
-      temperature: 0.8,
-    },
-  };
-
-  const response = await fetch(`${host}/api/chat`, {
+  // Pass 1: Factual
+  const pass1Prompt = `${PASS1_FACTUAL_SYSTEM_PROMPT}\n\n${buildPass1UserPrompt(params.mediaType)}`;
+  const pass1Res = await fetch(`${host}/api/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(requestBody),
+    body: JSON.stringify({
+      model: modelName,
+      messages: [
+        {
+          role: "user",
+          content: pass1Prompt,
+          ...(base64Image ? { images: [base64Image] } : {}),
+        },
+      ],
+      format: "json",
+      stream: false,
+      options: { temperature: 0.2 },
+    }),
   });
 
-  if (!response.ok) {
-    const errorBody = await response.text();
-    throw new Error(`Lỗi từ Ollama API (${response.status}): ${errorBody}`);
+  if (!pass1Res.ok) {
+    throw new Error(`Lỗi Ollama Pass 1 (${pass1Res.status})`);
   }
 
-  const result = (await response.json()) as { message?: { content?: string } };
-  const rawText = result.message?.content?.trim() || "";
+  const pass1Json = (await pass1Res.json()) as { message?: { content?: string } };
+  let pass1Data = { visual_summary: "Quan sát thực tế", observed_subjects: [], observed_actions: [], setting: "" };
+  try {
+    pass1Data = JSON.parse(pass1Json.message?.content || "{}");
+  } catch {}
 
-  let jsonStr = rawText;
-  if (jsonStr.startsWith("```json")) jsonStr = jsonStr.slice(7);
-  if (jsonStr.startsWith("```")) jsonStr = jsonStr.slice(3);
-  if (jsonStr.endsWith("```")) jsonStr = jsonStr.slice(0, -3);
+  // Pass 2: Creative Naming
+  const pass2Prompt = `${PASS2_CREATIVE_SYSTEM_PROMPT}\n\n${buildPass2UserPrompt({
+    visualSummary: pass1Data.visual_summary,
+    observedSubjects: pass1Data.observed_subjects,
+    observedActions: pass1Data.observed_actions,
+    setting: pass1Data.setting,
+    mediaType: params.mediaType,
+  })}`;
 
-  const parsed = JSON.parse(jsonStr.trim());
-  const validated = AICurationResponseSchema.parse(parsed);
+  const pass2Res = await fetch(`${host}/api/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: modelName,
+      messages: [
+        {
+          role: "user",
+          content: pass2Prompt,
+          ...(base64Image ? { images: [base64Image] } : {}),
+        },
+      ],
+      format: "json",
+      stream: false,
+      options: { temperature: 0.7 },
+    }),
+  });
 
-  if (isGenericOrBannedTitle(validated.title)) {
-    validated.needs_review = true;
+  if (!pass2Res.ok) {
+    throw new Error(`Lỗi Ollama Pass 2 (${pass2Res.status})`);
   }
 
-  return validated;
+  const pass2Json = (await pass2Res.json()) as { message?: { content?: string } };
+  const pass2Data = JSON.parse(pass2Json.message?.content || "{}");
+
+  const candidates: NamingCandidate[] = (pass2Data.candidates || []).map((c: any) => ({
+    approach: c.approach === "short_meme" ? "short_meme" : c.approach === "unexpected_grounded" ? "unexpected_grounded" : "direct_punchline",
+    title: c.title || "Tác phẩm",
+    rationale: c.rationale || c.reason || "",
+  }));
+
+  const selectedTitle = pass2Data.title || candidates[0]?.title || "Tác phẩm";
+
+  return {
+    candidates,
+    selected_candidate: "A",
+    selection_reason: "Lựa chọn qua Ollama",
+    title: selectedTitle,
+    caption: pass2Data.caption || pass1Data.visual_summary,
+    description: pass1Data.visual_summary,
+    tags: pass2Data.tags || ["Ollama"],
+    humor_style: "Quan sát",
+    needs_review: isBannedTitlePattern(selectedTitle),
+  };
 }

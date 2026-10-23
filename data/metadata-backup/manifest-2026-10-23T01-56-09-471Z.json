@@ -1,71 +1,11 @@
 {
   "version": "2.0",
-  "lastSyncedAt": "2026-10-21T05:21:27.678Z",
+  "lastSyncedAt": "2026-10-23T01:17:40.839Z",
   "totalCount": 193,
   "imageCount": 149,
   "videoCount": 44,
   "aiCuratedCount": 0,
   "artworks": [
-    {
-      "id": "DANH-001",
-      "catalogNumber": 1,
-      "filename": "1756799144192.jpg",
-      "safeUrl": "1756799144192.jpg",
-      "hash": "9ebc80950f8485bcb686f4a2bc5b31827129391f5cef347491c105c0dd211206",
-      "type": "image",
-      "format": "jpg",
-      "sizeBytes": 83133,
-      "modifiedAt": "2026-10-21T00:38:41.589Z",
-      "width": 736,
-      "height": 1408,
-      "aspectRatio": 0.523,
-      "title": "Nghi thức trước giờ G (Hồ sơ #001)",
-      "curatorReview": "Hội đồng nghệ thuật quyết định miễn giải trình cho tác phẩm vì không ai đủ can đảm đối thoại trực tiếp.",
-      "description": "Góc máy tĩnh ghi lại biểu cảm có chiều sâu nội tâm nhưng thiếu định hướng hành động. Ánh sáng tự nhiên phản chiếu tinh thần bất khuất.",
-      "tags": [
-        "Chân dung",
-        "Không gian sâu",
-        "Bất khả giải thích",
-        "Danh học",
-        "Nhiếp ảnh"
-      ],
-      "humorStyle": "Phân tích pháp y nghệ thuật",
-      "aiGenerated": false,
-      "aiModel": "Museum Offline Curator v2.0",
-      "aiStatus": "success",
-      "aiGeneratedAt": "2026-10-21T00:58:43.120Z",
-      "featured": true
-    },
-    {
-      "id": "DANH-002",
-      "catalogNumber": 2,
-      "filename": "1759343877530.jpg",
-      "safeUrl": "1759343877530.jpg",
-      "hash": "de4cbef0230e4a43bdeb6d47cb135a885a9d846f1ec2c2c57ad2c1c551f74e81",
-      "type": "image",
-      "format": "jpg",
-      "sizeBytes": 52763,
-      "modifiedAt": "2026-10-21T00:38:41.589Z",
-      "width": 768,
-      "height": 1344,
-      "aspectRatio": 0.571,
-      "title": "Chiến lược phòng gym không lối thoát (Hồ sơ #002)",
-      "curatorReview": "Một khoảnh khắc bình thường được xử lý bằng mức độ tự tin vượt xa ngân sách dự án.",
-      "description": "Góc máy tĩnh ghi lại biểu cảm có chiều sâu nội tâm nhưng thiếu định hướng hành động. Ánh sáng tự nhiên phản chiếu tinh thần bất khuất.",
-      "tags": [
-        "Chân dung",
-        "Không gian sâu",
-        "Bất khả giải thích",
-        "Danh học",
-        "Nhiếp ảnh"
-      ],
-      "humorStyle": "Giám tuyển bác học",
-      "aiGenerated": false,
-      "aiModel": "Museum Offline Curator v2.0",
-      "aiStatus": "success",
-      "aiGeneratedAt": "2026-10-21T00:53:30.698Z",
-      "featured": false
-    },
     {
       "id": "DANH-003",
       "catalogNumber": 3,
@@ -93,7 +33,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:52.683Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "bf5cbb9d6f9b108522de2070d40c8e77fcb8af0f84d6248f0f7bf1f3c666956b",
+      "mediaType": "image"
     },
     {
       "id": "DANH-004",
@@ -123,7 +65,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.724Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "8215cdb82d34134a31961e335eebf51ba7390ae62f0889edbc192b868603e88c",
+      "mediaType": "image"
     },
     {
       "id": "DANH-005",
@@ -153,7 +97,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:52.969Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "4677388da04eb005c1a96b33d53105349697ea087a06e75d9e666a63a23bd8de",
+      "mediaType": "image"
     },
     {
       "id": "DANH-006",
@@ -182,7 +128,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.746Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "8d3cdecd603f573f2fd755d1f31794c71872c3f0290fb1dc5fcbbacbe740beeb",
+      "mediaType": "video"
     },
     {
       "id": "DANH-007",
@@ -212,7 +160,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.090Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "5752e39b2b30d6400a3b124cc70cce2eeadcd2c5d156b83ec323e77668a3a137",
+      "mediaType": "image"
     },
     {
       "id": "DANH-008",
@@ -242,7 +192,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.204Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "0a2fda11082fcd59b4d11f2793f278a5fd24f99cd86282f9fdcaa71c9647e69c",
+      "mediaType": "image"
     },
     {
       "id": "DANH-009",
@@ -272,7 +224,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.298Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "a07e1addd1562825f252bc471bf51bc9723973e2871c94464919498247012e47",
+      "mediaType": "image"
     },
     {
       "id": "DANH-010",
@@ -302,7 +256,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.779Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "95b326eafdf8dc071bdfbf1c86e4e39442927a88158dfe9768c490c4141bdf37",
+      "mediaType": "image"
     },
     {
       "id": "DANH-011",
@@ -332,7 +288,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.792Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "421053261f14d8d876c717e8ba01bb988dc425b54dd0f1a186963cce9a680a17",
+      "mediaType": "image"
     },
     {
       "id": "DANH-012",
@@ -361,7 +319,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.794Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "4df9aef9b893942373dfb8deb12d03c9c93194d75543e5e32883587e5a207943",
+      "mediaType": "video"
     },
     {
       "id": "DANH-013",
@@ -389,7 +349,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.728Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "68d0072f6b0622db126e3e0e9b0b085803b05542d432abb0fdbb230cc9898503",
+      "mediaType": "image"
     },
     {
       "id": "DANH-014",
@@ -419,7 +381,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.886Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "1c2e19faa5de5a609f6a5fe5c565131731b57335b075534296b8cb10aa98a91d",
+      "mediaType": "image"
     },
     {
       "id": "DANH-015",
@@ -449,7 +413,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.808Z",
-      "featured": true
+      "featured": true,
+      "contentHash": "939704929bbf3d69b059d80ccaf23f42c5ad56e6cd8d3da143aefa6733159e25",
+      "mediaType": "image"
     },
     {
       "id": "DANH-016",
@@ -478,7 +444,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.966Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "27884fef781455b7804d809442a8cc51dcca9bccdeb625d4cb63220195f15257",
+      "mediaType": "video"
     },
     {
       "id": "DANH-017",
@@ -507,7 +475,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.968Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "f573e09d26b3d9f1b32d36647a73c41f6e18b0dcb79c899e160f1b146ed796c9",
+      "mediaType": "video"
     },
     {
       "id": "DANH-018",
@@ -534,7 +504,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.975Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "9c0a3c22bf66e990f2837f1e1ba33ad3be0a436f21139926fbd408de1495b0e4",
+      "mediaType": "video"
     },
     {
       "id": "DANH-019",
@@ -563,7 +535,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.827Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "03417af6b0a035f02de53f5e55869e6ed7f9222bd944c8fbf3f632e00df5cf12",
+      "mediaType": "video"
     },
     {
       "id": "DANH-020",
@@ -592,7 +566,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.980Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "158f9fee46426a97feadaa7e29b0073da9c7a3435cec1f27cdaa038c43726eba",
+      "mediaType": "video"
     },
     {
       "id": "DANH-021",
@@ -621,7 +597,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.839Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "3a74b1bc9dc7858f5ebd24ce8106dbfa45f0fccb8eb6037445aded65e4daed3f",
+      "mediaType": "video"
     },
     {
       "id": "DANH-022",
@@ -650,7 +628,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.988Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "89175c145b110ba6097a961eaebd99980ee3ca381524ef10032d40de58fd5209",
+      "mediaType": "video"
     },
     {
       "id": "DANH-023",
@@ -679,7 +659,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:53.989Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "554d8ca8f2b5d55ea45b7b13d6c08e54b0c7284dea3a93f45a834f0db8f70662",
+      "mediaType": "video"
     },
     {
       "id": "DANH-024",
@@ -708,7 +690,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.852Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "874038b125cc397c69f28e28b0a360f66a5222a8d53b29224ac90bafcd08da28",
+      "mediaType": "video"
     },
     {
       "id": "DANH-025",
@@ -738,7 +722,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.086Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "b160da2890af003e103ad0c6662bb095591e751d67c6541eb671e183476efde2",
+      "mediaType": "image"
     },
     {
       "id": "DANH-026",
@@ -768,7 +754,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.865Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "d0f58868be911347427665843ede252ea5afbc187515d06d96b40c2c96b16384",
+      "mediaType": "image"
     },
     {
       "id": "DANH-027",
@@ -798,7 +786,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.873Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "b7a1c462b42f54be1ab15c0be66c80af5f9c913d99131c6a6ff39a6b4ec2ed54",
+      "mediaType": "image"
     },
     {
       "id": "DANH-028",
@@ -828,7 +818,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.307Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "448ae3bceab4286f7500b4f811cb19ad83afe58a2939f13509da521087c15616",
+      "mediaType": "image"
     },
     {
       "id": "DANH-029",
@@ -858,7 +850,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.883Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "accf5e5172d658287dbcdfc5d4ab67c2ef99ee34421ea777d17445ef882c120e",
+      "mediaType": "image"
     },
     {
       "id": "DANH-030",
@@ -885,7 +879,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.360Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c5d358c11abbbc6b3894a8d93fa5ba8b81120000e8c8aa4d218c2557d1c63c94",
+      "mediaType": "video"
     },
     {
       "id": "DANH-031",
@@ -914,7 +910,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.362Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "87f6a9be6fe4833cd8d129f88d663ad63c95c63c5effc8c3004558acfa5babee",
+      "mediaType": "video"
     },
     {
       "id": "DANH-032",
@@ -943,7 +941,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.902Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "7bfc21745998b03e9fff3acde1036d04999cf9f23f2b4bebaf431692a8424a7e",
+      "mediaType": "video"
     },
     {
       "id": "DANH-033",
@@ -972,7 +972,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:30.906Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "8d1234cf4f95216e75ad1add22180503700f9af0139bde10df9f471afab39174",
+      "mediaType": "video"
     },
     {
       "id": "DANH-034",
@@ -1001,7 +1003,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.382Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "6cbe377360202e866b1faebabecde6400cccb178da5837d2bf23e48fa7117074",
+      "mediaType": "video"
     },
     {
       "id": "DANH-035",
@@ -1028,7 +1032,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.383Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "b0f8f6da9ab3626a98c8e1bfa91eea49649b5fd7a3662e91e1a9593ea53a9a01",
+      "mediaType": "video"
     },
     {
       "id": "DANH-036",
@@ -1057,7 +1063,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.388Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "4d74832296edced5b822868be1eaf29e31fb6a1203009997836dc6e021b6cbd2",
+      "mediaType": "video"
     },
     {
       "id": "DANH-037",
@@ -1086,7 +1094,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.388Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "4d74832296edced5b822868be1eaf29e31fb6a1203009997836dc6e021b6cbd2",
+      "mediaType": "video"
     },
     {
       "id": "DANH-038",
@@ -1115,7 +1125,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.389Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "156d68258cb48b89cd3e97074fd6a02c2bf69f458d30aec402ee117e98dae8f9",
+      "mediaType": "video"
     },
     {
       "id": "DANH-039",
@@ -1144,7 +1156,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.404Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "bd79d31218bebe215eda5863305e078872437da7689fb9348a96a5cb41739fc0",
+      "mediaType": "video"
     },
     {
       "id": "DANH-040",
@@ -1173,7 +1187,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.407Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "4e51093a5923bdcfe88e5f310b310c42deee264ac8f98026d1c74c157c541d91",
+      "mediaType": "video"
     },
     {
       "id": "DANH-041",
@@ -1202,7 +1218,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.409Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "1c1fda8675de7e13ee8f0d24bb9eda2c283e502bf153a25e5837462f567a9af3",
+      "mediaType": "video"
     },
     {
       "id": "DANH-042",
@@ -1231,7 +1249,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.421Z",
-      "featured": true
+      "featured": true,
+      "contentHash": "f3446a1e13649ed2ad2504c21aa7a352a44c3b7b7e055004bc62346079aa6ca5",
+      "mediaType": "video"
     },
     {
       "id": "DANH-043",
@@ -1259,7 +1279,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.424Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "ba0ac852fb5f2d769563d626db0971a7ef6210ccba584d6b901002d1095f8b4e",
+      "mediaType": "video"
     },
     {
       "id": "DANH-044",
@@ -1288,7 +1310,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.429Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "656ceb46d45a4631729e53a88de52b807cb003dc1fa422078464ad8be743849f",
+      "mediaType": "video"
     },
     {
       "id": "DANH-045",
@@ -1317,7 +1341,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.435Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "99a14bf7e5618d9137f06802c1431a3b512885df3509b5d4a7d6d8df1d3f7ef4",
+      "mediaType": "video"
     },
     {
       "id": "DANH-046",
@@ -1346,7 +1372,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.439Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "a26c9edf4e784b8afb44ae171ea4732288ad61edb7b56398d42a44624ad79f21",
+      "mediaType": "video"
     },
     {
       "id": "DANH-047",
@@ -1375,7 +1403,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.452Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "a1c5515a7f24b61d5b9160efa80d4708e98c4fcef708beb1122e8857981b2a13",
+      "mediaType": "video"
     },
     {
       "id": "DANH-048",
@@ -1404,7 +1434,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.012Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "6d9629d2401fa4fafe2043cdf19d4659f44bb915c341b56f1d1cd213d3dfa33e",
+      "mediaType": "video"
     },
     {
       "id": "DANH-049",
@@ -1434,7 +1466,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.525Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "3ec480366692928ab49d9e68687d7bd9256a2f0a2a7128ac2908670944d2f5e8",
+      "mediaType": "image"
     },
     {
       "id": "DANH-050",
@@ -1464,7 +1498,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.024Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "d113169e79c6c042d5e0237f897089dd94ac7a74008e052d0b25b4bc30a165be",
+      "mediaType": "image"
     },
     {
       "id": "DANH-051",
@@ -1492,7 +1528,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.702Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "93debf2c4f5b41a56f020d7df71df21dc13166d6d8a34e8577a8a8e326e54422",
+      "mediaType": "image"
     },
     {
       "id": "DANH-052",
@@ -1522,7 +1560,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.790Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "ca935f971452449df501b4ec7c70688f7fc5c5ecf9551df60f51c8c1735d1198",
+      "mediaType": "image"
     },
     {
       "id": "DANH-053",
@@ -1551,7 +1591,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.848Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c6336fb7311aff237f58639904ca8072ca47a4f77e6f9737bfea3609f774dd25",
+      "mediaType": "image"
     },
     {
       "id": "DANH-054",
@@ -1581,7 +1623,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:54.952Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "62b409c4c5c0a969e178169b216fb4ddd95e2e6e3fa69b34fd7f38cdff5bd9d9",
+      "mediaType": "image"
     },
     {
       "id": "DANH-055",
@@ -1610,7 +1654,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.051Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "bb668c16bd2abbdf3a2d48c1e6fae65a116637051def519ccb7bca7a55af482f",
+      "mediaType": "video"
     },
     {
       "id": "DANH-056",
@@ -1640,7 +1686,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.064Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "8b93888b4e133c65e0a82557eaa061e327c262bc20e8f4b9808df1b6fc5b624a",
+      "mediaType": "image"
     },
     {
       "id": "DANH-057",
@@ -1670,7 +1718,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.074Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "bc49830c153bece5c3d15199e1f9d3710624051d450e573f33c89eeb998e94ba",
+      "mediaType": "image"
     },
     {
       "id": "DANH-058",
@@ -1700,7 +1750,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:55.246Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "06dc782603c274f3e461c95eb7d2c6fb82e5ede4bf63c82baf49b22b6687bf90",
+      "mediaType": "image"
     },
     {
       "id": "DANH-059",
@@ -1730,7 +1782,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.097Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "97a1a82987a5d44f75a1778eeb9ef75b6f151ac8019e8c0e5f71306babf163fd",
+      "mediaType": "image"
     },
     {
       "id": "DANH-060",
@@ -1760,7 +1814,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:55.445Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "362651c242efca394400efc54404e91f58cad4bfb1864c7fa2511b84b7efacb9",
+      "mediaType": "image"
     },
     {
       "id": "DANH-061",
@@ -1790,7 +1846,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:55.535Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "529233e3e88f5f792380984349da4812f9b558f12377bc2d1308892a43fa87f4",
+      "mediaType": "image"
     },
     {
       "id": "DANH-062",
@@ -1820,7 +1878,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:55.643Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "f24546798d5cde89974fa21acbcfa01df398a699c54b2371d6fda6cfc81b6480",
+      "mediaType": "image"
     },
     {
       "id": "DANH-063",
@@ -1850,7 +1910,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:55.742Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "dbbae29ebfa2f95e8a89ef57e1a94d385afe8295d9aca83dc68ed4cbc97f98c7",
+      "mediaType": "image"
     },
     {
       "id": "DANH-064",
@@ -1879,7 +1941,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:55.840Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "61ea623906c7e395919bfa4bc0de8348b392f2e31da64b8560440e90463cdd36",
+      "mediaType": "image"
     },
     {
       "id": "DANH-065",
@@ -1907,7 +1971,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:55.936Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "9bb7f9361ec1b8610410666c93c32732e56c394a7ab89fe3779519e7ded12c38",
+      "mediaType": "image"
     },
     {
       "id": "DANH-066",
@@ -1937,7 +2003,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.155Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "cc7e4a1253d3dd879c974431102f884228cb8dfcd053225eaebf51f503faf5b7",
+      "mediaType": "image"
     },
     {
       "id": "DANH-067",
@@ -1967,7 +2035,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:56.108Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "e36ba667fbe2b63357aaea3da35ec5f56d171955cb15529d7eb48024dc981445",
+      "mediaType": "image"
     },
     {
       "id": "DANH-068",
@@ -1997,7 +2067,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.176Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "9eceb8b96d0658d80e0de44d763fc1bb48f845016442a44cb9a0902848b52648",
+      "mediaType": "image"
     },
     {
       "id": "DANH-069",
@@ -2027,7 +2099,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:56.318Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "86987a33f566f8fc517fd5ef36f789b6eddc39707fcc9f5df5e036b6caa9fbee",
+      "mediaType": "image"
     },
     {
       "id": "DANH-070",
@@ -2056,7 +2130,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:56.322Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "edb5927d12aab38acc3696296a0b06805c6cbc6b6b56940805afa033e0e9962b",
+      "mediaType": "video"
     },
     {
       "id": "DANH-071",
@@ -2086,7 +2162,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:56.356Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "0d65a3019ae77d366948747fd7800002c8c367328b6f640d103a89e5cd71f648",
+      "mediaType": "image"
     },
     {
       "id": "DANH-072",
@@ -2116,7 +2194,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.205Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "04d16e44d3815737c5ca77b76f7f6f612841e34beb9fb4dda9c061b8e82e9bc9",
+      "mediaType": "image"
     },
     {
       "id": "DANH-073",
@@ -2146,7 +2226,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.226Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "8cc5dec4f7a876482d9249e6d62e41ed0509e159d6ee3e51fd257e7ae868954e",
+      "mediaType": "image"
     },
     {
       "id": "DANH-074",
@@ -2176,7 +2258,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:56.823Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "6a0af4f2dddfa04d227a5cc52ab02eac8c6adee13fe3757ec427977af23b0e0f",
+      "mediaType": "image"
     },
     {
       "id": "DANH-075",
@@ -2206,7 +2290,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.264Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "cf283f95f791ab6fdaaa586ca198d72398675187bfeb32987da90e33e238221d",
+      "mediaType": "image"
     },
     {
       "id": "DANH-076",
@@ -2236,7 +2322,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.282Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "0f18c625b23ee564e9b7ebbef696bdc63f3969718efd90906b15276e49136536",
+      "mediaType": "image"
     },
     {
       "id": "DANH-077",
@@ -2266,7 +2354,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:57.319Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "4658448a2b368d06ae9dcae1bfce54015d444ce7393d4ea6c498fa804b75f6b4",
+      "mediaType": "image"
     },
     {
       "id": "DANH-078",
@@ -2296,7 +2386,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:57.496Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "4cca65d0cb404beb9972986a1af1d7268827612df94840d6115fe6ef34ab5e56",
+      "mediaType": "image"
     },
     {
       "id": "DANH-079",
@@ -2326,7 +2418,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:57.655Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "09dd7f3d558cd8cd65d613f2a67d42c97ed24372620c11ab5e2f0eaecdef33db",
+      "mediaType": "image"
     },
     {
       "id": "DANH-080",
@@ -2356,7 +2450,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.346Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c17f87d515e63eac8c13362111e06babfd26c0ffc524ac185c85c0a00c975b9f",
+      "mediaType": "image"
     },
     {
       "id": "DANH-081",
@@ -2385,7 +2481,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:57.815Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "93dff80784d1b8352bb6251b247068037fd1205351f08c10d98d485d0c747e66",
+      "mediaType": "video"
     },
     {
       "id": "DANH-082",
@@ -2414,7 +2512,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.363Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "fab4583d80b012dd71806561ff65e069c6e366d5f06312a7edab471246ca8d96",
+      "mediaType": "video"
     },
     {
       "id": "DANH-083",
@@ -2444,7 +2544,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:57.936Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "d9990c3f55c86562bda807da02bc2541728af519b1a358a260742501ec84b3e9",
+      "mediaType": "image"
     },
     {
       "id": "DANH-084",
@@ -2474,7 +2576,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:57.976Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "0ce3b03e399ea59811143f751695ec37cc5138a6d2b237d5a37eed26576dc297",
+      "mediaType": "image"
     },
     {
       "id": "DANH-085",
@@ -2504,7 +2608,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.397Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "35e100efd2802f545ff5320faac1cc766d602e5d572806fdb6bd72f0846cef53",
+      "mediaType": "image"
     },
     {
       "id": "DANH-086",
@@ -2534,7 +2640,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:58.216Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "a98693aca928af6ab2c64fda349ecabbf1f7d47d51c7608caacbeab70bcec61c",
+      "mediaType": "image"
     },
     {
       "id": "DANH-087",
@@ -2563,7 +2671,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:58.314Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "34f6e66ef6512c953a17b95f09dfddb0bb3289b203e0de42f4a2513c23d3018f",
+      "mediaType": "image"
     },
     {
       "id": "DANH-088",
@@ -2593,7 +2703,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:58.412Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c5c1a8485f469a8531e9fa0517e4ba48847e44ea9a558f4ac233af5516720706",
+      "mediaType": "image"
     },
     {
       "id": "DANH-089",
@@ -2623,7 +2735,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.412Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "2ad3c9ca3edbbbfd0c84257d079cf25b45de7c56481e665e0c89e4a0385bb201",
+      "mediaType": "image"
     },
     {
       "id": "DANH-090",
@@ -2653,7 +2767,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:58.753Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "570734d122280642fc1c1ad5989efaba4d0948af156d08ea9931cf4421ee876e",
+      "mediaType": "image"
     },
     {
       "id": "DANH-091",
@@ -2683,7 +2799,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:58.926Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "5657a987486c5806430daba844fbc6257efaf51b234fc24fac9c9aafbaf99fb3",
+      "mediaType": "image"
     },
     {
       "id": "DANH-092",
@@ -2713,7 +2831,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.022Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "dcfae102b0580fa8b066c9b6646bb38f793b53be7eef0a833800804d6cbfb104",
+      "mediaType": "image"
     },
     {
       "id": "DANH-093",
@@ -2742,7 +2862,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.033Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "7884070bb85b0d31b16372f6fb476cac858a33042a67f7b9ff02e6f4c6f51b39",
+      "mediaType": "video"
     },
     {
       "id": "DANH-094",
@@ -2769,7 +2891,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.068Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c350a2b6d4ad8964054fd7630d8a46e103897a9a2b8effdbc864ba57d43fff33",
+      "mediaType": "video"
     },
     {
       "id": "DANH-095",
@@ -2799,7 +2923,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.480Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "8b03b4cc17f9b419c4a24b898d3b55eb182cab583a2fb4ffd5dcd031fad8293a",
+      "mediaType": "image"
     },
     {
       "id": "DANH-096",
@@ -2829,7 +2955,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.184Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "cb77b11d927ed073dc0b469c15a8561c91f84a5275945f2fab50ef5b6b11b412",
+      "mediaType": "image"
     },
     {
       "id": "DANH-097",
@@ -2857,7 +2985,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.196Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "24446d2f4878e5b1d75e2884fb3a8a0d0d41f4432df6b95b0b4cd4fa450d7e22",
+      "mediaType": "video"
     },
     {
       "id": "DANH-098",
@@ -2887,7 +3017,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.274Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "59a24a1983435854514680def4843d4c6ff44083577c761bf68e27a8be1933ba",
+      "mediaType": "image"
     },
     {
       "id": "DANH-099",
@@ -2917,7 +3049,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.411Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "06fad77cad24782c821e4eac0bf8418aa327b76553e0ae206e0b317ed53fc864",
+      "mediaType": "image"
     },
     {
       "id": "DANH-100",
@@ -2945,7 +3079,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.581Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "cee3026d8bc8eaca09e00668bfe1bce2264980a17abd0874f2693f5b3ed28f38",
+      "mediaType": "image"
     },
     {
       "id": "DANH-101",
@@ -2975,7 +3111,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.521Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "03264828835d64e4146976bdfd95c39c00f376d8524a3df4b51a250ddec62c59",
+      "mediaType": "image"
     },
     {
       "id": "DANH-102",
@@ -3004,7 +3142,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.531Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "34e7441bcf439604aa036f93b215df040dbd50de3509f0a86209768374d86c56",
+      "mediaType": "video"
     },
     {
       "id": "DANH-103",
@@ -3032,7 +3172,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.647Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "00dc3d0fd0f140e434e0d4c57f50ecb0562a756442e998a82c9cae72f61d614a",
+      "mediaType": "video"
     },
     {
       "id": "DANH-104",
@@ -3062,7 +3204,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.546Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "1e9af7c126e89f9fb64c44c879d84c70928de597d4c67aa2ccfa89da538e54b8",
+      "mediaType": "image"
     },
     {
       "id": "DANH-105",
@@ -3091,7 +3235,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.562Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "3066d9c07fc507620638ceb9fe7f1531b53c3db071eb499f9958508b5e5da02f",
+      "mediaType": "video"
     },
     {
       "id": "DANH-106",
@@ -3120,7 +3266,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.584Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "5fd1f25455c88254068f98e9ba9b7ebac25f8fad45a589082b806828086cdc7d",
+      "mediaType": "video"
     },
     {
       "id": "DANH-107",
@@ -3149,7 +3297,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.611Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "d3e54454421324dfe14d240443bae4957fe59804acc5a7a8e670264cde97d984",
+      "mediaType": "video"
     },
     {
       "id": "DANH-108",
@@ -3176,7 +3326,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.786Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mediaType": "video"
     },
     {
       "id": "DANH-109",
@@ -3205,7 +3357,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.623Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "fde82751fb80d9cd128b2c29b0d1db8df3cf4e1d2349165c8bdef77b4b04c7a4",
+      "mediaType": "video"
     },
     {
       "id": "DANH-110",
@@ -3233,7 +3387,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:52:59.861Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "d92681576715b553ac675f1c7fac8382c079b9578f8d9595cd59a8f733043038",
+      "mediaType": "image"
     },
     {
       "id": "DANH-111",
@@ -3263,7 +3419,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.634Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "79f294357ccf927c9b6b55c6c7eb0e723788d5049a0ddbf5f8f22fb67d3c390a",
+      "mediaType": "image"
     },
     {
       "id": "DANH-112",
@@ -3293,7 +3451,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:00.141Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "d636bba4d9841f8dc5a8cbc01bcf2810e71fc3ce582d0659895764849f739b76",
+      "mediaType": "image"
     },
     {
       "id": "DANH-113",
@@ -3323,7 +3483,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:00.187Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "cbc42a3d61bc11f866bbeae4762fe19f475db76de27e58d3085289133cec7d40",
+      "mediaType": "image"
     },
     {
       "id": "DANH-114",
@@ -3353,7 +3515,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.648Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "186f21b8dbecec57cb43b213a2417f2bdd27f1b713c9abf5acc3c9f13585d9bb",
+      "mediaType": "image"
     },
     {
       "id": "DANH-115",
@@ -3383,7 +3547,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:00.320Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "f400eab8bea03186cf0bb2543fcfdcc65151cfe464b02a33003a4ad63c0d4407",
+      "mediaType": "image"
     },
     {
       "id": "DANH-116",
@@ -3413,7 +3579,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:00.377Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "1b82d8022461ce45e2206c6e413eace144c3c728292b9d279330a62b59ec4d8e",
+      "mediaType": "image"
     },
     {
       "id": "DANH-117",
@@ -3443,7 +3611,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:00.458Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "eed16a231edb0c72ed7b8675fd7c0310d59e78badd1d6b5ea018e5856245aaf2",
+      "mediaType": "image"
     },
     {
       "id": "DANH-118",
@@ -3472,7 +3642,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:00.591Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "4dcafcb16bf50050cc1df8d54cba52ca82aa0b18f32fc969ba40f1921be56cff",
+      "mediaType": "image"
     },
     {
       "id": "DANH-119",
@@ -3502,7 +3674,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:00.803Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "99d96047428409ceea1ca94bca4f6fc5fb6fb704ee9f9a4518bd4af07d72ca26",
+      "mediaType": "image"
     },
     {
       "id": "DANH-120",
@@ -3532,7 +3706,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.668Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "a262f545e57f376df755ed66cccee15064192b79878e898a59292e02bdd891b8",
+      "mediaType": "image"
     },
     {
       "id": "DANH-121",
@@ -3562,7 +3738,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.676Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "e86eed90e70f5f4dc8ccbc821e67418b650960760ee58cde110ba71826950b09",
+      "mediaType": "image"
     },
     {
       "id": "DANH-122",
@@ -3592,7 +3770,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.684Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "f6e2aa00c77ba274863059a643e373b26a6926e5d4969f8d81b0db0365534033",
+      "mediaType": "image"
     },
     {
       "id": "DANH-123",
@@ -3622,7 +3802,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:01.095Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "506233354387c45c48202ba53404b5094f6382ebcb6d483627be825a4288ce8a",
+      "mediaType": "image"
     },
     {
       "id": "DANH-124",
@@ -3652,7 +3834,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.695Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "3edb48799e31908dcea0ac02a848a993fc829df3de8fed0bf78d9d3f7b810fcf",
+      "mediaType": "image"
     },
     {
       "id": "DANH-125",
@@ -3682,7 +3866,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.703Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "4e63b9a31bdb6f49f57aa18951e9011a951fd7f49909226bfe25bd9b69a9a896",
+      "mediaType": "image"
     },
     {
       "id": "DANH-126",
@@ -3712,7 +3898,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:01.310Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "f7f26df03567badafb9b8f571616ea87a52e3c9be68a39f5c17fa3d092d54f35",
+      "mediaType": "image"
     },
     {
       "id": "DANH-127",
@@ -3742,7 +3930,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:01.386Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "156de91761480c6abf324cac36ae059f5254c3f1f4bdd75b76860d5426a09426",
+      "mediaType": "image"
     },
     {
       "id": "DANH-128",
@@ -3772,7 +3962,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.716Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "80e4d7db1a5380497654fe74f4a8be8ca8d2ec6f28c08b5054b144d13a691a8c",
+      "mediaType": "image"
     },
     {
       "id": "DANH-129",
@@ -3802,7 +3994,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.728Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "d83a2c06a0eab51ab4217c386b29658bcd78383f1b7f0a9521821f763d6491de",
+      "mediaType": "image"
     },
     {
       "id": "DANH-130",
@@ -3830,7 +4024,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:01.617Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "11a3afb7d7e43be9c982e6d635050a7b6e9f44c9c3014645b76196547c0004bd",
+      "mediaType": "image"
     },
     {
       "id": "DANH-131",
@@ -3860,7 +4056,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:01.764Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "fd9d2ad595f80fd973639c9fefcc06ea6e8d53067d0e97da334fe994de000973",
+      "mediaType": "image"
     },
     {
       "id": "DANH-132",
@@ -3889,7 +4087,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:01.883Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c474832186e6b30b71a85b0946672645e9947967611916e9c15743827b203e99",
+      "mediaType": "image"
     },
     {
       "id": "DANH-133",
@@ -3919,7 +4119,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.742Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "20c689638972ac5d8db8a4d0262271d090ab233abc5add74645341aa6eb6573c",
+      "mediaType": "image"
     },
     {
       "id": "DANH-134",
@@ -3949,7 +4151,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.750Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "a9f46ea34b6e7451f4fa8651df8bdbee1fd098ba95e7f01de2d756a1594b7d85",
+      "mediaType": "image"
     },
     {
       "id": "DANH-135",
@@ -3978,7 +4182,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:02.220Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "6cb645bbde80d9007a162d6f506120ce3d44aaa04cd986f824d5750c9c7478f8",
+      "mediaType": "image"
     },
     {
       "id": "DANH-136",
@@ -4008,7 +4214,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.762Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "9b3cf315b30332b104b9fa5aa9e8005a25a713cb3cecc9eb865eaa9790bdf27f",
+      "mediaType": "image"
     },
     {
       "id": "DANH-137",
@@ -4038,7 +4246,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.772Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c1308662ad95d16135950d08beb0fe12f2ea92e789541fb19a9cb50f4bbb7fc0",
+      "mediaType": "image"
     },
     {
       "id": "DANH-138",
@@ -4068,7 +4278,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:03.019Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "ed53fc172bd1c72d730084d302b4e786ddad19392041a3bfb9d3a5a0f23addcd",
+      "mediaType": "image"
     },
     {
       "id": "DANH-139",
@@ -4098,7 +4310,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.782Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "be522bea878e1d44a60b414cf85cd1ad499f647f2ce3c3e7e0be0b1fab0ace93",
+      "mediaType": "image"
     },
     {
       "id": "DANH-140",
@@ -4128,7 +4342,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.791Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "5082d9264b90d038244ab38a9fa207119f2c75956c16e6fe7158a8921971ceb7",
+      "mediaType": "image"
     },
     {
       "id": "DANH-141",
@@ -4158,7 +4374,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.802Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c774d89dd54fcf9f2d88e06351d15362302858c535ae4d6f471daa4b56c6a8fb",
+      "mediaType": "image"
     },
     {
       "id": "DANH-142",
@@ -4188,7 +4406,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.809Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c4dcec26fe3d47a9c731a33bd428a09aade73688ba058d75270dfb3e856e2395",
+      "mediaType": "image"
     },
     {
       "id": "DANH-143",
@@ -4218,7 +4438,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.820Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "11ca5f2443f18e1ade7e3b86faedc0be2aa0e480e2ee6f5fc896ecf67bbaa4ad",
+      "mediaType": "image"
     },
     {
       "id": "DANH-144",
@@ -4248,7 +4470,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:04.371Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "edd996771fc25724d2eb168463a63ed986349ed954f56bf4cd0b925e8e462fdc",
+      "mediaType": "image"
     },
     {
       "id": "DANH-145",
@@ -4278,7 +4502,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.835Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "531a629383d77bad85fae68ef6acd5cef5c497cff55f205ac05d726122e528f8",
+      "mediaType": "image"
     },
     {
       "id": "DANH-146",
@@ -4308,7 +4534,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.845Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "1ed4a1c11ffe03cf2b365d27138c3797441ca6777caf600d57acd4b23bee9615",
+      "mediaType": "image"
     },
     {
       "id": "DANH-147",
@@ -4338,7 +4566,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.856Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "26920af448fafbc018af7fcf6e3bd102b4a06f56693ff80f68761ddab8429e7f",
+      "mediaType": "image"
     },
     {
       "id": "DANH-148",
@@ -4368,7 +4598,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:04.803Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "0e251a707cda0ae61d970b57481935a22fb5d055f5d2c63a868e8c2b5ffc79ec",
+      "mediaType": "image"
     },
     {
       "id": "DANH-149",
@@ -4398,7 +4630,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.871Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "78d801e7151a2a83d5e96ae4670364724b90c7d2ac77817946a416cd24214bca",
+      "mediaType": "image"
     },
     {
       "id": "DANH-150",
@@ -4427,7 +4661,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:04.972Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "5ffc0646392fa0034808b80e5201f889b18810b05c66ad2d940b8c908dda7f40",
+      "mediaType": "image"
     },
     {
       "id": "DANH-151",
@@ -4457,7 +4693,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:05.144Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "b63fe0d473f66fbd1f61dab900b7e526ce14fd9e4e8caad36f340d89eb19b27f",
+      "mediaType": "image"
     },
     {
       "id": "DANH-152",
@@ -4487,7 +4725,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:05.203Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "278d119426d592b4d4ba375f46696a44f5ce98bf2f2555bac7e7a5da3e8b9659",
+      "mediaType": "image"
     },
     {
       "id": "DANH-153",
@@ -4516,7 +4756,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:05.249Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "5ecce6fa16880c4d138e121d8daa3bb46abfea7813d60ab5fe971a08fd3bb332",
+      "mediaType": "image"
     },
     {
       "id": "DANH-154",
@@ -4546,7 +4788,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:05.309Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "b63a34a178219406fc8061a7448d19378c444ac38078de474f65ac5fe0e44d8c",
+      "mediaType": "image"
     },
     {
       "id": "DANH-155",
@@ -4576,7 +4820,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.892Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "21964220e6fdce17a7c2dc793d8cefb35b2cb4bec20f4c1148970daea7f2508c",
+      "mediaType": "image"
     },
     {
       "id": "DANH-156",
@@ -4606,7 +4852,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:05.620Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c79474ddff3f4dadd74925460416a1dfc79ceef8f0cafcb4606f87a55908eb3d",
+      "mediaType": "image"
     },
     {
       "id": "DANH-157",
@@ -4636,7 +4884,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:05.683Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "5e6a05a7324683db317ada964dc82e4c1551a48b7e0eb91895985f51866811ed",
+      "mediaType": "image"
     },
     {
       "id": "DANH-158",
@@ -4666,7 +4916,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:05.770Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "1c2ded1fdc67d2940fe60edec5d557065444d3ecf6059bf1497870873f16f1db",
+      "mediaType": "image"
     },
     {
       "id": "DANH-159",
@@ -4696,7 +4948,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.908Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "725ec2c13d5b45f818c8598760199a86cdfadae46b4264318a9bea8ee3b52bbc",
+      "mediaType": "image"
     },
     {
       "id": "DANH-160",
@@ -4726,7 +4980,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.918Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "73a078ce6f569c0236be46aa3c61d09a36d02a9edfa6f1950530c6c436ab0bee",
+      "mediaType": "image"
     },
     {
       "id": "DANH-161",
@@ -4756,7 +5012,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:06.219Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "8101a31687bda36e1b81069b4afd015aed2a8f752e4757567d6a11792c92fe8f",
+      "mediaType": "image"
     },
     {
       "id": "DANH-162",
@@ -4786,7 +5044,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.930Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "6edeb0ea09ae9390577ee232656162a5c29eefd93aa955a7e17d832593d3da1d",
+      "mediaType": "image"
     },
     {
       "id": "DANH-163",
@@ -4816,7 +5076,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.939Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "df43880a673d215488aedb2aa1bac0e9fa4bf6e3a0cf812a50109db058200cbd",
+      "mediaType": "image"
     },
     {
       "id": "DANH-164",
@@ -4846,7 +5108,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:06.587Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "af7d1c8f1ddc0156f34f25e11f67a85107c6761178004a6403358ec4ff115d84",
+      "mediaType": "image"
     },
     {
       "id": "DANH-165",
@@ -4876,7 +5140,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.949Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "8564f31d81c5deae0b6faee106450052dd07e3e8e29b23ff77b6d0f177529547",
+      "mediaType": "image"
     },
     {
       "id": "DANH-166",
@@ -4906,7 +5172,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.960Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "d35acb10188d695e4f563373f4cf089230ab267685d376caf998fbd45531afbb",
+      "mediaType": "image"
     },
     {
       "id": "DANH-167",
@@ -4936,7 +5204,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:06.874Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "f6786661727bae71f2450bbf335af8afe82ce55e9c9f7edec1ac24f5f8a84c57",
+      "mediaType": "image"
     },
     {
       "id": "DANH-168",
@@ -4966,7 +5236,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:07.049Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "f4f25b257d1ab2bfc4c1cbbb6fb969490dc9615db9927ac4f912d540dbbd17e2",
+      "mediaType": "image"
     },
     {
       "id": "DANH-169",
@@ -4996,7 +5268,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:07.229Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "1a2e2950fc460ddee23d05e4f09e6f6e483d0c2efcca860c4fd4590c149b7c61",
+      "mediaType": "image"
     },
     {
       "id": "DANH-170",
@@ -5026,7 +5300,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.977Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "3cd9e7c1754b65a8f8052ffdf762bb5f421bfd8e4e5c005fb7afc0b77508551c",
+      "mediaType": "image"
     },
     {
       "id": "DANH-171",
@@ -5056,7 +5332,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:07.376Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "62263900b91a92a728d522a22a9dd0052ec30db7f5c992a8bb75ab365b931c1b",
+      "mediaType": "image"
     },
     {
       "id": "DANH-172",
@@ -5086,7 +5364,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:07.455Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "076bda0d64b4a90df6dfd523b36c80cea45f827a7c6ab448bf8f98c790331a3a",
+      "mediaType": "image"
     },
     {
       "id": "DANH-173",
@@ -5116,7 +5396,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:07.587Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "54094072492a2ca859cf304285f812057ba761876e5218f6a348779ee3dd44da",
+      "mediaType": "image"
     },
     {
       "id": "DANH-174",
@@ -5146,7 +5428,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:31.994Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "721571cc5bdf3892e794b5211c5ec1cc140f6e741f26764108578be265018d68",
+      "mediaType": "image"
     },
     {
       "id": "DANH-175",
@@ -5176,7 +5460,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:32.004Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "721571cc5bdf3892e794b5211c5ec1cc140f6e741f26764108578be265018d68",
+      "mediaType": "image"
     },
     {
       "id": "DANH-176",
@@ -5206,7 +5492,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:07.813Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "414509a9eb0403e41ee0f18ad436b3d13cd759914481f88a728cc7d84e963805",
+      "mediaType": "image"
     },
     {
       "id": "DANH-177",
@@ -5236,7 +5524,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:07.887Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "14a7997176c89f7ac226d9e88ab24519291eaede3be6ad5fea4f8bc5396a14ad",
+      "mediaType": "image"
     },
     {
       "id": "DANH-178",
@@ -5266,7 +5556,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:07.990Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "7d6ba084c7ef2616b6ae5ff81004c3d293846f06d2e0cccd7c09a70b0ef8c851",
+      "mediaType": "image"
     },
     {
       "id": "DANH-179",
@@ -5296,7 +5588,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:08.086Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "45844363f7f4cb9d20d8d64c2d34330abfa57c9027143184f7a16d49a9d9a655",
+      "mediaType": "image"
     },
     {
       "id": "DANH-180",
@@ -5326,7 +5620,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:08.190Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "3edada8a4e692710491ee901b94f834e67df506ffd1677b54f7c607d04cbc096",
+      "mediaType": "image"
     },
     {
       "id": "DANH-181",
@@ -5356,7 +5652,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:08.298Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "b40c2ec43ed7081859421b1b8af56039289ede73b10ef8aeae8f477ba05cd891",
+      "mediaType": "image"
     },
     {
       "id": "DANH-182",
@@ -5386,7 +5684,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:32.023Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "3eda3da50b463ce35ea86e28cc542061e44d2ce79b86661217115ecd8b511348",
+      "mediaType": "image"
     },
     {
       "id": "DANH-183",
@@ -5416,7 +5716,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:08.472Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "b1eac208237d137284c19d06a8bdcd9022d1e274e7f65871a537d469c091a9ed",
+      "mediaType": "image"
     },
     {
       "id": "DANH-184",
@@ -5446,7 +5748,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:08.545Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "130bc77b027f6d06188ce3f8ade9290c5eeb6302772308949a298a1151765877",
+      "mediaType": "image"
     },
     {
       "id": "DANH-185",
@@ -5476,7 +5780,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:08.594Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "696688e130534ba90f984581f9b0c855bb2b8d9de3f6cb699eda3c55bcbdb612",
+      "mediaType": "image"
     },
     {
       "id": "DANH-186",
@@ -5506,7 +5812,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:32.041Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "51c6a6fdafec1f02f8922663a6339ebc9abdd11901b012115f9750380152813f",
+      "mediaType": "image"
     },
     {
       "id": "DANH-187",
@@ -5536,7 +5844,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:32.053Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "7543bb80c9a050c3bc90d7d7d1e2815385ac0d053bfba63b16ea6b8e84ed7d4f",
+      "mediaType": "image"
     },
     {
       "id": "DANH-188",
@@ -5566,7 +5876,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:32.063Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "fbe2c6ab0d10e61cba1b77d42fc52a50dc1f5df32f66da44a5086b24fdbc543c",
+      "mediaType": "image"
     },
     {
       "id": "DANH-189",
@@ -5596,7 +5908,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:08.945Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "4d250debe2e4a0bc68cc67bd5d6fbd45b9318dbdba0555cd6f41f9eb6a47c548",
+      "mediaType": "image"
     },
     {
       "id": "DANH-190",
@@ -5626,7 +5940,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:32.073Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "724a5137933f230533ecc7290bcc3e978b55d0e28128b1a84a0ecfe8a6b8ddbf",
+      "mediaType": "image"
     },
     {
       "id": "DANH-191",
@@ -5656,7 +5972,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:32.082Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "88cd8199bbea608bdb5e0936c069668fc9b8bc0cb305d17f4e99aa8079115901",
+      "mediaType": "image"
     },
     {
       "id": "DANH-192",
@@ -5686,7 +6004,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:09.200Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "c74ed6e8cef369fecc79862c409f0549fdc72f97394703af7d12a5294fdea5ed",
+      "mediaType": "image"
     },
     {
       "id": "DANH-193",
@@ -5716,7 +6036,9 @@
       "aiModel": "Museum Offline Curator v2.0",
       "aiStatus": "success",
       "aiGeneratedAt": "2026-10-21T00:53:32.093Z",
-      "featured": false
+      "featured": false,
+      "contentHash": "7c712a2a352747289fa6e05686e6168b1b75c2ec59dba8c3e0e647456b1a5067",
+      "mediaType": "image"
     }
   ]
 }

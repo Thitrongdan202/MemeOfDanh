@@ -192,21 +192,21 @@ export function getOfflineCuration(ctx: OfflineContext): AICurationResponse {
   const item = CANDIDATE_PAIRS[index];
 
   const candidateA: NamingCandidate = {
-    approach: "A_direct_punchline",
+    approach: "direct_punchline",
     title: item.a.title,
-    reason: item.a.reason,
+    rationale: item.a.reason,
   };
 
   const candidateB: NamingCandidate = {
-    approach: "B_short_meme",
+    approach: "short_meme",
     title: item.b.title,
-    reason: item.b.reason,
+    rationale: item.b.reason,
   };
 
   const candidateC: NamingCandidate = {
-    approach: "C_creative_unexpected",
+    approach: "unexpected_grounded",
     title: item.c.title,
-    reason: item.c.reason,
+    rationale: item.c.reason,
   };
 
   const selectedTitle =

@@ -1,66 +1,120 @@
 import { z } from "zod";
 
+// --- PASS 1: FACTUAL VISUAL ANALYSIS ---
+export const Pass1FactualAnalysisSchema = z.object({
+  visual_summary: z
+    .string()
+    .min(10)
+    .max(1200)
+    .describe("Mô tả khách quan, trung tính về những gì thực sự nhìn thấy trong hình ảnh hoặc video."),
+  observed_subjects: z
+    .array(z.string())
+    .min(1)
+    .describe("Danh sách các đối tượng, người hoặc sinh vật thực tế quan sát được trong khung hình."),
+  observed_actions: z
+    .array(z.string())
+    .default([])
+    .describe("Các hành động, cử chỉ, tư thế thực tế quan sát được."),
+  setting: z
+    .string()
+    .default("Không xác định rõ")
+    .describe("Bối cảnh không gian thực tế nhìn thấy (trong nhà, ngoài trời, phòng tập, văn phòng...)."),
+  uncertainties: z
+    .string()
+    .optional()
+    .default("Không có chi tiết mơ hồ lớn")
+    .describe("Những chi tiết không thể xác định chắc chắn (ảnh mờ, góc khuất, bối cảnh thiếu rõ ràng)."),
+});
+
+export type Pass1FactualAnalysis = z.infer<typeof Pass1FactualAnalysisSchema>;
+
+// --- PASS 2: CREATIVE VIETNAMESE NAMING ---
 export const NamingCandidateSchema = z.object({
   approach: z.enum([
-    "A_direct_punchline",
-    "B_short_meme",
-    "C_creative_unexpected",
+    "direct_punchline",
+    "short_meme",
+    "unexpected_grounded",
   ]),
   title: z
     .string()
     .min(2)
     .max(80)
-    .describe("Tiêu đề ứng viên bằng tiếng Việt tự nhiên, ngắn gọn (3-8 từ)"),
-  reason: z
+    .describe("Tiêu đề ngắn 3-8 từ bằng tiếng Việt tự nhiên, bám sát chi tiết thị giác."),
+  rationale: z
     .string()
     .max(250)
-    .describe("Lý do tạo ra hoặc góc nhìn hài hước của ứng viên này"),
+    .describe("Căn cứ thị giác cụ thể giải thích cho tiêu đề này."),
 });
 
-export const AICurationResponseSchema = z.object({
+export type NamingCandidate = z.infer<typeof NamingCandidateSchema>;
+
+export const Pass2NamingResponseSchema = z.object({
   candidates: z
     .array(NamingCandidateSchema)
     .length(3)
-    .describe("3 tiêu đề ứng viên theo 3 phong cách A, B, C khác biệt"),
-  selected_candidate: z
-    .enum(["A", "B", "C"])
-    .describe("Ứng viên được AI tự đánh giá là xuất sắc nhất"),
-  selection_reason: z
-    .string()
-    .min(5)
-    .max(300)
-    .describe("Lý do lựa chọn ứng viên này (dựa trên tính cụ thể, hài hước, tiếng Việt tự nhiên)"),
+    .describe("3 tiêu đề ứng viên (punchline, meme ngắn, liên tưởng bất ngờ bám sát ảnh)."),
+  selected_candidate_index: z
+    .number()
+    .int()
+    .min(0)
+    .max(2)
+    .describe("Chỉ số của ứng viên tốt nhất (0, 1 hoặc 2)."),
   title: z
     .string()
     .min(2)
     .max(80)
-    .describe("Tiêu đề chính thức được chọn (ngắn, độc đáo, 3-8 từ)"),
+    .describe("Tiêu đề được chọn chính thức (3-8 từ, có tính nhịp điệu và bắt trọn hình ảnh)."),
   caption: z
     .string()
     .min(5)
     .max(300)
-    .describe("Bình luận hài hước / roast 1-2 câu có punchline bất ngờ"),
-  description: z
-    .string()
-    .min(5)
-    .max(500)
-    .describe("Mô tả trung tính về chi tiết thực tế nhìn thấy trong ảnh/video"),
+    .describe("Lời bình hóm hỉnh 1-2 câu phát triển từ dữ kiện thị giác đã quan sát."),
   tags: z
     .array(z.string())
     .min(2)
     .max(10)
-    .describe("Các nhãn phân loại phục vụ tìm kiếm thư viện"),
+    .describe("Các nhãn phân loại phục vụ tìm kiếm thư viện."),
   humor_style: z
     .string()
-    .min(2)
     .max(60)
-    .describe("Phong cách hài (ví dụ: Deadpan, Cà khịa thân thiện, Bất lực học đường, Vô tri thực thụ)"),
-  needs_review: z
-    .boolean()
-    .optional()
-    .default(false)
-    .describe("Đánh dấu true nếu ảnh quá mờ hoặc chi tiết chưa đủ rõ ràng"),
+    .default("Quan sát hài hước")
+    .describe("Thể loại hài hước thể hiện."),
 });
 
-export type NamingCandidate = z.infer<typeof NamingCandidateSchema>;
-export type AICurationResponse = z.infer<typeof AICurationResponseSchema>;
+export type Pass2NamingResponse = z.infer<typeof Pass2NamingResponseSchema>;
+
+// --- COMBINED GROUNDED METADATA SCHEMA ---
+export const GroundedArtworkMetadataSchema = z.object({
+  asset_id: z.string(),
+  content_hash: z.string(),
+  visual_summary: z.string(),
+  title: z.string(),
+  caption: z.string(),
+  tags: z.array(z.string()),
+  media_type: z.enum(["image", "video"]),
+  model: z.string(),
+  prompt_version: z.string(),
+  analysis_status: z.enum(["success", "pending", "error", "skipped"]),
+  review_status: z.enum(["approved", "needs_review", "flagged"]),
+  generated_at: z.string(),
+  candidates: z.array(NamingCandidateSchema).optional(),
+  selectedCandidate: z.string().optional(),
+  selectionReason: z.string().optional(),
+  groundingWarning: z.string().optional(),
+  error: z.string().optional(),
+});
+
+export type GroundedArtworkMetadata = z.infer<typeof GroundedArtworkMetadataSchema>;
+
+// Legacy type compatibility alias
+export type AICurationResponse = {
+  candidates: NamingCandidate[];
+  selected_candidate: "A" | "B" | "C";
+  selection_reason: string;
+  title: string;
+  caption: string;
+  description: string;
+  tags: string[];
+  humor_style: string;
+  needs_review?: boolean;
+};
