@@ -1,0 +1,253 @@
+.omniContainer {
+  position: sticky;
+  top: 12px;
+  z-index: 900;
+  padding: 0 var(--space-6);
+  pointer-events: none;
+  margin-bottom: var(--space-4);
+}
+
+.bar {
+  pointer-events: auto;
+  max-width: 1520px;
+  margin: 0 auto;
+  height: 54px;
+  background: var(--surface-floating);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+
+.bar:hover {
+  border-color: var(--border-strong);
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.monogram {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--accent-signature);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: -0.04em;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandTitle {
+  font-weight: 750;
+  font-size: 13.5px;
+  letter-spacing: -0.02em;
+  color: var(--text-head);
+  line-height: 1.1;
+}
+
+.brandBadge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-hairline);
+  flex-shrink: 0;
+}
+
+/* View Mode Switcher Pills */
+.pillGroup {
+  display: flex;
+  background: var(--surface-2);
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid var(--border-hairline);
+  flex-shrink: 0;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--text-muted);
+  transition: all var(--dur-instant) var(--ease-snap);
+}
+
+.pill:hover {
+  color: var(--text-head);
+}
+
+.pillActive {
+  background: var(--panel-bg);
+  color: var(--text-head) !important;
+  box-shadow: var(--shadow-micro);
+  font-weight: 650;
+}
+
+/* Filter Group */
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.filterPill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  transition: all var(--dur-instant);
+}
+
+.filterPill:hover {
+  color: var(--text-head);
+  background: var(--surface-2);
+}
+
+.filterPillActive {
+  background: var(--surface-3);
+  color: var(--accent-signature) !important;
+  font-weight: 600;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* Search Trigger */
+.searchTrigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-hairline);
+  border-radius: 9999px;
+  padding: 6px 12px;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  cursor: pointer;
+  min-width: 200px;
+  max-width: 280px;
+  transition: all var(--dur-instant);
+}
+
+.searchTrigger:hover {
+  border-color: var(--accent-signature);
+  color: var(--text-head);
+  background: var(--panel-bg);
+}
+
+.searchText {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kbd {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  background: var(--surface-3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--text-faint);
+  font-weight: 600;
+  border: 1px solid var(--border-hairline);
+}
+
+/* Tool Buttons */
+.toolGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.toolBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all var(--dur-instant);
+}
+
+.toolBtn:hover {
+  background: var(--surface-2);
+  color: var(--text-head);
+  transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+  .searchTrigger {
+    min-width: 120px;
+  }
+  .filterGroup {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .omniContainer {
+    top: 6px;
+    padding: 0 10px;
+  }
+  .bar {
+    height: 48px;
+    padding: 0 10px;
+    gap: 8px;
+  }
+  .pillLabel {
+    display: none;
+  }
+  .divider {
+    display: none;
+  }
+  .searchText {
+    display: none;
+  }
+  .searchTrigger {
+    min-width: auto;
+    padding: 6px 10px;
+  }
+}

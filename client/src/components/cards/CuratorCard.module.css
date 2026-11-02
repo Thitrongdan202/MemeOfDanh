@@ -1,0 +1,220 @@
+.card {
+  position: relative;
+  background: var(--panel-bg);
+  border: 1px solid var(--border-hairline);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  outline: none;
+  contain: content;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--dur-fast) var(--ease-snap),
+              box-shadow var(--dur-fast) var(--ease-snap),
+              border-color var(--dur-fast);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translate3d(0, -4px, 0);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-strong);
+}
+
+.card:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent-signature), var(--shadow-hover);
+}
+
+/* Media Frame */
+.mediaFrame {
+  position: relative;
+  width: 100%;
+  background: var(--surface-2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-spring);
+  transform: translate3d(0, 0, 0);
+}
+
+.card:hover .image {
+  transform: scale(1.025);
+}
+
+/* Video Badge */
+.videoBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(17, 17, 19, 0.75);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  z-index: 2;
+}
+
+.playIcon {
+  color: #FFFFFF;
+}
+
+/* Favorite button */
+.favBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all var(--dur-instant);
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.card:hover .favBtn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.favBtn:hover {
+  background: #FFFFFF;
+  color: #EF4444;
+  transform: scale(1.1);
+}
+
+.favBtnActive {
+  opacity: 1 !important;
+  color: #EF4444 !important;
+  background: #FFFFFF !important;
+  transform: scale(1) !important;
+}
+
+[data-theme="dark"] .favBtn {
+  background: rgba(26, 29, 38, 0.85);
+}
+
+[data-theme="dark"] .favBtn:hover {
+  background: #1A1D26;
+}
+
+/* AI Status Pill */
+.aiPill {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-micro);
+  z-index: 2;
+}
+
+.aiPillCurated {
+  color: #10B981;
+}
+
+.aiPillWarning {
+  color: #F59E0B;
+}
+
+[data-theme="dark"] .aiPill {
+  background: rgba(19, 22, 29, 0.9);
+}
+
+/* Plaque */
+.plaque {
+  padding: 12px 14px 14px;
+  background: var(--panel-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.indexHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.catalogId {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-signature);
+  letter-spacing: 0.04em;
+}
+
+.mediaFormat {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-faint);
+  font-weight: 600;
+}
+
+.title {
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--text-head);
+  line-height: 1.35;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.caption {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.tagTray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: auto;
+}
+
+.tag {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border-hairline);
+}

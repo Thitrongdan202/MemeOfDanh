@@ -1,0 +1,234 @@
+.cinemaStage {
+  display: flex;
+  flex-direction: column;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 20px;
+  min-height: 82vh;
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 420px;
+  background: #000000;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-hover);
+}
+
+.mediaContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.focalMedia {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.expandHint {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity var(--dur-instant);
+}
+
+.mediaContainer:hover .expandHint {
+  opacity: 1;
+}
+
+/* Arrows */
+.arrowPrev, .arrowNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all var(--dur-instant);
+}
+
+.arrowPrev:hover, .arrowNext:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrowPrev { left: 16px; }
+.arrowNext { right: 16px; }
+
+/* Info Plaque */
+.infoPlaque {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 20px;
+  background: var(--panel-bg);
+  border: 1px solid var(--border-hairline);
+  border-radius: 14px;
+}
+
+.infoLeft {
+  flex: 1;
+  min-width: 0;
+}
+
+.metaBadgeRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  align-items: center;
+}
+
+.catalogTag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-signature);
+  background: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.formatTag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.aiTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.focalTitle {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 650;
+  color: var(--text-head);
+  margin-bottom: 4px;
+}
+
+.focalCaption {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.infoRight {
+  flex-shrink: 0;
+  margin-left: 20px;
+}
+
+.favBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all var(--dur-instant);
+}
+
+.favBtn:hover {
+  border-color: #EF4444;
+  color: #EF4444;
+}
+
+.favBtnActive {
+  background: #EF4444 !important;
+  color: #FFFFFF !important;
+  border-color: #EF4444 !important;
+}
+
+/* Scrubber Filmstrip */
+.filmstrip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.stripItem {
+  position: relative;
+  flex: 0 0 72px;
+  height: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  scroll-snap-align: center;
+  opacity: 0.6;
+  transition: all var(--dur-instant);
+}
+
+.stripItem:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.stripItemActive {
+  opacity: 1;
+  border-color: var(--accent-signature);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+  transform: scale(1.08);
+}
+
+.stripThumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stripVideoIcon {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
+  padding: 2px;
+  display: flex;
+}

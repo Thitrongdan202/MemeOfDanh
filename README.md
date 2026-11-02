@@ -118,7 +118,7 @@ npm.cmd run sync:memes -- --ai
 ```powershell
 npm.cmd run dev
 ```
-Mở trình duyệt: **[http://localhost:3000](http://localhost:3000)**  
+Mở trình duyệt: **[0http://localhost:300](http://localhost:3000)**  
 Trang kiểm tra font tiếng Việt: **[http://localhost:3000/typography-test](http://localhost:3000/typography-test)**
 
 ### Bước 5: Build Production & Khởi chạy

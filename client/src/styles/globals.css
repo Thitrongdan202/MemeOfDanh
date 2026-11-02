@@ -1,0 +1,172 @@
+/* ==========================================================================
+   DANH'MUS v2 — LIVING DIGITAL MUSEUM ARCHIVE
+   Performance-first Creative System (GPU-accelerated, Zero Layout Thrashing)
+   ========================================================================== */
+
+:root {
+  /* Surface System — Archival Light */
+  --canvas-bg: #F5F3ED;
+  --panel-bg: #FFFFFF;
+  --surface-1: #FFFFFF;
+  --surface-2: #F8F7F3;
+  --surface-3: #ECE9DF;
+  --surface-floating: rgba(255, 255, 255, 0.94);
+
+  /* Text & Ink */
+  --text-head: #111113;
+  --text-body: #32302D;
+  --text-muted: #7A766F;
+  --text-faint: #A6A299;
+
+  /* Editorial Borders */
+  --border-hairline: rgba(17, 17, 19, 0.07);
+  --border-subtle: rgba(17, 17, 19, 0.12);
+  --border-strong: rgba(17, 17, 19, 0.22);
+
+  /* Curatorial Accents */
+  --accent-signature: #FF4E17; /* Electric Ochre / Vermilion */
+  --accent-hover: #E43E08;
+  --accent-soft: rgba(255, 78, 23, 0.12);
+  --accent-glow: rgba(255, 78, 23, 0.24);
+
+  /* Shadows (Tightly tuned, no GPU bogging) */
+  --shadow-micro: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 4px 16px -2px rgba(17, 17, 19, 0.06);
+  --shadow-hover: 0 14px 32px -4px rgba(17, 17, 19, 0.12);
+  --shadow-overlay: 0 24px 64px -8px rgba(0, 0, 0, 0.32);
+
+  /* Typography */
+  --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Noto Serif', Georgia, Cambria, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Motion Curves (GSAP & Compositor Tuned) */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-snap: cubic-bezier(0.25, 1, 0.5, 1);
+  --dur-instant: 120ms;
+  --dur-fast: 180ms;
+  --dur-normal: 260ms;
+}
+
+[data-theme="dark"] {
+  /* Surface System — Cinematic Studio Dark */
+  --canvas-bg: #090A0D;
+  --panel-bg: #111318;
+  --surface-1: #13161D;
+  --surface-2: #1A1D26;
+  --surface-3: #222632;
+  --surface-floating: rgba(17, 19, 24, 0.94);
+
+  /* Text & Ink */
+  --text-head: #FAF8F5;
+  --text-body: #C5C2BA;
+  --text-muted: #7E7C76;
+  --text-faint: #4E4C47;
+
+  /* Editorial Borders */
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.26);
+
+  /* Accents */
+  --accent-signature: #FF6633;
+  --accent-hover: #FF7E52;
+  --accent-soft: rgba(255, 102, 51, 0.16);
+  --accent-glow: rgba(255, 102, 51, 0.35);
+
+  --shadow-micro: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.6);
+  --shadow-hover: 0 14px 32px -4px rgba(0, 0, 0, 0.8);
+  --shadow-overlay: 0 24px 64px -8px rgba(0, 0, 0, 0.9);
+}
+
+/* ==========================================================================
+   RESET & ULTRA-PERFORMANCE BASE
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--canvas-bg);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+/* Hardware accelerated scroll */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-muted);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-signature);
+  color: #FFFFFF;
+}
+
+/* Compositor-friendly interactive elements */
+button, a, input, select {
+  font-family: inherit;
+  color: inherit;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Performance class for GPU layer promotion */
+.gpu-layer {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Vietnamese typography balance */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  color: var(--text-head);
+  letter-spacing: -0.02em;
+  font-weight: 650;
+  overflow-wrap: break-word;
+}
+
+.font-editorial {
+  font-family: var(--font-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}

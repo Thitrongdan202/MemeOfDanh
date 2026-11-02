@@ -1,0 +1,129 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.logoIcon {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.logoName {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.logoTagline {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+.nav {
+  flex: 1;
+  padding: var(--space-3) var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: background var(--duration-fast) var(--ease-standard),
+              color var(--duration-fast) var(--ease-standard);
+  cursor: pointer;
+}
+
+.navItem:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.navItemActive {
+  background: var(--accent-muted);
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.navItemActive:hover {
+  background: var(--accent-muted);
+  color: var(--accent-primary);
+}
+
+.navIcon {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.footer {
+  padding: var(--space-3) var(--space-2);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.themeBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+
+.themeBtn:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.themeBtnIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.themeBtnLabel {
+  flex: 1;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}

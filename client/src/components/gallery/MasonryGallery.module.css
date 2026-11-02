@@ -1,0 +1,83 @@
+.wrapper {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.count {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.countNum {
+  font-family: var(--font-editorial);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.countLabel {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.countQuery {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Masonry layout using CSS columns */
+.masonry {
+  columns: 4 240px;
+  column-gap: var(--space-4);
+}
+
+.cardWrapper {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  display: block;
+}
+
+/* Responsive column breakpoints */
+@media (max-width: 1400px) { .masonry { columns: 3 220px; } }
+@media (max-width: 1000px) { .masonry { columns: 2 200px; } }
+@media (max-width: 600px)  { .masonry { columns: 2 150px; column-gap: var(--space-2); } }
+@media (max-width: 420px)  { .masonry { columns: 1; } }
+
+/* Empty state */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--space-8);
+  text-align: center;
+  gap: var(--space-4);
+}
+
+.emptyIcon {
+  font-size: 48px;
+  opacity: 0.4;
+}
+
+.emptyTitle {
+  font-family: var(--font-editorial);
+  font-size: 18px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.emptyDesc {
+  font-size: 13px;
+  color: var(--text-muted);
+}
